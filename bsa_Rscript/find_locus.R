@@ -210,21 +210,6 @@ visualize_vcfdata <- function(vcf_dir, inbred, prefix, nn_prop = 0.1, wt, mt,
     device = "tiff", width = width, height = height, dpi = dpi)
   message(paste0("Plot for '", inbred, "' saved to: ", file.path(plots_dir, paste0(inbred, "_ant_wt_AF_tranformed.tiff"))))
   
-  # Plot and save AD7 only - DP
-  ggsave(
-    filename = file.path(plots_dir, paste0(inbred, "_ant_wt_DP_untranformed.tiff")),
-    plot = base_plot(ant_wt[wt_DP > 1], "wt_DP", paste0(inbred, "\n WT DP \n"))+
-      geom_point(),
-    device = "tiff", width = width, height = height, dpi = dpi)
-  message(paste0("Plot for '", inbred, "' saved to: ", file.path(plots_dir, paste0(inbred, "_ant_wt_DP_untranformed.tiff"))))
-  
-  ggsave(
-    filename = file.path(plots_dir, paste0(inbred, "_ant_mt_DP_untranformed.tiff")),
-    plot = base_plot(ant_mt[mt_DP > 1], "mt_DP", paste0(inbred, "\n Mutant DP \n"))+
-      geom_point(),
-    device = "tiff", width = width, height = height, dpi = dpi)
-  message(paste0("Plot for '", inbred, "' saved to: ", file.path(plots_dir, paste0(inbred, "_ant_mt_DP_untranformed.tiff"))))
-  
   # Return both datasets as a list
   return(list(wt_mt = wt_mt, ant_mt = ant_mt, ant_wt = ant_wt))
 }
