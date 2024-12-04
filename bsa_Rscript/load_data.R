@@ -1,14 +1,13 @@
 source(file = "~/Documents/BSA_Ts3/customized_Rscripts/multi_package_installer.R")
 source(file = "~/Documents/BSA_Ts3/customized_Rscripts/bsa_theme.R")
-
 # function to load and visualize data
-load_vcfdata <- function(vcf_dir, inbred, prefix, wt, mt){
+loadvcfdata <- function(vcf_dir, inbred, prefix, wt, mt){
   # Generate list of VCF files in the directory
   vcf_list <- list.files(path = vcf_dir, pattern = "*.txt", full.names = TRUE)
   
-  # Find files that match the prefix and contain "AD7" (mutant) or "AD8" (wild-type)
-  wt_file <- vcf_list[grepl(paste0("^", prefix, "_", mt), basename(vcf_list))]
-  mt_file <- vcf_list[grepl(paste0("^", prefix, "_", wt), basename(vcf_list))]
+  # Find files that match the prefix and contain "mt" (mutant) or "wt" (wild-type)
+  mt_file <- vcf_list[grepl(paste0("^", prefix, "_", mt), basename(vcf_list))]
+  wt_file <- vcf_list[grepl(paste0("^", prefix, "_", wt), basename(vcf_list))]
   
   # Check if both files exist
   if (length(mt_file) > 0 && length(wt_file) > 0) {
@@ -27,16 +26,17 @@ load_vcfdata <- function(vcf_dir, inbred, prefix, wt, mt){
     if (!is.data.table(mt_data)) mt_data <- as.data.table(mt_data)
     
     # Filter based on DP and QUAL for both wild-type and mutant data
-    wt_data <- wt_data[!is.na(DP) & DP > 10 & QUAL >= 200]
-    mt_data <- mt_data[!is.na(DP) & DP > 10 & QUAL >= 200]
+    wt_data <- wt_data[!is.na(DP) & DP > 20 & QUAL >= 200]
+    mt_data <- mt_data[!is.na(DP) & DP > 20 & QUAL >= 200]
   }
-  
   if (length(wt_data) > 0 && length(mt_data) > 0) {
-    setnames(wt_data, old = setdiff(names(wt_data), c("CHROM", "POS")), new = paste0(wt, "_", setdiff(names(wt_data), c("CHROM", "POS"))))
-    setnames(mt_data, old = setdiff(names(mt_data), c("CHROM", "POS")), new = paste0(mt, "_", setdiff(names(mt_data), c("CHROM", "POS"))))
+    setnames(wt_data, old = setdiff(names(wt_data), c("CHROM", "POS")), 
+             new = paste0("wt_", setdiff(names(wt_data), c("CHROM", "POS"))))
+    setnames(mt_data, old = setdiff(names(mt_data), c("CHROM", "POS")), 
+             new = paste0("mt_", setdiff(names(mt_data), c("CHROM", "POS"))))
     
     # Merge the two filtered datasets by CHROM and POS
-    wt_mt <- merge(wt_data, mt_data, by = c("CHROM", "POS"))
+    wt_mt <- merge(wt_data, mt_data, by = c("CHROM", "POS"), suffixes = c("wt_", "mt_"))
     wt_mt[, CHROM := factor(CHROM, levels = naturalsort(unique(CHROM)))]
     wt_mt <- wt_mt[order(CHROM, POS)]
     
@@ -45,57 +45,44 @@ load_vcfdata <- function(vcf_dir, inbred, prefix, wt, mt){
     ant_mt[, CHROM := factor(CHROM, levels = naturalsort(unique(CHROM)))]
     ant_mt <- ant_mt[order(CHROM, POS)]
     
+    # anti join keep 
+    ant_wt <- anti_join(wt_data, mt_data, by = c("CHROM", "POS"))
+    ant_wt[, CHROM := factor(CHROM, levels = naturalsort(unique(CHROM)))]
+    ant_wt <- ant_wt[order(CHROM, POS)]
+    
     # Calculate allele frequencies for wild-type and mutant
-    wt_Falt = paste0(wt, "_Falt")
-    wt_Ralt = paste0(wt, "_Ralt")
-    wt_Fref = paste0(wt, "_Fref")
-    wt_Rref = paste0(wt, "_Rref")
-    wt_AFQ = paste0(wt, "_AFQ")
-    
-    mt_Falt = paste0(mt, "_Falt")
-    mt_Ralt = paste0(mt, "_Ralt")
-    mt_Fref = paste0(mt, "_Fref")
-    mt_Rref = paste0(mt, "_Rref")
-    mt_AFQ = paste0(mt, "_AFQ")
-    
-    wt_mt[, (wt_AFQ) := (get(wt_Falt) + get(wt_Ralt)) / (get(wt_Falt) + get(wt_Ralt) + get(wt_Fref) + get(wt_Rref))]
-    wt_mt[, (mt_AFQ) := (get(mt_Falt) + get(mt_Ralt)) / (get(mt_Falt) + get(mt_Ralt) + get(mt_Fref) + get(mt_Rref))]
+    wt_mt[, wt_AFQ := (wt_Falt + wt_Ralt) / (wt_Fref + wt_Rref + wt_Falt + wt_Ralt)]
+    wt_mt[, mt_AFQ := (mt_Falt + mt_Ralt) / (mt_Fref + mt_Rref + mt_Falt + mt_Ralt)]
     
     # Calculate allele frequency differences
-    wt_mt[, AF_diff := get(wt_AFQ) - get(mt_AFQ)]
+    wt_mt[, AF_diff := wt_AF - mt_AF]
     
     # Calculate Euclidean Distance (ED) and its fourth power (ED4)
-    wt_mt[, ED := sqrt( (get(mt_Fref) + get(mt_Rref) - get(wt_Fref) - get(wt_Rref))^2 + (get(mt_Falt) + get(mt_Ralt) - get(wt_Falt) - get(wt_Ralt))^2)]
+    wt_mt[, ED := sqrt((mt_Fref + mt_Rref - wt_Fref - wt_Rref)^2 + (mt_Falt + mt_Ralt - wt_Falt - wt_Ralt)^2)]
     wt_mt[, ED4 := ED^4]
     
     #Calculate p-value using Fisher's exact test for each position
     wt_mt[, p.value := mapply(function(a_ref, a_alt, b_ref, b_alt) {
       fisher.test(matrix(c(a_alt, a_ref, b_alt, b_ref), nrow = 2))$p.value
-    }, get(mt_Fref) + get(mt_Rref), get(mt_Falt) + get(mt_Ralt), get(wt_Fref) + get(wt_Rref), get(wt_Falt) + get(wt_Ralt))]
-
+    }, mt_Fref + mt_Rref, mt_Falt + mt_Ralt, wt_Fref + wt_Rref, wt_Falt + wt_Ralt)]
+    
     # Adjust p-values for multiple testing
     wt_mt[, adj.p.value := p.adjust(p.value, method = "bonferroni")]
     
     # Transform adjusted p-value to -10 * log10(adj.p.value)
     wt_mt[, log_adj.pval := -10 * log10(adj.p.value)]
     
-
     # Dynamically create the final columns to keep
-    keepcol <- c("CHROM", "POS", paste0(wt, "_REF"), paste0(wt, "_ALT"), 
-             paste0(mt, "_REF"), paste0(mt, "_ALT"), paste0(wt, "_QUAL"), 
-             paste0(mt, "_QUAL"), paste0(wt, "_DP"), paste0(mt, "_DP"), 
-             paste0(wt, "_AFQ"), paste0(mt, "_AFQ"), "AF_diff", "ED", "ED4", 
-             "adj.p.value", "log_adj.pval")
+    keepcols <- c("CHROM", "POS", "wt_REF", "wt_ALT", 
+                  "mt_REF", "mt_ALT", "wt_QUAL", "mt_QUAL", "wt_DP", "mt_DP", 
+                  "wt_AFQ", "mt_AFQ", "AF_diff", "ED", "ED4", "adj.p.value", "log_adj.pval")
     
     # Keep only the specified columns
-    wt_mt <- wt_mt[, keepcol, with = FALSE]
-    
+    wt_mt <- wt_mt[, keepcols, with = FALSE]
   }
-  
   # Return both datasets as a list
-  return(list(wt_mt = wt_mt, ant_mt = ant_mt))
+  return(result = list(wt_mt = wt_mt, ant_mt = ant_mt, ant_wt = ant_wt))
 }
-
 
 data="~/Documents/BSA_Ts3/Ts3/data/"
 inbreds <- c("B73")
@@ -107,5 +94,5 @@ for (i in seq_along(inbreds)) {
   inbx <- inbreds[i]
   pfix <- prefixes[i]
   print(paste("Processing inbred:", inbx))
-  assign(pfix, load_vcfdata(vcf_dir=data, inbred=inbx, prefix=pfix, wt=wt, mt=mt))
+  assign(pfix, loadvcfdata(vcf_dir=data, inbred=inbx, prefix=pfix, wt=wt, mt=mt))
 }
