@@ -19,7 +19,7 @@ visualize_vcfdata <- function(vcf_dir, inbred, prefix, nn_prop = 0.1, wt, mt,
     wt_data <- read.delim(wt_file, header = TRUE)
     
     # Define expected column names
-    col_names <- c("CHROM","POS","REF","ALT","QUAL","DP","Fref","Rref","Falt","Ralt","GT","Tref","Talt","AF")
+    col_names <- c("CHROM","POS","REF","ALT","QUAL","DP","Fref","Rref","Falt","Ralt")
     colnames(mt_data) <- col_names
     colnames(wt_data) <- col_names
     
