@@ -90,17 +90,18 @@ visualize_vcfdata <- function(vcf_dir, inbred, prefix, Genotype=c(wt="wt", mt="m
   # Create directory if it doesn't exist
   if (!dir.exists(plots_dir)) dir.create(plots_dir, recursive = TRUE)
   
-  base_plot <- function(data, aes_y, y_label) {
+  base_plot <- function(data, aes_y, y_label,plot_title) {
     ggplot(data, aes(x = POS, y = !!sym(aes_y), color = CHROM)) +
       facet_grid(. ~ CHROM, space = "free_x", scales = "free_x") +
-      scale_x_continuous(breaks = seq(min(data$POS), max(data$POS), by = 20000000), labels = scales::comma)+
+      scale_x_continuous(breaks = seq(min(data$POS), max(data$POS), 
+                                      by = 20000000), labels = scales::comma)+
       scale_color_manual(values = rep(c("blue", "red"), 5)) +
       scale_y_continuous(labels = scales::number_format(accuracy = 0.0001))+
       guides(color = FALSE) + bsa_theme() +
-      labs(title = "", x = "\n Chromosome", y = y_label)
+      labs(title = plot_title, x = "\n Chromosome", y = y_label, )
   }
   
-  plot1 <- function(data, column, plot_title, file_suffix, ylim = c(0, 1), lcolor = "black", lsize = 1, psize = 0.5) {
+  plot1 <- function(data, column, y_title, plot_title, file_suffix, ylim = c(0, 1), lcolor = "black", lsize = 1, psize = 0.5) {
     # Construct the file path for saving the plot
     file_path <- file.path(plots_dir, paste0(inbred, "_", file_suffix, ".tiff"))
     
@@ -109,9 +110,9 @@ visualize_vcfdata <- function(vcf_dir, inbred, prefix, Genotype=c(wt="wt", mt="m
     # Generate and save the plot
     ggsave(
       filename = file_path,
-      plot = base_plot(data, column, paste0(inbred, "\n", plot_title, "\n")) +
+      plot = base_plot(data=data, aes_y=column, y_label=paste0(inbred, "\n", y_title, "\n"), plot_title) +
         geom_point(size=psize) + coord_cartesian(ylim = ylim) + 
-        geom_line(aes(y = rollmedian(!!sym(column), 101, na.pad = TRUE)), color = actual_line_color, size = lsize),
+        geom_line(aes(y = rollmedian(!!sym(column), 401, na.pad = TRUE)), color = actual_line_color, size = lsize),
       device = "tiff", width = width, height = height, dpi = dpi
     )
     message(paste0("Plot for '", inbred, "' saved to: ", file_path))
@@ -119,33 +120,42 @@ visualize_vcfdata <- function(vcf_dir, inbred, prefix, Genotype=c(wt="wt", mt="m
   
   # Generate and save plots for WT, MT, and AF_diff
   pt1 <- list(
-    list(data = wt_mt[wt_AF < 1], column = "wt_AF", plot_title = paste0(wt, "  ", "SNP Index"), file_suffix = "wt_AF_untransformed", ylim = c(0.1, 1),lcolor = "black", lsize = 1, psize=0.5),
-    list(data = wt_mt[mt_AF < 1], column = "mt_AF", plot_title = paste0(mt, "  ", "SNP Index"), file_suffix = "mt_AF_untransformed", ylim = c(0.1, 1),lcolor = "black", lsize = 1, psize=0.5),
-    list(data = wt_mt[AF_diff < 1], column = "AF_diff", plot_title = paste0(wt, "-", mt, "  ",  "(Δ SNP Index)"), file_suffix = "AF_diff_untranformed", ylim = c(-1, 1),lcolor = "black", lsize = 1, psize=0.5),
-    list(data = wt_mt[log_adj.pval >= 0], column = "log_adj.pval", plot_title = "-log10(p-value)", file_suffix = "log_adj.pval", ylim = c(0, 60),lcolor = "NA", lsize = 1, psize=0.5),
-    list(data = ant_mt[mt_AF < 1], column = "mt_AF", plot_title = paste0(mt, "  ", "SNP Index"), file_suffix = "ant_mt_AF_untranformed", ylim = c(0.1, 1),lcolor = "black", lsize = 1, psize=0.5),
-    list(data = ant_wt[wt_AF < 1], column = "wt_AF", plot_title = paste0(wt, "  ", "SNP Index"), file_suffix = "ant_mt_AF_untranformed", ylim = c(0.1, 1),lcolor = "black", lsize = 1, psize=0.5),
-    list(data = wt_mt[ED > 1], column = "ED", plot_title = "ED", file_suffix = "ED_untranformed", ylim = c(1, 50),lcolor = "black", lsize = 1, psize=0.5),
-    list(data = wt_mt[ED4 > 1], column = "ED4", plot_title = "ED4", file_suffix = "ED4_untranformed", ylim = c(1,250000),lcolor = "black", lsize = 1, psize=0.5)
+    list(data = wt_mt[wt_AF < 1], column = "wt_AF", plot_title = paste0(wt, " AF : ", " shared snps with ", " ", mt),
+         y_title = paste0(wt," SNP Index"), file_suffix = "wt_AF_untransformed", ylim = c(0.1, 1),lcolor = "black", lsize = 1, psize=0.5),
+    list(data = wt_mt[mt_AF < 1], column = "mt_AF", plot_title = paste0(mt, " AF : ", " shared snps with ", wt),
+         y_title = paste0(mt, " SNP Index"), file_suffix = "mt_AF_untransformed", ylim = c(0.1, 1),lcolor = "black", lsize = 1, psize=0.5),
+    list(data = wt_mt[AF_diff < 1], column = "AF_diff", plot_title = paste0("AF diff : ",  wt,  " - ",  mt),
+         y_title = paste0(wt, " - ", mt, "  ",  "(Δ SNP Index)"), file_suffix = "AF_diff_untranformed", ylim = c(-1, 1),lcolor = "black", lsize = 1, psize=0.5),
+    list(data = wt_mt[log_adj.pval >= 0], column = "log_adj.pval", plot_title = paste0("-log10(p-value): ", wt, " vs ", mt),
+         y_title = "-log10(p-value)", file_suffix = "log_adj.pval", ylim = c(0, 60),lcolor = "NA", lsize = 1, psize=0.5),
+    list(data = ant_mt[mt_AF < 1], column = "mt_AF", plot_title = paste0(mt, " AF : ", " unique snps only "),
+         y_title = paste0(mt, " SNP Index"), file_suffix = "ant_mt_AF_untranformed", ylim = c(0.1, 1),lcolor = "black", lsize = 1, psize=0.5),
+    list(data = ant_wt[wt_AF < 1], column = "wt_AF", plot_title = paste0(wt, " AF : ", " unique snps only "),
+         y_title = paste0(wt, " SNP Index"), file_suffix = "ant_mt_AF_untranformed", ylim = c(0.1, 1),lcolor = "black", lsize = 1, psize=0.5),
+    list(data = wt_mt[ED > 1], column = "ED", plot_title = paste0("ED: ", wt, " vs ", mt),
+         y_title = "ED ", file_suffix = "ED_untranformed", ylim = c(1, 50),lcolor = "black", lsize = 1, psize=0.5),
+    list(data = wt_mt[ED4 > 1], column = "ED4", plot_title = paste0("ED4: ", wt, " vs ", mt),
+         y_title = "ED4 ", file_suffix = "ED4_untranformed", ylim = c(1,500000),lcolor = "black", lsize = 1, psize=0.5)
   )
   # Loop through the pt1 and call plot1
   for (plots in pt1) {
     plot1(
       data = plots$data, column = plots$column,
-      plot_title = plots$plot_title, file_suffix = plots$file_suffix,
+      plot_title = plots$plot_title,
+      y_title = plots$y_title, file_suffix = plots$file_suffix,
       ylim = plots$ylim, lcolor = plots$lcolor, lsize = plots$lsize, psiz = plots$psize
     )
   }
   
   
-  plot2 <- function(data, column, plot_title, file_suffix, ylim = c(0, 1)) {
+  plot2 <- function(data, column, y_title, plot_title, file_suffix, ylim = c(0, 1)) {
     # Construct the file path for saving the plot
     file_path <- file.path(plots_dir, paste0(inbred, "_", file_suffix, ".tiff"))
     
     # Generate and save the plot
     ggsave(
       filename = file_path,
-      plot = base_plot(data, column, paste0(inbred, "\n", plot_title, "\n")) +
+      plot = base_plot(data, column, paste0(inbred, "\n", y_title, "\n"),plot_title) +
         stat_smooth(method = "locfit", formula = y ~ lp(x, nn = nn_prop))+ coord_cartesian(ylim = ylim),
       device = "tiff", width = width, height = height, dpi = dpi
     )
@@ -153,20 +163,32 @@ visualize_vcfdata <- function(vcf_dir, inbred, prefix, Genotype=c(wt="wt", mt="m
   }
   
   pt2 <- list(
-    list(data=wt_mt[mt_AF < 1], column="mt_AF", plot_title =paste0(mt, "  ", "SNP Index"), file_suffix ="mt_AF_tranformed", ylim = c(0, 1)),
-    list(data=wt_mt[wt_AF < 1], column="wt_AF", plot_title =paste0(wt, "  ", "SNP Index"), file_suffix ="wt_AF_tranformed", ylim = c(0, 1)),
-    list(data=ant_mt[mt_AF < 1], column="mt_AF", plot_title =paste0(mt, "  ", "SNP Index"), file_suffix ="ant_mt_AF_tranformed", ylim = c(0, 1)),
-    list(data=ant_wt[wt_AF < 1], column="wt_AF", plot_title =paste0(wt, "  ", "SNP Index"), file_suffix ="ant_wt_AF_tranformed", ylim = c(0, 1)),
-    list(data=wt_mt[AF_diff < 1], column="AF_diff", plot_title =paste0(wt, "-", mt, "  ",  "(Δ SNP Index)"), file_suffix ="AF_diff_tranformed", ylim = c(-1, 1)),
-    list(data=wt_mt[ED > 1], column="ED", plot_title ="ED", file_suffix ="ED_tranformed", ylim = c(0.0, 50)),
-    list(data=wt_mt[ED4 > 1], column="ED4", plot_title ="ED4", file_suffix ="ED4_tranformed", ylim = c(0.0, 250000))
+    list(data=wt_mt[mt_AF < 1], column="mt_AF", plot_title = paste0(mt, " AF: ", " shared snps with ", " ", wt),
+         y_title =paste0(mt, " SNP Index"), file_suffix ="mt_AF_tranformed", ylim = c(0, 1)),
+    list(data=wt_mt[wt_AF < 1], column="wt_AF", plot_title = paste0(wt, " AF: ", " shared snps with ", " ", mt),
+         y_title =paste0(wt, " SNP Index"), file_suffix ="wt_AF_tranformed", ylim = c(0, 1)),
+    list(data=ant_mt[mt_AF < 1], column="mt_AF", plot_title = paste0(mt, " AF: ", " unique snps only "),
+         y_title =paste0(mt,  " SNP Index"), file_suffix ="ant_mt_AF_tranformed", ylim = c(0, 1)),
+    list(data=ant_wt[wt_AF < 1], column="wt_AF", plot_title = paste0(wt, " AF: ", " unique snps only "),
+         y_title =paste0(wt, " SNP Index"), file_suffix ="ant_wt_AF_tranformed", ylim = c(0, 1)),
+    list(data=wt_mt[AF_diff < 1], column="AF_diff", plot_title = paste0("AF diff: ",  wt,  " - ", " ", mt),
+         y_title =paste0(wt, " - ", mt,  " (Δ SNP Index) "), file_suffix ="AF_diff_tranformed", ylim = c(-1, 1)),
+    list(data=wt_mt[ED > 1], column="ED", plot_title = paste0("ED: ", wt, " vs ", mt),
+         y_title ="ED", file_suffix ="ED_tranformed", ylim = c(0.0, 50)),
+    list(data=wt_mt[ED4 > 1], column="ED4", plot_title = paste0("ED4: ", wt, " vs ", mt),
+         y_title ="ED4", file_suffix ="ED4_tranformed", ylim = c(0.0, 250000))
   )
+  
+  
+  
   for (graphs in pt2) {
     plot2(
       data = graphs$data, column = graphs$column,
-      plot_title = graphs$plot_title, file_suffix = graphs$file_suffix, ylim = graphs$ylim
+      plot_title = graphs$plot_title,
+      y_title = graphs$y_title, file_suffix = graphs$file_suffix, ylim = graphs$ylim
     )
   }
+  
   
   return(list(wt_mt = wt_mt, ant_mt = ant_mt, ant_wt = ant_wt))
 }
