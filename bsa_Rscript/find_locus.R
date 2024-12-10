@@ -1,223 +1,167 @@
-# Find location of sourcecodes 
-source(file = "~/Documents/BSA_Ts3/customized_Rscripts/multi_package_installer.R")
-source(file = "~/Documents/BSA_Ts3/customized_Rscripts/bsa_theme.R")
+# Run required dependencies and available on github
+source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/multi_package_installer.R")
+source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/bsa_theme.R")
 # function to load and visualize data
-visualize_vcfdata <- function(vcf_dir, inbred, prefix, nn_prop = 0.1, wt, mt,
-                              plots_dir = "plots", width = 26, height = 8, dpi = 300){
-  # Generate list of VCF files in the directory
-  vcf_list <- list.files(path = vcf_dir, pattern = "*.txt", full.names = TRUE)
-  
-  # Find files that match the prefix and contain "mt" (mutant) or "wt" (wild-type)
-  mt_file <- vcf_list[grepl(paste0("^", prefix, "_", mt), basename(vcf_list))]
-  wt_file <- vcf_list[grepl(paste0("^", prefix, "_", wt), basename(vcf_list))]
-  
-  # Check if both files exist
-  if (length(mt_file) > 0 && length(wt_file) > 0) {
+visualize_vcfdata <- function(vcf_dir, inbred, prefix, Genotype=c(wt="wt", mt="mt"),
+                            nn_prop = 0.1, plots_dir = "plots", width = 26, height = 8, dpi = 300) {
+    # Generate a list of VCF files in the directory
+    vcf_list <- list.files(path = vcf_dir, pattern = "*.txt", full.names = TRUE)
     
-    # Load mutant and wild-type data
-    mt_data <- read.delim(mt_file, header = TRUE)
-    wt_data <- read.delim(wt_file, header = TRUE)
+    # Initialize a list to hold data for each genotype
+    geno_data <- list()
     
-    #Print a summary of loaded data
-    print(paste("Loaded mtdata:", nrow(mt_data), "rows"))
-    print(paste("Loaded wtdata:", nrow(wt_data), "rows"))
-    
-    # Define expected column names
-    col_names <- c("CHROM","POS","REF","ALT","QUAL","DP","Fref","Rref","Falt","Ralt")
-    colnames(mt_data) <- col_names
-    colnames(wt_data) <- col_names
-    
-    # Convert to data.table if necessary
-    if (!is.data.table(wt_data)) wt_data <- as.data.table(wt_data)
-    if (!is.data.table(mt_data)) mt_data <- as.data.table(mt_data)
-    
-    # Filter based on DP and QUAL for both wild-type and mutant data
-    wt_data <- wt_data[!is.na(DP) & DP > 1 & QUAL >= 200]
-    mt_data <- mt_data[!is.na(DP) & DP > 1 & QUAL >= 200]
-  }
-  if (length(wt_data) > 0 && length(mt_data) > 0) {
-    # Calculate allele frequencies for wild-type and mutant
-    wt_data[, AF := (Falt + Ralt) / (Fref + Rref + Falt + Ralt)]
-    mt_data[, AF := (Falt + Ralt) / (Fref + Rref + Falt + Ralt)]
-    
-    # format dataset
-    setnames(wt_data, old = setdiff(names(wt_data), c("CHROM", "POS")), 
-             new = paste0("wt_", setdiff(names(wt_data), c("CHROM", "POS"))))
-    setnames(mt_data, old = setdiff(names(mt_data), c("CHROM", "POS")), 
-             new = paste0("mt_", setdiff(names(mt_data), c("CHROM", "POS"))))
-    
-    # Merge the two filtered datasets by CHROM and POS
-    wt_mt <- merge(wt_data, mt_data, by = c("CHROM", "POS"), suffixes = c("wt_", "mt_"))
-    wt_mt[, CHROM := factor(CHROM, levels = naturalsort(unique(CHROM)))]
-    wt_mt <- wt_mt[order(CHROM, POS)]
-    
-    # anti join keep 
-    ant_mt <- anti_join(mt_data, wt_data, by = c("CHROM", "POS"))
-    ant_mt[, CHROM := factor(CHROM, levels = naturalsort(unique(CHROM)))]
-    ant_mt <- ant_mt[order(CHROM, POS)]
-    
-    # anti join keep 
-    ant_wt <- anti_join(wt_data, mt_data, by = c("CHROM", "POS"))
-    ant_wt[, CHROM := factor(CHROM, levels = naturalsort(unique(CHROM)))]
-    ant_wt <- ant_wt[order(CHROM, POS)]
-    
-    # Calculate allele frequency differences
-    wt_mt[, AF_diff := wt_AF - mt_AF]
-    
-    # Calculate Euclidean Distance (ED) and its fourth power (ED4)
-    wt_mt[, ED := sqrt((mt_Fref + mt_Rref - wt_Fref - wt_Rref)^2 + (mt_Falt + mt_Ralt - wt_Falt - wt_Ralt)^2)]
-    wt_mt[, ED4 := ED^4]
-    
-    #Calculate p-value using Fisher's exact test for each position
-    wt_mt[, p.value := mapply(function(a_ref, a_alt, b_ref, b_alt) {
-      fisher.test(matrix(c(a_alt, a_ref, b_alt, b_ref), nrow = 2))$p.value
-    }, mt_Fref + mt_Rref, mt_Falt + mt_Ralt, wt_Fref + wt_Rref, wt_Falt + wt_Ralt)]
-    
-    # Adjust p-values for multiple testing
-    wt_mt[, adj.p.value := p.adjust(p.value, method = "bonferroni")]
-    
-    # Transform adjusted p-value to -10 * log10(adj.p.value)
-    wt_mt[, log_adj.pval := -10 * log10(adj.p.value)]
-    
-    # Dynamically create the final columns to keep
-    keepcols <- c("CHROM", "POS", "wt_REF", "wt_ALT", 
-                  "mt_REF", "mt_ALT", "wt_QUAL", "mt_QUAL", "wt_DP", "mt_DP", 
-                  "wt_AF", "mt_AF", "AF_diff", "ED", "ED4", "adj.p.value", "log_adj.pval")
-    
-    # Keep only the specified columns
-    wt_mt <- wt_mt[, keepcols, with = FALSE]
-  }
-  
-  # Create directory if it doesn't exist
-  if (!dir.exists(plots_dir)) dir.create(plots_dir, recursive = TRUE)
-  
-  base_plot <- function(data, aes_y, y_label) {
-    ggplot(data, aes(x = POS, y = !!sym(aes_y), color = CHROM)) +
-      facet_grid(. ~ CHROM, space = "free_x", scales = "free_x") +
+    # Loop through Genotype to find and process matching files
+    for (genotype in names(Genotype)) {
+      file_pattern <- paste0("^", prefix, "_", Genotype[[genotype]])
+      geno_file <- vcf_list[grepl(file_pattern, basename(vcf_list))]
       
-      scale_color_manual(values = rep(c("blue", "red"), 5)) +
-      scale_y_continuous(labels = scales::number_format(accuracy = 0.0001))+
-      guides(color = FALSE) + bsa_theme() +
-      labs(title = "", x = "\n Chromosome", y = y_label)
+      if (length(geno_file) > 0) {
+        # Load the genotype data
+        data <- read.delim(geno_file, header = TRUE)
+        
+        # Print a summary of loaded data
+        print(paste("Loaded", genotype, "data:", nrow(data), "rows"))
+        
+        # Define expected column names
+        col_names <- c("CHROM", "POS", "REF", "ALT", "QUAL", "DP", "Fref", "Rref", "Falt", "Ralt")
+        colnames(data) <- col_names
+        
+        # Convert to data.table if necessary
+        if (!is.data.table(data)) data <- as.data.table(data)
+        
+        # Filter based on DP and QUAL
+        data <- data[!is.na(DP) & DP > 20 & QUAL >= 50]
+        
+        # Calculate allele frequencies for wild-type and mutant
+        data[, AF := (Falt + Ralt) / (Fref + Rref + Falt + Ralt)]
+        
+        setnames(data, old = setdiff(names(data), c("CHROM", "POS")), 
+                 new = paste0(genotype,"_", setdiff(names(data), c("CHROM", "POS"))))
+        
+        # Add the processed data to the list
+        geno_data[[genotype]] <- data
+      }
+    }
+    
+    if (!is.null(geno_data$wt) && !is.null(geno_data$mt)){
+      wt_data <- geno_data$wt
+      mt_data <- geno_data$mt
+      
+      # Merge the two filtered datasets by CHROM and POS
+      wt_mt <- merge(wt_data, mt_data, by = c("CHROM", "POS"), suffixes = c("wt_", "mt_"))
+      wt_mt[, CHROM := factor(CHROM, levels = naturalsort(unique(CHROM)))]
+      wt_mt <- wt_mt[order(CHROM, POS)]
+      
+      # anti join and keep position only unique to mt dataset
+      ant_mt <- anti_join(mt_data, wt_data, by = c("CHROM", "POS"))
+      ant_mt[, CHROM := factor(CHROM, levels = naturalsort(unique(CHROM)))]
+      ant_mt <- ant_mt[order(CHROM, POS)]
+      
+      # anti join and keep position only unique to wt dataset 
+      ant_wt <- anti_join(wt_data, mt_data, by = c("CHROM", "POS"))
+      ant_wt[, CHROM := factor(CHROM, levels = naturalsort(unique(CHROM)))]
+      ant_wt <- ant_wt[order(CHROM, POS)]
+      
+      # Calculate allele frequency differences
+      wt_mt[, AF_diff := wt_AF - mt_AF]
+      
+      # Calculate Euclidean Distance (ED) and its fourth power (ED4)
+      wt_mt[, ED := sqrt((mt_Fref + mt_Rref - wt_Fref - wt_Rref)^2 + (mt_Falt + mt_Ralt - wt_Falt - wt_Ralt)^2)]
+      wt_mt[, ED4 := ED^4]
+      
+      #Calculate p-value using Fisher's exact test for each position
+      wt_mt[, p.value := mapply(function(a_ref, a_alt, b_ref, b_alt) {
+        fisher.test(matrix(c(a_alt, a_ref, b_alt, b_ref), nrow = 2))$p.value
+      }, mt_Fref + mt_Rref, mt_Falt + mt_Ralt, wt_Fref + wt_Rref, wt_Falt + wt_Ralt)]
+      
+      # Adjust p-values for multiple testing
+      wt_mt[, adj.p.value := p.adjust(p.value, method = "bonferroni")]
+      
+      # Transform adjusted p-value to -10 * log10(adj.p.value)
+      wt_mt[, log_adj.pval := -10 * log10(adj.p.value)]
+      
+    }
+    
+    # Create directory if it doesn't exist
+    if (!dir.exists(plots_dir)) dir.create(plots_dir, recursive = TRUE)
+    
+    base_plot <- function(data, aes_y, y_label) {
+      ggplot(data, aes(x = POS, y = !!sym(aes_y), color = CHROM)) +
+        facet_grid(. ~ CHROM, space = "free_x", scales = "free_x") +
+        
+        scale_color_manual(values = rep(c("blue", "red"), 5)) +
+        scale_y_continuous(labels = scales::number_format(accuracy = 0.0001))+
+        guides(color = FALSE) + bsa_theme() +
+        labs(title = "", x = "\n Chromosome", y = y_label)
+    }
+    
+    plot1 <- function(data, column, plot_title, file_suffix, ylim = c(0, 1), lcolor = "black", lsize = 1, psize = 0.5) {
+      # Construct the file path for saving the plot
+      file_path <- file.path(plots_dir, paste0(inbred, "_", file_suffix, ".tiff"))
+      
+      actual_line_color <- ifelse(lcolor == "NA", NA, lcolor)
+      
+      # Generate and save the plot
+      ggsave(
+        filename = file_path,
+        plot = base_plot(data, column, paste0(inbred, "\n", plot_title, "\n")) +
+          geom_point(size=psize) + coord_cartesian(ylim = ylim) + 
+          geom_line(aes(y = rollmedian(!!sym(column), 501, na.pad = TRUE)), color = actual_line_color, size = lsize),
+        device = "tiff", width = width, height = height, dpi = dpi
+      )
+      message(paste0("Plot for '", inbred, "' saved to: ", file_path))
+    }
+    
+    # Generate and save plots for WT, MT, and AF_diff
+    pt1 <- list(
+      list(data = wt_mt[wt_AF < 1], column = "wt_AF", plot_title = "WT SNP Index", file_suffix = "wt_AF_untransformed", ylim = c(0.1, 1),lcolor = "black", lsize = 1, psize=0.5),
+      list(data = wt_mt[mt_AF < 1], column = "mt_AF", plot_title = "MT SNP Index", file_suffix = "mt_AF_untransformed", ylim = c(0.1, 1),lcolor = "black", lsize = 1, psize=0.5),
+      list(data = wt_mt[AF_diff < 1], column = "AF_diff", plot_title = "Δ SNP Index", file_suffix = "AF_diff_untranformed", ylim = c(-1, 1),lcolor = "black", lsize = 1, psize=0.5),
+      list(data = wt_mt[log_adj.pval >= 0], column = "log_adj.pval", plot_title = "-log10(p-value)", file_suffix = "log_adj.pval", ylim = c(0, 60),lcolor = "NA", lsize = 1, psize=0.5),
+      list(data = ant_mt[mt_AF < 1], column = "mt_AF", plot_title = "Mutant SNP Index", file_suffix = "ant_mt_AF_untranformed", ylim = c(0.1, 1),lcolor = "black", lsize = 1, psize=0.5),
+      list(data = ant_mt[wt_AF < 1], column = "wt_AF", plot_title = "Wildtype SNP Index", file_suffix = "ant_wt_AF_untranformed", ylim = c(0.1, 1),lcolor = "black", lsize = 1, psize=0.5),
+      list(data = wt_mt[ED > 1], column = "ED", plot_title = "ED", file_suffix = "ED_untranformed", ylim = c(1, 50),lcolor = "black", lsize = 1, psize=0.5),
+      list(data = wt_mt[ED4 > 1], column = "ED4", plot_title = "ED4", file_suffix = "ED4_untranformed", ylim = c(1,250000),lcolor = "black", lsize = 1, psize=0.5)
+    )
+    # Loop through the pt1 and call plot1
+    for (plots in pt1) {
+      plot1(
+        data = plots$data, column = plots$column,
+        plot_title = plots$plot_title, file_suffix = plots$file_suffix,
+        ylim = plots$ylim, lcolor = plots$lcolor, lsize = plots$lsize, psiz = plots$psize
+      )
+    }
+    
+    
+    plot2 <- function(data, column, plot_title, file_suffix, ylim = c(0, 1)) {
+      # Construct the file path for saving the plot
+      file_path <- file.path(plots_dir, paste0(inbred, "_", file_suffix, ".tiff"))
+      
+      # Generate and save the plot
+      ggsave(
+        filename = file_path,
+        plot = base_plot(data, column, paste0(inbred, "\n", plot_title, "\n")) +
+          stat_smooth(method = "locfit", formula = y ~ lp(x, nn = nn_prop))+ coord_cartesian(ylim = ylim),
+        device = "tiff", width = width, height = height, dpi = dpi
+      )
+      message(paste0("Plot for '", inbred, "' saved to: ", file_path))
+    }
+    
+    pt2 <- list(
+      list(data=wt_mt[mt_AF < 1], column="mt_AF", plot_title ="Mutant SNP Index", file_suffix ="mt_AF_tranformed", ylim = c(0, 1)),
+      list(data=wt_mt[wt_AF < 1], column="wt_AF", plot_title ="WT SNP Index", file_suffix ="wt_AF_tranformed", ylim = c(0, 1)),
+      list(data=ant_mt[mt_AF < 1], column="mt_AF", plot_title ="Mutant SNP Index", file_suffix ="ant_mt_AF_tranformed", ylim = c(0, 1)),
+      list(data=ant_wt[wt_AF < 1], column="wt_AF", plot_title ="WT SNP Index", file_suffix ="ant_wt_AF_tranformed", ylim = c(0, 1)),
+      list(data=wt_mt[AF_diff < 1], column="AF_diff", plot_title ="Δ SNP Index", file_suffix ="AF_diff_tranformed", ylim = c(-1, 1)),
+      list(data=wt_mt[ED > 1], column="ED", plot_title ="ED", file_suffix ="ED_tranformed", ylim = c(0.0, 50)),
+      list(data=wt_mt[ED4 > 1], column="ED4", plot_title ="ED4", file_suffix ="ED4_tranformed", ylim = c(0.0, 250000))
+    )
+    for (graphs in pt2) {
+      plot2(
+        data = graphs$data, column = graphs$column,
+        plot_title = graphs$plot_title, file_suffix = graphs$file_suffix, ylim = graphs$ylim
+      )
+    }
+    
+    return(list(wt_mt = wt_mt, ant_mt = ant_mt, ant_wt = ant_wt))
   }
-  
-  # Plot and save AD8_unAF_transformed
-  ggsave(
-    filename = file.path(plots_dir, paste0(inbred, "_wt_AF_untranformed.tiff")),
-    plot = base_plot(wt_mt[wt_AF < 1], "wt_AF", paste0(inbred, "\n WT SNP Index \n"))+
-      geom_point() +  coord_cartesian(ylim = c(0, 1)) +
-      geom_line(aes(y = rollmedian(wt_AF, 401, na.pad = TRUE)), color = "black"),
-    device = "tiff", width = width, height = height, dpi = dpi)
-  message(paste0("Plot for '", inbred, "' saved to: ", file.path(plots_dir, paste0(inbred, "_wt_AF_untranformed.tiff"))))
-  
-  # Plot and save mt_unAF_transformed
-  ggsave(
-    filename = file.path(plots_dir, paste0(inbred, "_mt_AF_untranformed.tiff")),
-    plot = base_plot(wt_mt[mt_AF < 1], "mt_AF", paste0(inbred, "\n Mutant SNP Index \n"))+
-      geom_point() +  coord_cartesian(ylim = c(0, 1)) +
-      geom_line(aes(y = rollmedian(mt_AF, 401, na.pad = TRUE)), color = "black"),
-    device = "tiff", width = width, height = height, dpi = dpi)
-  message(paste0("Plot for '", inbred, "' saved to: ", file.path(plots_dir, paste0(inbred, "_mt_AF_untranformed.tiff"))))
-  
-  # Plot and save AF_diff_untransformed
-  ggsave(
-    filename = file.path(plots_dir, paste0(inbred, "_AF_diff_untranformed.tiff")),
-    plot = base_plot(wt_mt[AF_diff < 1], "AF_diff", paste0(inbred, "\n Δ SNP Index \n"))+
-      geom_point() +  coord_cartesian(ylim = c(0, 1)) +
-      geom_line(aes(y = rollmedian(AF_diff, 401, na.pad = TRUE)), color = "black"),
-    device = "tiff", width = width, height = height, dpi = dpi)
-  message(paste0("Plot for '", inbred, "' saved to: ", file.path(plots_dir, paste0(inbred, "_AF_diff_untranformed.tiff"))))
-  
-  # Plot and save wt_AF_transformed
-  ggsave(
-    filename = file.path(plots_dir, paste0(inbred, "_wt_tranformed.tiff")),
-    plot = base_plot(wt_mt[wt_AF  < 1], "wt_AF", paste0(inbred, "\n WT SNP Index \n"))+
-      stat_smooth(method = "locfit", formula = y ~ lp(x, nn = nn_prop))+
-      coord_cartesian(ylim = c(0.5, 1)),
-    device = "tiff", width = width, height = height, dpi = dpi)
-  message(paste0("Plot for '", inbred, "' saved to: ", file.path(plots_dir, paste0(inbred, "_wt_tranformed.tiff"))))
-  
-  # Plot and save mutant_AF_transformed
-  ggsave(
-    filename = file.path(plots_dir, paste0(inbred, "_mt_tranformed.tiff")),
-    plot = base_plot(wt_mt[mt_AF  < 1], "mt_AF", paste0(inbred, "\n Mutant SNP Index \n"))+
-      stat_smooth(method = "locfit", formula = y ~ lp(x, nn = nn_prop))+
-      coord_cartesian(ylim = c(0.5, 1)),
-    device = "tiff", width = width, height = height, dpi = dpi)
-  message(paste0("Plot for '", inbred, "' saved to: ", file.path(plots_dir, paste0(inbred, "_mt_tranformed.tiff"))))
-  
-  
-  # Plot and save _AF_diff_transformed
-  ggsave(
-    filename = file.path(plots_dir, paste0(inbred, "_AF_diff_tranformed.tiff")),
-    plot = base_plot(wt_mt[AF_diff  < 1], "AF_diff", paste0(inbred, "\n Δ SNP Index \n"))+
-      stat_smooth(method = "locfit", formula = y ~ lp(x, nn = nn_prop))+
-      coord_cartesian(ylim = c(0.000, 0.1)),
-    device = "tiff", width = width, height = height, dpi = dpi)
-  message(paste0("Plot for '", inbred, "' saved to: ", file.path(plots_dir, paste0(inbred, "_AF_diff_tranformed.tiff"))))
-  
-  # Plot and save ED transformed
-  ggsave(
-    filename = file.path(plots_dir, paste0(inbred, "_ED_smooth.tiff")),
-    plot = base_plot(wt_mt[ED > 1], "ED", paste0(inbred, "\n ED \n"))+
-      stat_smooth(method = "locfit", formula = y ~ lp(x, nn = nn_prop)),
-    device = "tiff", width = width, height = height, dpi = dpi)
-  message(paste0("Plot for '", inbred, "' saved to: ", file.path(plots_dir, paste0(inbred, "_ED_smooth.tiff"))))
-  
-  # Plot and save ED4 transformed
-  ggsave(
-    filename = file.path(plots_dir, paste0(inbred, "_ED4_smooth.tiff")),
-    plot = base_plot(wt_mt[ED4 > 1], "ED4", paste0(inbred, "\n ED4 \n"))+
-      stat_smooth(method = "locfit", formula = y ~ lp(x, nn = nn_prop)),
-    device = "tiff", width = width, height = height, dpi = dpi)
-  message(paste0("Plot for '", inbred, "' saved to: ", file.path(plots_dir, paste0(inbred, "_ED4_smooth.tiff"))))
-  
-  # Plot and save log_adj.pval transformed
-  ggsave(
-    filename = file.path(plots_dir, paste0(inbred, "_log_adj.pval.tiff")),
-    plot = base_plot(wt_mt[log_adj.pval >= 0], "log_adj.pval", paste0(inbred, "\n -log10(p-value) \n"))+
-      geom_point(),
-    device = "tiff", width = width, height = height, dpi = dpi)
-  message(paste0("Plot for '", inbred, "' saved to: ", file.path(plots_dir, paste0(inbred, "_log_adj.pval.tiff"))))
-  
-  
-  # Plot and save AD7 only
-  ggsave(
-    filename = file.path(plots_dir, paste0(inbred, "_ant_mt_AF_untranformed.tiff")),
-    plot = base_plot(ant_mt[mt_AF < 1], "mt_AF", paste0(inbred, "\n Mutant SNP Index \n"))+
-      geom_point() +  coord_cartesian(ylim = c(0, 1)) +
-      geom_line(aes(y = rollmedian(mt_AF, 501, na.pad = TRUE)), color = "black"),
-    device = "tiff", width = width, height = height, dpi = dpi)
-  message(paste0("Plot for '", inbred, "' saved to: ", file.path(plots_dir, paste0(inbred, "_ant_mt_AF_untranformed.tiff"))))
-  
-  # Plot and save AD7 only
-  ggsave(
-    filename = file.path(plots_dir, paste0(inbred, "_ant_mt_AF_tranformed.tiff")),
-    plot = base_plot(ant_mt[mt_AF < 1], "mt_AF", paste0(inbred, "\n Mutant SNP Index \n"))+
-      stat_smooth(method = "locfit", formula = y ~ lp(x, nn = nn_prop)),
-    device = "tiff", width = width, height = height, dpi = dpi)
-  message(paste0("Plot for '", inbred, "' saved to: ", file.path(plots_dir, paste0(inbred, "_ant_mt_AF_tranformed.tiff"))))
-  
-  # Plot and save AD7 only
-  ggsave(
-    filename = file.path(plots_dir, paste0(inbred, "_ant_wt_AF_untranformed.tiff")),
-    plot = base_plot(ant_wt[wt_AF < 1], "wt_AF", paste0(inbred, "\n WT SNP Index \n"))+
-      geom_point() +  coord_cartesian(ylim = c(0, 1)) +
-      geom_line(aes(y = rollmedian(wt_AF, 501, na.pad = TRUE)), color = "black"),
-    device = "tiff", width = width, height = height, dpi = dpi)
-  message(paste0("Plot for '", inbred, "' saved to: ", file.path(plots_dir, paste0(inbred, "_ant_wt_AF_untranformed.tiff"))))
-  
-  # Plot and save AD7 only
-  ggsave(
-    filename = file.path(plots_dir, paste0(inbred, "_ant_wt_AF_tranformed.tiff")),
-    plot = base_plot(ant_wt[wt_AF < 1], "wt_AF", paste0(inbred, "\n WT SNP Index \n"))+
-      stat_smooth(method = "locfit", formula = y ~ lp(x, nn = nn_prop)),
-    device = "tiff", width = width, height = height, dpi = dpi)
-  message(paste0("Plot for '", inbred, "' saved to: ", file.path(plots_dir, paste0(inbred, "_ant_wt_AF_tranformed.tiff"))))
-  
-  # Return both datasets as a list
-  return(list(wt_mt = wt_mt, ant_mt = ant_mt, ant_wt = ant_wt))
-}
-
-
-
