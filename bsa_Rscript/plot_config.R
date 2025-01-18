@@ -83,5 +83,5 @@ plot_config <- function(wt_mt, ant_wt, ant_mt, wt, mt, plot_type = "all"){
 }
 
 # Example Usage
-configs <- plot_config(wt_mt, ant_wt, ant_mt, wt, mt, plot_type = "all")
-print(configs)
+# configs <- plot_config(wt_mt, ant_wt, ant_mt, wt, mt, plot_type = "all")
+# print(configs)
