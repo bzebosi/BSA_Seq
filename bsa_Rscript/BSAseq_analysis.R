@@ -369,7 +369,7 @@ af_configs <- function(wt_mt, ant_wt, ant_mt, ant_wt_ems, ant_mt_ems, wt, mt, ro
     if (is.null(pmt$data) || nrow(pmt$data) == 0) next
     
     allparameters <- append(allparameters, list(
-      list(data = pmt$data, column = pmt$name, plot_title = pmt$title, file_suffix = paste0("af_locfit_", pmt$plotid), 
+      list(data = pmt$data, column = pmt$name, plot_title = pmt$title, file_suffix = paste0("af_locfit_", pmt$plotid), y_title = pmt$y_title,
            is_smooth = TRUE, rollmedian = 0, ylim = ylim, is_rollmedian = FALSE, is_histogram = is_histogram, threshold = NULL)))
 
     if (rollmedian > 0){
