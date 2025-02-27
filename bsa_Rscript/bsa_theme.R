@@ -1,4 +1,4 @@
-bsa_theme = function(base_size=45){
+bsa_theme = function(base_size=50){
 require(grid)
 theme_linedraw(base_size = base_size) + 
   theme(
