@@ -308,7 +308,7 @@ generate_vcfplots <- function(data, prefix, column, y_title, plot_title, file_su
       plot <- plot + geom_point(size = 0.5) + 
         geom_line(aes(y = rollmedian(!!sym(column), rollmedian, na.pad = TRUE)), color = "black", linewidth = 1.2)
     } else {
-      plot <- plot + geom_point(size = 1)
+      plot <- plot + geom_point(size = 1.2)
     }
     
     # Add horizontal threshold line if applicable
