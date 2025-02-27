@@ -2,7 +2,7 @@ bsa_theme = function(base_size=50){
 require(grid)
 theme_linedraw(base_size = base_size) + 
   theme(
-    plot.title = element_text(size = base_size * 1.2, face = "bold", hjust = 0.5,color = "black"),
+    plot.title = element_text(size = base_size, face = "bold", hjust = 0.5,color = "black"),
     axis.text.x = element_blank(),
     axis.ticks.x = element_blank(),
     axis.text.y = element_text(size = base_size, face = "bold", colour = "black"),
