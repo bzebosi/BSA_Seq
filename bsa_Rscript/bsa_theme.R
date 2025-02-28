@@ -15,7 +15,7 @@ theme_linedraw(base_size = base_size) +
     panel.spacing = unit(0.8, "lines"),
     panel.grid.minor = element_line(colour = "grey90", linewidth = 0.5),
     panel.grid.major = element_line(colour = "grey90", linewidth = 0.2),
-    strip.background = element_rect(fill = "grey80", colour = "black", linewidth = 2),
+    strip.background = element_rect(fill = "grey80", colour = "black", linewidth = 2.5),
     strip.text = element_text(colour = "black",face = "bold", size = base_size),
     strip.text.x = element_text(colour = "black", face = "bold", size = base_size, margin = margin(0.6,0.0,0.6,0.0, "cm")),
     strip.text.y = element_text(colour = "black", face = "bold", size = base_size, margin = margin(0.0,0.6,0.0,0.6, "cm")),
