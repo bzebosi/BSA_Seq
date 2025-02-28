@@ -10,7 +10,7 @@ theme_linedraw(base_size = base_size) +
     axis.title.y = element_text(size = base_size, face = "bold", angle = 90, color="black"),
     axis.line = element_line(colour = "black", linewidth= 2.5),
     axis.ticks = element_line(colour = "black", linewidth = 2.5),
-    axis.ticks.length = unit(2, "cm"),
+    axis.ticks.length = unit(0.5, "cm"),
     panel.border = element_rect(linewidth = 2.5, fill = NA),
     panel.spacing = unit(0.8, "lines"),
     panel.grid.minor = element_line(colour = "grey90", linewidth = 0.5),
