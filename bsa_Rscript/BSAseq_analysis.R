@@ -694,7 +694,7 @@ visualize_vcfdata <- function(vcf_dir, prefix, pattern, output_dir, plots_dir,
 
 auto_visualize_vcfdata <- function(vcf_dir, output_dir, plots_dir, wt_list, mt_list, prefix_list, pattern, save_results = FALSE, plot_data = TRUE,
                                    min_DP = 10, min_QUAL = 30, threshold = -log10(0.05) * 10, n_prop = 0.1, rollmedian = 501, ylim = NULL,
-                                   hwidth = 30, hheight = 16, width = 30, height = 10, dpi = 300, device = "tiff", plot_types = c("af", "pval", "gstat", "ed","histogram")){
+                                   hwidth = 30, hheight = 16, width = 32, height = 13, dpi = 300, device = "tiff", plot_types = c("af", "pval", "gstat", "ed","histogram")){
   all_results <- list()
   for (pfix in prefix_list) {
     print(paste("Processing inbred:", pfix))
