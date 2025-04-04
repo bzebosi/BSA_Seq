@@ -231,7 +231,7 @@ merge_analyze_vcfdata <- function(geno_data, prefix, save_results = FALSE, outpu
     # Save results
     for (name in names(analyzed_merged_genodata)) {
       csv_file <- file.path(output_dir, paste0(prefix, "_", name, ".csv"))
-      fwrite(merged_results[[name]], file = csv_file)
+      fwrite(analyzed_merged_genodata[[name]], file = csv_file)
     }
     message("Results saved successfully in ", output_dir)
   }
