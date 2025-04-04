@@ -47,8 +47,8 @@ merge_analyze_vcfdata <- function(geno_data, prefix, save_results = FALSE, outpu
     return(ems_variants)
   }
   
-  ant_wt_ems <- get_ems(wt_data, "wt_REF", "wt_ALT", "wildtype")
-  ant_mt_ems <- get_ems(mt_data, "mt_REF", "mt_ALT", "mutant" )
+  ant_wt_ems <- get_ems(ant_wt, "wt_REF", "wt_ALT", "wildtype")
+  ant_mt_ems <- get_ems(ant_mt, "mt_REF", "mt_ALT", "mutant" )
   
   
   # Calculate allele frequency differences
