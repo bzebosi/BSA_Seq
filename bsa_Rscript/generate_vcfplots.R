@@ -52,13 +52,13 @@ generate_vcfplots <- function(data, prefix, column, y_title, plot_title, file_su
       plot <- plot + stat_smooth(method = "locfit", formula = y ~ lp(x, nn = nn_prop))
     } else if (is_rollmedian) {
       plot <- plot + geom_point(size = 0.5) + 
-        geom_line(aes(y = rollmedian(!!sym(column), rollmedian, na.pad = TRUE)), color = "black", linewidth = 4)
+        geom_line(aes(y = rollmedian(!!sym(column), rollmedian, na.pad = TRUE)), color = "black", linewidth = 6)
     } else {
       plot <- plot + geom_point(size = 1)
     }
     
     # Add horizontal threshold line if applicable
-    if (!is.null(threshold)) {plot <- plot + geom_hline(yintercept = threshold, linetype = "dashed", color = "black", linewidth = 4)}
+    if (!is.null(threshold)) {plot <- plot + geom_hline(yintercept = threshold, linetype = "dashed", color = "black", linewidth = 6)}
     
   } else {
     plot <- ggplot(data, aes(x=POS, fill=CHROM)) + geom_histogram(binwidth=bwidth,  alpha = 0.7) +
