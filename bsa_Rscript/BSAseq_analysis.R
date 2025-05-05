@@ -314,9 +314,9 @@ generate_vcfplots <- function(data, prefix, column, y_title, plot_title, file_su
     if (!is.null(threshold)) {plot <- plot + geom_hline(yintercept = threshold, linetype = "dashed", color = "black", linewidth = 5)}
     
   } else {
-    plot <- ggplot(data, aes(x=POS, fill=CHROM)) + geom_histogram(binwidth=bwidth,  alpha = 0.7) +
+    plot <- ggplot(data, aes(x=POS, fill=CHROM)) + geom_histogram(binwidth=bwidth,  alpha = q) +
       facet_wrap(~ CHROM, ncol = 5, scales = "free_x") + scale_fill_manual(values = color_panel) +
-      theme(axis.ticks.x  = element_line(color = "black", linewidth = 1),
+      theme(axis.ticks.x  = element_line(color = "black", linewidth = 5),
             axis.minor.ticks.length = unit(0.5, "cm"), axis.text.x = element_blank()) + guides(fill = FALSE) +
       labs(title = paste0("Aligned to ", inbred, " : ", " ", plot_title), x = "\n Chromosome Position (bp) \n", y = paste0("\n", y_title, "\n")) + bsa_theme()
   }
