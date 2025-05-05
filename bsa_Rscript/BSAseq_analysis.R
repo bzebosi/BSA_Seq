@@ -314,7 +314,7 @@ generate_vcfplots <- function(data, prefix, column, y_title, plot_title, file_su
     if (!is.null(threshold)) {plot <- plot + geom_hline(yintercept = threshold, linetype = "dashed", color = "black", linewidth = 5)}
     
   } else {
-    plot <- ggplot(data, aes(x=POS, fill=CHROM)) + geom_histogram(binwidth=bwidth,  alpha = q) +
+    plot <- ggplot(data, aes(x=POS, fill=CHROM)) + geom_histogram(binwidth=bwidth,  alpha = 1) +
       facet_wrap(~ CHROM, ncol = 5, scales = "free_x") + scale_fill_manual(values = color_panel) +
       theme(axis.ticks.x  = element_line(color = "black", linewidth = 5),
             axis.minor.ticks.length = unit(0.5, "cm"), axis.text.x = element_blank()) + guides(fill = FALSE) +
