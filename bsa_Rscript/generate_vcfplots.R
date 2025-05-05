@@ -43,7 +43,7 @@ generate_vcfplots <- function(data, prefix, column, y_title, plot_title, file_su
   if(!is_histogram){
     plot <- ggplot(data, aes(x = POS, y = !!sym(column), color = CHROM)) +
       facet_grid(. ~ CHROM, scales = "free_x", space = "free_y") +
-      scale_y_continuous(labels = scales::number_format(accuracy = 0.01)) +
+      scale_y_continuous(labels = scales::number_format(accuracy = 0.1)) +
       scale_x_continuous(breaks = seq(min(data$POS), max(data$POS), by = 20000000), labels = scales::comma) +
       scale_color_manual(values = color_panel) + guides(color = FALSE) +
       labs(title = paste0("Aligned to ", inbred, " : ", " ", plot_title), x = "\n Chromosome Position (bp) \n", y = paste0("\n", y_title, "\n")) + bsa_theme()
@@ -53,7 +53,7 @@ generate_vcfplots <- function(data, prefix, column, y_title, plot_title, file_su
       plot <- plot + stat_smooth(method = "locfit", formula = y ~ lp(x, nn = nn_prop))
     } else if (is_rollmedian) {
       plot <- plot + geom_point(size = 0.5) + 
-        geom_line(aes(y = rollmedian(!!sym(column), rollmedian, na.pad = TRUE)), color = "black", linewidth = 1.2)
+        geom_line(aes(y = rollmedian(!!sym(column), rollmedian, na.pad = TRUE)), color = "black", linewidth = 4)
     } else {
       plot <- plot + geom_point(size = 1)
     }
