@@ -302,16 +302,16 @@ generate_vcfplots <- function(data, prefix, column, y_title, plot_title, file_su
     
     # Add geom_point only if is_smooth is FALSE
     if (is_smooth) {
-      plot <- plot + stat_smooth(method = "locfit", formula = y ~ lp(x, nn = nn_prop), size = 4)
+      plot <- plot + stat_smooth(method = "locfit", formula = y ~ lp(x, nn = nn_prop), size = 5)
     } else if (is_rollmedian) {
       plot <- plot + geom_point(size = 0.5) + 
-        geom_line(aes(y = rollmedian(!!sym(column), rollmedian, na.pad = TRUE)), color = "black", linewidth = 30)
+        geom_line(aes(y = rollmedian(!!sym(column), rollmedian, na.pad = TRUE)), color = "black", linewidth = 4)
     } else {
       plot <- plot + geom_point(size = 2)
     }
     
     # Add horizontal threshold line if applicable
-    if (!is.null(threshold)) {plot <- plot + geom_hline(yintercept = threshold, linetype = "dashed", color = "black", linewidth = 30)}
+    if (!is.null(threshold)) {plot <- plot + geom_hline(yintercept = threshold, linetype = "dashed", color = "black", linewidth = 3)}
     
   } else {
     plot <- ggplot(data, aes(x=POS, fill=CHROM)) + geom_histogram(binwidth=bwidth,  alpha = 1) +
