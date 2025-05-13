@@ -295,7 +295,8 @@ generate_vcfplots <- function(data, prefix, column, y_title, plot_title, file_su
   # Generate scatter or smooth plot or histogram
   if(!is_histogram){
     plot <- ggplot(data, aes(x = POS, y = !!sym(column), color = CHROM)) +
-      facet_wrap(~ CHROM, ncol = 5, scales = "free_x") +
+    facet_grid(. ~ CHROM, scales = "free_x", space = "free_y") +
+      scale_x_continuous(breaks = seq(min(data$POS), max(data$POS), by = 20000000), labels = scales::comma) +
       scale_color_manual(values = color_panel) + guides(color = FALSE) +
       labs(title = paste0("Aligned to ", inbred, " : ", " ", plot_title), x = "\n Chromosome Position (bp) \n", y = paste0("\n", y_title, "\n")) + bsa_theme()
     
