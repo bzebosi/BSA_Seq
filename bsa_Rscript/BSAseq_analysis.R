@@ -315,7 +315,7 @@ generate_vcfplots <- function(data, prefix, column, y_title, plot_title, file_su
     
   } else {
     plot <- ggplot(data, aes(x=POS, fill=CHROM)) + geom_histogram(binwidth=bwidth,  alpha = 2) +
-      facet_grid(. ~ CHROM, scales = "free_x") + scale_fill_manual(values = color_panel) +
+     facet_wrap(~ CHROM, ncol = 5, scales = "free_x") + scale_fill_manual(values = color_panel) +
       theme(axis.ticks.x  = element_line(color = "black", linewidth = 5),
             axis.minor.ticks.length = unit(0.5, "cm"), axis.text.x = element_blank()) + guides(fill = FALSE) +
       labs(title = paste0("Aligned to ", inbred, " : ", " ", plot_title), x = "\n Chromosome Position (bp) \n", y = paste0("\n", y_title, "\n")) + bsa_theme()
@@ -626,8 +626,8 @@ automate_vcf_plots <- function(wt_mt, ant_wt, ant_mt, ant_wt_ems, ant_mt_ems, wt
 #' @export
 visualize_vcfdata <- function(vcf_dir, prefix, pattern, output_dir, plots_dir, 
                               save_results = FALSE, Genotypes = c(wt = "wt", mt = "mt"), min_DP, min_QUAL, plot_data = TRUE,
-                              threshold = -log10(0.05) * 10, n_prop = 0.1, rollmedian = 501, hwidth = 26, hheight = 10, ylim = NULL,
-                              width = 26, height = 10, dpi = 300, device = "tiff", plot_types = c("af", "pval","ed", "gstat", "histogram")) {
+                              threshold = -log10(0.05) * 10, n_prop = 0.1, rollmedian = 501, hwidth = 30, hheight = 18, ylim = NULL,
+                              width = 30, height = 9, dpi = 300, device = "tiff", plot_types = c("af", "pval","ed", "gstat", "histogram")) {
   
   message("Starting VCF Data Processing Pipeline...")
   
