@@ -304,10 +304,10 @@ generate_vcfplots <- function(data, prefix, column, y_title, plot_title, file_su
     if (is_smooth) {
       plot <- plot + stat_smooth(method = "locfit", formula = y ~ lp(x, nn = nn_prop), size = 3)
     } else if (is_rollmedian) {
-      plot <- plot + geom_point(size = 0.5) + 
+      plot <- plot + geom_point(size = 2) + 
         geom_line(aes(y = rollmedian(!!sym(column), rollmedian, na.pad = TRUE)), color = "black", linewidth = 3)
     } else {
-      plot <- plot + geom_point(size = 2)
+      plot <- plot + geom_point(size = 2.5)
     }
     
     # Add horizontal threshold line if applicable
