@@ -1,4 +1,4 @@
-bsa_theme <- function(base_size = 60, legendit = "none") {
+bsa_theme <- function(base_size = 40, legendit = "none") {
   require(grid)
   theme_linedraw(base_size = base_size) + 
     theme(
