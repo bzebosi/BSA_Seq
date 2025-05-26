@@ -7,7 +7,6 @@ bsa_theme <- function(base_size = 60, legendit = "none") {
       axis.text.y = element_text(size = base_size, face = "bold", colour = "black", hjust = 1),
       axis.title.x = element_text(size = base_size, face = "bold", color = "black"),
       axis.title.y = element_text(size = base_size, face = "bold", angle = 90, color = "black"),
-      axis.ticks.x = element_blank(),
       axis.line = element_line(colour = "black", linewidth = 3),
       axis.ticks = element_line(colour = "black", linewidth = 4),
       axis.ticks.length = unit(0.5, "cm"),
