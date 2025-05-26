@@ -3,7 +3,7 @@ require(grid)
 theme_linedraw(base_size = base_size) + 
   theme(
     plot.title = element_text(size = base_size, face = "bold", hjust = 0.5,color = "black"),
-    axis.text.x = element_blank(size = base_size, ace = "bold", colour = "black", vjust = 1),
+    axis.text.x = element_blank(size = base_size, face = "bold", colour = "black", vjust = 1),
     axis.text.y = element_text(size = base_size, face = "bold", colour = "black", hjust = 1),
     axis.title.x = element_text(size = base_size, face = "bold", color="black"),
     axis.title.y = element_text(size = base_size, face = "bold", angle = 90, color="black"),
