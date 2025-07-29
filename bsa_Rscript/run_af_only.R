@@ -1,3 +1,24 @@
+#' Plot allele-frequency (AF) tracks
+#' Creates smoothed or rolling-median SNP-index / ΔSNP-index plots (and
+#' optional mutant-only views) and writes them to plots_dir.
+#'@inheritParams plot_vcfdata       # picks up common args such as plots_dir, dpi …
+#'@param wt_mt,ant_wt,ant_mt,ant_wt_ems,ant_mt_ems  Data.tables produced by
+#' @param wt,mt   Labels for the wild-type and mutant bulks.
+#' @param prefix  Sample prefix; used in plot titles / file names.
+#' @param plots_dir Output folder.
+#' @param plot_mode  "locfit", "rollmedian" or "both".
+#' @param plot_style "wrap" or "grid" faceting.
+#' @param ...  Additional arguments forwarded to plot_vcfdata() 
+#' @return Invisibly, NULL (plots are saved to disk).
+#' @example
+#' \dontrun{
+#' run_af_only(
+#'   wt_mt=res$wt_mt, ant_wt=res$ant_wt, ant_mt=res$ant_mt,
+#'   wt="WT", mt="MT", prefix  = "b73", plots_dir = "plots",
+#'   plot_mode = "both", rollmedian = 501)
+#' }
+#' @export
+
 run_af_only <- function(
     wt_mt = NULL, ant_wt = NULL, ant_mt = NULL, ant_wt_ems = NULL, ant_mt_ems = NULL,
     wt = "wildtype", mt = "mutant", prefix = "sample", plots_dir = "plots", 
