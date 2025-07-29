@@ -26,8 +26,10 @@
 #' @param color_panel Color vector for plot aesthetics.
 #' @return NULL. Plots are saved to the specified directory.
 #' @examples
-#' ' \dontrun{run_g_only(wt_mt = merged_snps, wt = "WT", mt = "Ts5", prefix = "b73_Ts5",
-#'   plots_dir = "plots/", plot_mode = "both", g_min = 1e-4)}
+#' ' \dontrun{
+#' run_g_only(wt_mt = merged_snps, wt = "WT", mt = "Ts5", prefix = "b73_Ts5",
+#' plots_dir = "plots/", plot_mode = "both", g_min = 1e-4)
+#' }
 #' @export
 run_g_only <- function(
     wt_mt = NULL, wt = "wildtype", mt = "mutant", prefix = "sample", plots_dir = "plots", 
