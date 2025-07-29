@@ -1,24 +1,45 @@
-#' Plot BSA‑Seq data for one statistic
-#' Quick helper to draw scatter / smoothed lines or histograms for a chosen
-#' column in a SNP table, faceted by chromosome, and save the figure.
-#' @param data   data.frame / data.table with CHROM, POS and the column to plot
-#' @param prefix Sample prefix (used in the title and file name)
-#' @param column Name of the y‑axis column (string)
-#' @param file_suffix Extra tag for the output file name
-#' @param plots_dir Folder to save the plot (created if missing)
-#' @param is_histogram If TRUE draw a histogram; otherwise scatter / line
-#' @param ...    Other arguments passed internally (see source)
-#' @return (invisible) a ggplot object
+#' Plot BSA-Seq Data by Chromosome
+#'
+#' Generates SNP plots or histograms for allele frequency metrics (AF, AFD, ED, G-statistics, etc.)
+#' across chromosomes from BSA-Seq data. Supports smoothing via locfit or rolling median. Facets
+#' by chromosome using either facet_wrap or facet_grid`.
+#' @param data A data.frame or data.table containing SNP-level information including CHROM, POS, and the metric column.
+#' @param prefix A prefix (usually sample name or inbred line) used for plot titles and filenames.
+#' @param column The name of the numeric column in data to plot on the y-axis (e.g., "AFD", "G", "ED").
+#' @param y_title Y-axis label.
+#' @param plot_title Plot title.
+#' @param file_suffix Suffix to use when naming the output file (before file extension).
+#' @param ylim Optional y-axis limits as a numeric vector of length 2.
+#' @param is_smooth Logical. If \code{TRUE}, applies locfit smoothing.
+#' @param is_rollmedian Logical. If \code{TRUE}, applies rolling median smoothing.
+#' @param bwidth Bin width (in bp) for histogram mode.
+#' @param is_histogram Logical. If \code{TRUE}, plots histogram instead of scatterplot.
+#' @param threshold Optional horizontal line (e.g., significance threshold).
+#' @param rollmedian Window size for rolling median smoothing.
+#' @param hwidth Width of the plot for histogram or wrap mode.
+#' @param hheight Height of the plot for histogram or wrap mode.
+#' @param width Width of the plot for grid mode.
+#' @param height Height of the plot for grid mode.
+#' @param dpi Resolution in dots per inch.
+#' @param device Output format for saved plot. One of \code{"png"}, \code{"pdf"}, etc.
+#' @param plots_dir Directory where plots should be saved.
+#' @param nn_prop Proportion of nearest neighbors for locfit smoothing (between 0 and 1).
+#' @param point_size Size of points in scatter plots.
+#' @param line_size Thickness of smoothed line or histogram outline.
+#' @param alpha_size Alpha transparency for histogram bars.
+#' @param facet_column Number of columns for \code{facet_wrap} layout (used if \code{plot_style = "wrap"}).
+#' @param plot_style Faceting style. Either \code{"wrap"} (default) or \code{"grid"}.
+#' @param remove_x_text Logical. If \code{TRUE}, removes x-axis text and ticks.
+#' @param color_panel Vector of colors to use for different chromosomes. Will be repeated to match number of chromosomes.
+#' @return (Invisibly) returns the ggplot object. Also saves the plot to disk.
 #' @examples
 #' \dontrun{
-#' plot_vcfdata(
-#'   data  = snp_table, prefix ="b73", column="AFD", file_suffix = "afd", plots_dir   = "plots"
-#'   )
+#' plot_vcfdata(data = my_data, prefix = "Ts5", column = "AFD",
+#'   y_title = "Δ SNP-index", plot_title = "AFD Plot",
+#'   file_suffix = "afd_example", device = "png", plots_dir = "plots/",
+#'   is_smooth = TRUE, plot_style = "wrap", nn_prop = 0.1)
 #' }
 #' @export
-
-
-
 plot_vcfdata <- function(data, prefix, column, y_title, plot_title, file_suffix, 
                                ylim = NULL, is_smooth = FALSE, is_rollmedian = TRUE, bwidth = 1000000,
                                is_histogram=FALSE, threshold = NULL, rollmedian = 501, 
