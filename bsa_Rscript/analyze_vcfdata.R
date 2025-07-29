@@ -1,3 +1,28 @@
+#' Analyze SNP Data for BSA-Seq
+#' Processes SNP data from wildtype and mutant VCF tables. Computes allele frequency differences,
+#' Euclidean distance, G-statistics, and filters EMS-type SNPs.
+#' @param geno_data List containing SNP tables (wt and mt).
+#' @param prefix Prefix for saving output files.
+#' @param save_results Whether to save output files. Default is FALSE.
+#' @param output_dir Directory to save files. Default is "post_analysis".
+#' @param only_mutant If TRUE, process only mutant data.
+#' @return A list of processed SNP tables and statistics.
+#' @examples
+#' # Example usage for wildtype vs mutant
+#' result <- analyze_vcfdata(
+#'   geno_data = list(wt = wt_snps, mt = mt_snps),
+#'   prefix = "b73_Ts1",
+#'   save_results = TRUE,
+#'   output_dir = "results"
+#' )
+#'
+#' # Example usage for mutant-only mode
+#' result <- analyze_vcfdata(
+#'   geno_data = list(mt = mt_snps),
+#'   prefix = "b73_Ts3",
+#'   only_mutant = TRUE
+#' )
+#' @export
 analyze_vcfdata <- function(geno_data, prefix, save_results = FALSE, output_dir = "post_analysis", only_mutant = FALSE) {
   # Helper function : Filter and Extract EMS SNPs from mutant
   get_ems <- function(data, ref_col, alt_col, label) {
