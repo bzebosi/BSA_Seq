@@ -1,3 +1,24 @@
+#' Plot BSA‑Seq data for one statistic
+#' Quick helper to draw scatter / smoothed lines or histograms for a chosen
+#' column in a SNP table, faceted by chromosome, and save the figure.
+#' @param data   data.frame / data.table with CHROM, POS and the column to plot
+#' @param prefix Sample prefix (used in the title and file name)
+#' @param column Name of the y‑axis column (string)
+#' @param file_suffix Extra tag for the output file name
+#' @param plots_dir Folder to save the plot (created if missing)
+#' @param is_histogram If TRUE draw a histogram; otherwise scatter / line
+#' @param ...    Other arguments passed internally (see source)
+#' @return (invisible) a ggplot object
+#' @examples
+#' \dontrun{
+#' plot_vcfdata(
+#'   data  = snp_table, prefix ="b73", column="AFD", file_suffix = "afd", plots_dir   = "plots"
+#'   )
+#' }
+#' @export
+
+
+
 plot_vcfdata <- function(data, prefix, column, y_title, plot_title, file_suffix, 
                                ylim = NULL, is_smooth = FALSE, is_rollmedian = TRUE, bwidth = 1000000,
                                is_histogram=FALSE, threshold = NULL, rollmedian = 501, 
