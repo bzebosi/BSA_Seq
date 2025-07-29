@@ -1,3 +1,34 @@
+#' Generate G-statistic Plots for BSA-Seq Data
+#'
+#' Plots G-statistics from merged wild-type and mutant SNP tables to visualize genomic intervals 
+#' with significant allele frequency divergence. Supports locfit and rollmedian smoothing. 
+#' Skips plotting in mutant-only mode.
+#'
+#' @param wt_mt A data.table with merged wild-type and mutant SNPs containing the \code{G} column.
+#' @param wt Wild-type label for plot titles.
+#' @param mt Mutant label for plot titles.
+#' @param prefix Prefix for output plot file names.
+#' @param plots_dir Directory to save output plots.
+#' @param rollmedian Window size for rolling median smoothing (used if \code{plot_mode} is \code{"rollmedian"} or \code{"both"}).
+#' @param ylim Optional y-axis limits.
+#' @param only_mutant Logical. If \code{TRUE}, G-statistic plots are skipped.
+#' @param device Graphics device to use (e.g., \code{"png"}, \code{"pdf"}).
+#' @param plot_data Logical. If \code{TRUE}, plots will be generated.
+#' @param width Width of the plot.
+#' @param height Height of the plot.
+#' @param hwidth Width of the histogram panel.
+#' @param hheight Height of the histogram panel.
+#' @param dpi Resolution of the output image.
+#' @param nn_prop Proportion of nearest neighbors for locfit smoothing.
+#' @param g_min Minimum G-statistic value to include SNPs for plotting.
+#' @param plot_mode Plotting method. One of \code{"locfit"}, \code{"rollmedian"}, or \code{"both"}.
+#' @param plot_style Layout style for plots. Typically \code{"wrap"} or \code{"grid"}.
+#' @param color_panel Color vector for plot aesthetics.
+#' @return NULL. Plots are saved to the specified directory.
+#' @examples
+#' ' \dontrun{run_g_only(wt_mt = merged_snps, wt = "WT", mt = "Ts5", prefix = "b73_Ts5",
+#'   plots_dir = "plots/", plot_mode = "both", g_min = 1e-4)}
+#' @export
 run_g_only <- function(
     wt_mt = NULL, wt = "wildtype", mt = "mutant", prefix = "sample", plots_dir = "plots", 
     rollmedian = 501, ylim = NULL, only_mutant = FALSE, device = "png",plot_data = TRUE,
