@@ -1,23 +1,40 @@
-#' Plot allele-frequency (AF) tracks
-#' Creates smoothed or rolling-median SNP-index / ΔSNP-index plots (and
-#' optional mutant-only views) and writes them to plots_dir.
-#'@inheritParams plot_vcfdata       # picks up common args such as plots_dir, dpi …
-#'@param wt_mt,ant_wt,ant_mt,ant_wt_ems,ant_mt_ems  Data.tables produced by
-#' @param wt,mt   Labels for the wild-type and mutant bulks.
-#' @param prefix  Sample prefix; used in plot titles / file names.
-#' @param plots_dir Output folder.
-#' @param plot_mode  "locfit", "rollmedian" or "both".
-#' @param plot_style "wrap" or "grid" faceting.
-#' @param ...  Additional arguments forwarded to plot_vcfdata() 
-#' @return Invisibly, NULL (plots are saved to disk).
-#' @example
+#' Generate Allele Frequency (AF) and AFD Plots for BSA-Seq Data
+#'
+#' Creates SNP-index and delta SNP-index (AFD) plots from BSA-Seq data for wild-type and mutant samples.
+#' Supports plotting of unique and EMS-specific SNPs, with options for locfit or rollmedian smoothing.
+#'
+#' @param wt_mt Merged wild-type and mutant SNP table containing the \code{AFD} column.
+#' @param ant_wt Unique wild-type SNPs.
+#' @param ant_mt Unique mutant SNPs.
+#' @param ant_wt_ems EMS-type wild-type SNPs.
+#' @param ant_mt_ems EMS-type mutant SNPs.
+#' @param wt Label for wild-type sample (used in titles and filenames).
+#' @param mt Label for mutant sample (used in titles and filenames).
+#' @param prefix Prefix for output filenames.
+#' @param plots_dir Directory where plots will be saved.
+#' @param rollmedian Rolling median window size (used when \code{plot_mode} includes \code{"rollmedian"}).
+#' @param ylim Optional y-axis limits.
+#' @param only_mutant Logical. If \code{TRUE}, plots only mutant SNP-index values.
+#' @param device Graphics device for saving plots (e.g., \code{"png"}, \code{"pdf"}).
+#' @param plot_data Logical. If \code{TRUE}, plots are generated.
+#' @param width Width of output plot (in inches).
+#' @param height Height of main panel (in inches).
+#' @param hwidth Width of histogram or secondary panel (in inches).
+#' @param hheight Height of histogram or secondary panel (in inches).
+#' @param dpi Plot resolution in dots per inch.
+#' @param nn_prop Proportion of data used for locfit smoothing (between 0 and 1).
+#' @param plot_mode Smoothing method: one of \code{"locfit"}, \code{"rollmedian"}, or \code{"both"}.
+#' @param plot_style Layout of facet panels, e.g., \code{"wrap"} or \code{"grid"}.
+#' @param color_panel Color vector for plot elements (e.g., c("blue", "red")).
+#' @return NULL. Plots are saved to the specified directory.
+#' @examples
 #' \dontrun{
 #' run_af_only(
-#'   wt_mt=res$wt_mt, ant_wt=res$ant_wt, ant_mt=res$ant_mt,
-#'   wt="WT", mt="MT", prefix  = "b73", plots_dir = "plots",
-#'   plot_mode = "both", rollmedian = 501)
+#'   wt_mt = merged_data, ant_wt = unique_wt, ant_mt = unique_mt, ant_wt_ems = ems_wt, ant_mt_ems = ems_mt,
+#'   wt = "WT", mt = "Ts5", prefix = "b73", plots_dir = "plots", plot_mode = "both")
 #' }
 #' @export
+
 
 run_af_only <- function(
     wt_mt = NULL, ant_wt = NULL, ant_mt = NULL, ant_wt_ems = NULL, ant_mt_ems = NULL,
