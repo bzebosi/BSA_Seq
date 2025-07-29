@@ -4,10 +4,10 @@
 #' Supports both mutant-only and wildtype-mutant designs. For each prefix and genotype pair,
 #' this function imports VCFs, computes SNP statistics, and generates multiple BSA plots.
 #'
-#' @param vcf_dir     Path to directory containing input VCF files.
-#' @param pattern     Pattern used to match VCF filenames.
-#' @param wt_list     Vector of wild-type genotype labels.
-#' @param mt_list     Vector of mutant genotype labels.
+#' @param vcf_dir Path to directory containing input VCF files.
+#' @param pattern Pattern used to match VCF filenames.
+#' @param wt_list Vector of wild-type genotype labels.
+#' @param mt_list Vector of mutant genotype labels.
 #' @param prefix_list Vector of prefixes used for each BSA dataset.
 #' @param min_DP,min_QUAL Minimum depth and quality to retain SNPs.
 #' @param only_mutant Logical. If \code{TRUE}, runs mutant-only analysis.
@@ -33,7 +33,7 @@
 #' \dontrun{
 #' run_bsa_all(
 #'   vcf_dir = "vcfs/", pattern = "ts", 
-#'   wt_list = c("wt1, wt2), mt_list = c("ts1", "ts2"),
+#'   wt_list = c("wt1", "wt2"), mt_list = c("ts1", "ts2"),
 #'   prefix_list = c("b73"), only_mutant = FALSE,
 #'   plot_types = c("af", "pval", "histogram")
 #' )
@@ -52,7 +52,14 @@ source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscrip
 source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_histogram_only.R")
 source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_simpval_only.R")
 
-run_bsa_all <- function(
+packages <- c(
+  "reshape2", "readxl", "BiocManager","zoo", "plyr", "GlobalOptions", "shape","scales",
+  "tidyverse", "openxlsx", "stringr", "IRanges","magrittr", "data.table", "naturalsort", "locfit", "rlang",
+)
+
+Install_multi_package_bz(packages)
+
+run_bsa_auto <- function(
     vcf_dir, pattern,
     wt_list, mt_list, prefix_list,
     min_DP = 5, min_QUAL = 5, only_mutant = FALSE,
