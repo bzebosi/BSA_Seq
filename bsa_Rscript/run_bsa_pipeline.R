@@ -1,3 +1,49 @@
+#' Run Bulk Segregant Analysis (BSA) Full Pipeline
+#'
+#' Wrapper function to import VCF SNP data, compute SNP statistics, and generate multiple
+#' plot types for bulk segregant analysis (AFD, G-statistics, ED, histograms, Fisher test p-values).
+#' Supports mutant-only and wildtype-mutant comparison designs.
+#'
+#' @param vcf_dir     Folder with input VCF files.
+#' @param prefix      Output prefix used for saving results.
+#' @param pattern     Regex pattern to match VCF filenames.
+#' @param Genotypes   List with named entries \code{wt} and \code{mt}.
+#' @param min_DP,min_QUAL Minimum depth and quality filter.
+#' @param only_mutant Whether to run mutant-only analysis.
+#' @param plots_dir,output_dir Paths to save plots and results.
+#' @param save_results,save_intervals,save_excel Save control flags.
+#' @param plot_data Whether to generate plots.
+#' @param rollmedian Window size for rolling median smoothing.
+#' @param ylim Y-axis limits for all plots.
+#' @param device Output plot format (e.g., \code{"png"}).
+#' @param width,height,hwidth,hheight,dpi Plot dimensions and resolution.
+#' @param nn_prop Locfit smoothing parameter.
+#' @param plot_mode Either \code{"rollmedian"}, \code{"locfit"}, or \code{"both"}.
+#' @param plot_style Either \code{"grid"} or \code{"wrap"}.
+#' @param af_min,ed_min Thresholds for homozygosity plots.
+#' @param threshold Y cutoff for p-value plots.
+#' @param bwidth Bin width for histograms.
+#' @param plot_types Which plot types to run (AF, ED, G-stat, histogram, pval).
+#' @param window_size,step_size Sliding window size and step (bp).
+#' @param stat_method Statistic(s) to use for Fisher p-values: \code{"af"}, \code{"ed"}, or both.
+#' @param af_doorstep,ed_doorstep Cutoffs used for Fisher window counts.
+#' @param color_panel  Vector of colors for chromosomes.
+#' @return A named list with:
+#' \item{geno_data}{VCF SNP input}
+#' \item{analysis_result}{Output from \code{analyze_vcfdata()}}
+#' \item{sim_pval_results}{Sliding-window p-value results}
+#'
+#' @examples
+#' \dontrun{
+#' run_bsa_pipeline(
+#'   vcf_dir = "vcf_files", prefix = "b73_ts1", pattern = "ts1",
+#'   Genotypes = list(wt = "WT", mt = "ts1"),
+#'   only_mutant = FALSE, plot_types = c("af", "pval", "histogram"),
+#'   threshold = -log10(0.05) * 10, stat_method = "af"
+#' )
+#' }
+#'
+#' @export
 run_bsa_pipeline <- function(
     vcf_dir, prefix, pattern,
     Genotypes = list(wt = "wildtype", mt = "mutant"),
