@@ -10,6 +10,7 @@ source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_g
 source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_histogram_only.R")
 source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_simpval_only.R")
 source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_bsa_pipeline.R")
+source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_bsa_auto.R")
 
 # Install required packages
 packages <- c(
