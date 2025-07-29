@@ -1,9 +1,7 @@
 #' Generate Histogram of Unique SNPs for BSA-Seq Data
-#'
 #' Plots histograms of unique SNP allele frequencies from wild-type and mutant SNP tables.
 #' Highlights EMS-type variants and allows filtering by allele frequency threshold.
 #' Supports both standard and mutant-only BSA-Seq designs.
-#'
 #' @param wt_mt Merged SNP table (optional, not used in histogram but included for consistency).
 #' @param ant_wt Unique wild-type SNPs.
 #' @param ant_mt Unique mutant SNPs.
@@ -31,14 +29,9 @@
 #' @examples
 #' \dontrun{
 #' run_histogram_only(
-#'   ant_wt = unique_wt_snps,
-#'   ant_mt = unique_mt_snps,
-#'   ant_wt_ems = unique_wt_ems,
-#'   ant_mt_ems = unique_mt_ems,
-#'   wt = "WT", mt = "Ts3", prefix = "b73_Ts3",
-#'   plots_dir = "plots/",
-#'   af_min = 0.99, bwidth = 1e6
-#' )
+#'   ant_wt = unique_wt_snps, ant_mt = unique_mt_snps, ant_wt_ems = unique_wt_ems,
+#'   ant_mt_ems = unique_mt_ems, wt = "WT", mt = "Ts5", prefix = "b73",
+#'   plots_dir = "plots/", af_min = 0.99, bwidth = 1e6)
 #' }
 #' @export
 run_histogram_only <- function(
