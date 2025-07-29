@@ -1,3 +1,20 @@
+# Load all required functions from GitHub
+source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/multi_package_installer.R")
+source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/bsa_theme.R")
+source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/import_vcfdata.R")
+source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/analyze_vcfdata.R")
+source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/plot_vcfdata.R")
+source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_af_only.R")
+source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_ed_only.R")
+source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_g_only.R")
+source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_histogram_only.R")
+source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_simpval_only.R")
+# Install required packages
+packages <- c(
+  "reshape2", "readxl", "BiocManager", "zoo", "plyr", "GlobalOptions", "shape", "scales",
+  "tidyverse", "openxlsx", "stringr", "IRanges", "magrittr", "data.table", "naturalsort", "locfit", "rlang"
+)
+Install_multi_package_bz(packages)
 #' Run BSA-Seq Pipeline for Multiple Genotype Combinations
 #'
 #' Executes the full BSA-Seq workflow for all combinations of wild-type and mutant genotypes.
@@ -40,25 +57,6 @@
 #' }
 #'
 #' @export
-
-source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/multi_package_installer.R")
-source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/bsa_theme.R")
-source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/import_vcfdata.R")
-source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/analyze_vcfdata.R")
-source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/plot_vcfdata.R")
-source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_af_only.R")
-source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_ed_only.R")
-source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_g_only.R")
-source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_histogram_only.R")
-source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_simpval_only.R")
-
-packages <- c(
-  "reshape2", "readxl", "BiocManager","zoo", "plyr", "GlobalOptions", "shape","scales",
-  "tidyverse", "openxlsx", "stringr", "IRanges","magrittr", "data.table", "naturalsort", "locfit", "rlang",
-)
-
-Install_multi_package_bz(packages)
-
 run_bsa_auto <- function(
     vcf_dir, pattern,
     wt_list, mt_list, prefix_list,
