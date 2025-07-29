@@ -1,3 +1,46 @@
+#' Generate Histogram of Unique SNPs for BSA-Seq Data
+#'
+#' Plots histograms of unique SNP allele frequencies from wild-type and mutant SNP tables.
+#' Highlights EMS-type variants and allows filtering by allele frequency threshold.
+#' Supports both standard and mutant-only BSA-Seq designs.
+#'
+#' @param wt_mt Merged SNP table (optional, not used in histogram but included for consistency).
+#' @param ant_wt Unique wild-type SNPs.
+#' @param ant_mt Unique mutant SNPs.
+#' @param ant_wt_ems EMS-type wild-type SNPs.
+#' @param ant_mt_ems EMS-type mutant SNPs.
+#' @param wt Wild-type label for plot titles.
+#' @param mt Mutant label for plot titles.
+#' @param prefix Prefix for output filenames.
+#' @param plots_dir Directory to save output plots.
+#' @param ylim Optional y-axis limits.
+#' @param only_mutant Logical. If \code{TRUE}, only mutant-specific plots will be drawn.
+#' @param device Graphics device to use (e.g., \code{"png"}, \code{"pdf"}).
+#' @param is_histogram Logical. Must be \code{TRUE} to enable histogram plotting.
+#' @param plot_data Logical. If \code{TRUE}, plots will be generated.
+#' @param width Width of the plot (in inches).
+#' @param height Height of the plot (in inches).
+#' @param hwidth Width of the histogram panel (in inches).
+#' @param hheight Height of the histogram panel (in inches).
+#' @param dpi Resolution of the output image.
+#' @param plot_style Faceting layout. One of \code{"wrap"} or \code{"grid"}.
+#' @param af_min Minimum allele frequency required to include SNPs.
+#' @param bwidth Bin width in base pairs (e.g., 1e6 for 1 Mb bins).
+#' @param color_panel Color vector used for plotting.
+#' @return NULL. Plots are saved to the specified directory.
+#' @examples
+#' \dontrun{
+#' run_histogram_only(
+#'   ant_wt = unique_wt_snps,
+#'   ant_mt = unique_mt_snps,
+#'   ant_wt_ems = unique_wt_ems,
+#'   ant_mt_ems = unique_mt_ems,
+#'   wt = "WT", mt = "Ts3", prefix = "b73_Ts3",
+#'   plots_dir = "plots/",
+#'   af_min = 0.99, bwidth = 1e6
+#' )
+#' }
+#' @export
 run_histogram_only <- function(
     wt_mt = NULL, ant_wt = NULL, ant_mt = NULL, ant_wt_ems = NULL, ant_mt_ems = NULL,
     wt = "wildtype", mt = "mutant", prefix = "sample", plots_dir = "plots", 
