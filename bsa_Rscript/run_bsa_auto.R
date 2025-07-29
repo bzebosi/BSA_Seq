@@ -1,3 +1,49 @@
+#' Run BSA-Seq Pipeline for Multiple Genotype Combinations
+#'
+#' Executes the full BSA-Seq workflow for all combinations of wild-type and mutant genotypes.
+#' Supports both mutant-only and wildtype-mutant designs. For each prefix and genotype pair,
+#' this function imports VCFs, computes SNP statistics, and generates multiple BSA plots.
+#'
+#' @param vcf_dir     Path to directory containing input VCF files.
+#' @param pattern     Pattern used to match VCF filenames.
+#' @param wt_list     Vector of wild-type genotype labels.
+#' @param mt_list     Vector of mutant genotype labels.
+#' @param prefix_list Vector of prefixes used for each BSA dataset.
+#' @param min_DP,min_QUAL Minimum depth and quality to retain SNPs.
+#' @param only_mutant Logical. If \code{TRUE}, runs mutant-only analysis.
+#' @param plots_dir,output_dir Directories for saving plots and results.
+#' @param save_results,save_intervals,plot_data,save_excel Logical flags to control output.
+#' @param rollmedian  Window size for rolling median smoothing.
+#' @param ylim Y-axis limits for plots.
+#' @param device Plot output format (e.g., \code{"png"}).
+#' @param width,height,hwidth,hheight,dpi Plot dimensions and resolution.
+#' @param nn_prop Proportion of nearest neighbors used for locfit smoothing.
+#' @param plot_mode Smoothing method: \code{"locfit"}, \code{"rollmedian"}, or \code{"both"}.
+#' @param plot_style Faceting style: \code{"grid"} or \code{"wrap"}.
+#' @param af_min,ed_min Homozygosity thresholds.
+#' @param threshold P-value threshold for significance (in -log10 scale).
+#' @param bwidth Bin width for histograms.
+#' @param plot_types Vector of plot types to generate: \code{"af"}, \code{"gstat"}, \code{"ed"}, \code{"histogram"}, \code{"pval"}.
+#' @param window_size,step_size Sliding window size and step (in bp) for Fisher tests.
+#' @param stat_method Statistics used in p-value calculation: \code{"af"}, \code{"ed"}, or both.
+#' @param af_doorstep,ed_doorstep Cutoffs for classifying SNPs in Fisher test windows.
+#' @param color_panel Color palette for chromosomes.
+#' @return A named list of BSA pipeline outputs for each WT-MT or MT-only combination.
+#' @examples
+#' \dontrun{
+#' run_bsa_all(
+#'   vcf_dir = "vcfs/", pattern = "ts", 
+#'   wt_list = c("wt1, wt2), mt_list = c("ts1", "ts2"),
+#'   prefix_list = c("b73"), only_mutant = FALSE,
+#'   plot_types = c("af", "pval", "histogram")
+#' )
+#' }
+#'
+#' @export
+
+
+
+
 run_bsa_all <- function(
     vcf_dir, pattern,
     wt_list, mt_list, prefix_list,
