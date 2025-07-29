@@ -1,27 +1,28 @@
-#' Analyze SNP Data for BSA-Seq
-#' Processes SNP data from wildtype and mutant VCF tables. Computes allele frequency differences,
-#' Euclidean distance, G-statistics, and filters EMS-type SNPs.
-#' @param geno_data List containing SNP tables (wt and mt).
-#' @param prefix Prefix for saving output files.
-#' @param save_results Whether to save output files. Default is FALSE.
-#' @param output_dir Directory to save files. Default is "post_analysis".
-#' @param only_mutant If TRUE, process only mutant data.
-#' @return A list of processed SNP tables and statistics.
+#' Analyze BSA-Seq SNP Data
+#' Performs variant comparison and statistical analysis between mutant and wild-type SNP tables 
+#' from Bulk Segregant Analysis (BSA-Seq) experiments. Computes allele frequency difference (AFD), 
+#' Euclidean distance (ED), ED⁴, and G-statistics. Also identifies EMS-type SNPs and unique variants 
+#' in each bulk. Supports mutant-only or WT-vs-MT modes.
+#' @param geno_data A named list of data.tables containing genotype SNP data. 
+#' @param prefix Character prefix to label output files.
+#' @param save_results Logical. If \code{TRUE}, results are saved to disk in CSV and RDS format.
+#' @param output_dir Directory where results will be saved \code{output_dir} (both as \code{.rds} and \code{.csv}).
+#' @param only_mutant Logical. If \code{TRUE}, assumes mutant-only analysis (no wild-type comparison).
+#' @return A named list of data.tables containing:
+#' \itemize{
+#'   \item \code{wt_mt} – Merged wild-type and mutant SNPs with computed AFD, ED, ED⁴, and G.
+#'   \item \code{ant_mt}, \code{ant_wt} – SNPs unique to mutant and wild-type, respectively.
+#'   \item \code{ant_mt_ems}, \code{ant_wt_ems} – EMS-type SNPs unique to mutant and wild-type.
+#' }
 #' @examples
-#' # Example usage for wildtype vs mutant
-#' result <- analyze_vcfdata(
-#'   geno_data = list(wt = wt_snps, mt = mt_snps),
-#'   prefix = "b73_Ts1",
-#'   save_results = TRUE,
-#'   output_dir = "results"
-#' )
+#' \dontrun{
+#' # Wild-type vs mutant analysis
+#' res <- analyze_vcfdata(geno_data=list(wt = wt_snps, mt = mt_snps), prefix="b73", save_results=TRUE, only_mutant=FALSE)
+#' 
+#' # Mutant-only mode
+#' res <- analyze_vcfdata(geno_data=list(mt = mt_snps), prefix="b73", save_results=TRUE, only_mutant=TRUE)
+#' }
 #'
-#' # Example usage for mutant-only mode
-#' result <- analyze_vcfdata(
-#'   geno_data = list(mt = mt_snps),
-#'   prefix = "b73_Ts3",
-#'   only_mutant = TRUE
-#' )
 #' @export
 analyze_vcfdata <- function(geno_data, prefix, save_results = FALSE, output_dir = "post_analysis", only_mutant = FALSE) {
   # Helper function : Filter and Extract EMS SNPs from mutant
