@@ -1,3 +1,52 @@
+#' Sliding-Window Fisher’s Exact Test for BSA-Seq
+#'
+#' For each window along each chromosome, performs Fisher’s exact test on allele counts,
+#' adjusts p-values (Bonferroni), and identifies significant intervals.  
+#' Optionally saves per-window results, significant SNPs, and merged intervals as CSV or Excel,
+#' and plots the –log10(p-value) along the genome.
+#'
+#' @param wt_mt Data.table of merged WT vs MT SNPs (must contain \code{AFD}, \code{ED}, or \code{ED4}).
+#' @param ant_wt Data.table of SNPs unique to WT bulk.
+#' @param ant_mt Data.table of SNPs unique to MT bulk.
+#' @param ant_wt_ems Data.table of EMS-type SNPs unique to WT bulk.
+#' @param ant_mt_ems Data.table of EMS-type SNPs unique to MT bulk.
+#' @param wt Character label for wild-type bulk (used in filenames).
+#' @param mt Character label for mutant bulk.
+#' @param prefix Sample/prefix string (used in output filenames).
+#' @param plots_dir Directory in which to save plot images.
+#' @param plot_style One of \code{"grid"} or \code{"wrap"} layouts for faceting.
+#' @param ylim NULL or numeric \code{c(min, max)} for y-axis limits.
+#' @param rollmedian Window size for rolling-median smoothing (ignored in this function).
+#' @param threshold Numeric cutoff on –log10(adj.p-value) to flag significance.
+#' @param output_dir Directory in which to save CSV/Excel results.
+#' @param save_intervals Logical; if \code{TRUE} saves result tables to disk.
+#' @param width,height,hwidth,hheight Numeric dimensions (in inches) for saved plots.
+#' @param dpi Resolution of saved plot images.
+#' @param device Graphics device (\code{"png"}, \code{"pdf"}, etc.).
+#' @param plot_data Logical; if \code{TRUE}, generates and saves the sliding-window p-value plot.
+#' @param only_mutant Logical; if \code{TRUE}, only the MT-unique tables will be scanned (no WT data).
+#' @param window_size Window width in bp (default 1e6).
+#' @param step_size Step size in bp between windows (default 1e5).
+#' @param is_histogram Ignored here.
+#' @param save_excel Logical; if \code{TRUE} writes results into a single Excel workbook.
+#' @param stat_method Character vector: which statistics to scan \code{"af"} (AFD) and \code{"ed"} (ED/ED4).
+#' @param af_doorstep Numeric AF threshold for defining “high” vs “low”.
+#' @param ed_doorstep Numeric ED threshold.
+#' @param color_panel Character vector of colors for plotting.
+#' @return A named list of length one per statistic run, each with elements:
+#'   \itemize{
+#'     \item \code{$results}: full sliding-window table,
+#'     \item \code{$abovethreshold}: windows exceeding \code{threshold},
+#'     \item \code{$intervals}: merged genomic intervals of significance.
+#'   }
+#' @examples
+#' \dontrun{
+#' res <- run_simpval_only(
+#'   wt_mt=merged_snps, ant_wt=unique_wt, ant_mt=unique_mt, wt="WT", mt="Ts5", prefix="Ts3",
+#'   plots_dir="plots/", output_dir="post_analysis/", stat_method=c("af","ed"),
+#'   window_size=2e6, step_size=5e5, save_excel=TRUE)
+#' }
+#' @export
 run_simpval_only <- function(wt_mt = NULL, ant_wt = NULL, ant_mt = NULL, ant_wt_ems = NULL, ant_mt_ems = NULL, 
                               wt = "wildtype", mt = "mutant", prefix = "sample", plots_dir = "plots", plot_style = "grid",
                               ylim = NULL, rollmedian = 0, threshold = -log10(0.05) * 10, output_dir = "post_analysis", save_intervals = TRUE, 
