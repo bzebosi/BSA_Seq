@@ -17,10 +17,10 @@ packages <- c(
 Install_multi_package_bz(packages)
 #' Run BSA-Seq Pipeline for Multiple Genotype Combinations
 #'
+#' @description
 #' Executes the full BSA-Seq workflow for all combinations of wild-type and mutant genotypes.
 #' Supports both mutant-only and wildtype-mutant designs. For each prefix and genotype pair,
 #' this function imports VCFs, computes SNP statistics, and generates multiple BSA plots.
-#'
 #' @param vcf_dir Path to directory containing input VCF files.
 #' @param pattern Pattern used to match VCF filenames.
 #' @param wt_list Vector of wild-type genotype labels.
@@ -117,7 +117,7 @@ run_bsa_auto <- function(
           sub_plots <- file.path(plots_dir, combo_key)
           dir.create(sub_plots, showWarnings=FALSE, recursive=TRUE)
         
-          message("run:", combo_key, "  (WT = ", wt, ",  MT = ", mt, ")\n")
+          message("run:", combo_key, "  (wildtype = ", wt, ",  mutant = ", mt, ")\n")
           
           res <- run_bsa_pipeline(
             vcf_dir=vcf_dir, prefix=pfx, pattern=pattern,Genotypes = list(wt = wt, mt = mt),
