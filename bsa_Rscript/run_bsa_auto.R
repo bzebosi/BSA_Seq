@@ -41,8 +41,16 @@
 #'
 #' @export
 
-
-
+source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/multi_package_installer.R")
+source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/bsa_theme.R")
+source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/import_vcfdata.R")
+source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/analyze_vcfdata.R")
+source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/plot_vcfdata.R")
+source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_af_only.R")
+source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_ed_only.R")
+source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_g_only.R")
+source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_histogram_only.R")
+source(file = "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/run_simpval_only.R")
 
 run_bsa_all <- function(
     vcf_dir, pattern,
