@@ -55,7 +55,7 @@ run_histogram_only <- function(
     if (only_mutant) {
       list(
         list(column = "mt_AF", data = check_cols(ant_mt, "mt_AF", af_min), plot_title = sprintf("%s unique snps only", mt), y_title = "SNPs / Mb (×10³)", plotid = sprintf("%s_AF_unique", mt)),
-        list(column = "mt_AF", data = check_cols(ant_mt_ems, "mt_AF", af_min), plot_title = sprintf("%s unique ems snps only", mt), y_title = "SNPs / Mb (×10³)", plotid = sprintf("%s_AF_unique", mt))
+        list(column = "mt_AF", data = check_cols(ant_mt_ems, "mt_AF", af_min), plot_title = sprintf("%s unique ems snps only", mt), y_title = "SNPs / Mb (×10³)", plotid = sprintf("%s_AF_unique_ems", mt))
       )
     } else {
       list(
