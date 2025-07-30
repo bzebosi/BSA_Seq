@@ -152,8 +152,6 @@ run_simpval_only <- function(wt_mt = NULL, ant_wt = NULL, ant_mt = NULL, ant_wt_
       
       if (stat == "ed" && !only_mutant) {
         params <- append(params, list(
-          list(method = "ed", label = sprintf("ed_%s_%s", wt, mt), column = "ED", data = check_cols(wt_mt, "ED"), 
-               plot_title = sprintf("log10(p-value) | ED : %s vs %s", wt, mt), y_title = "-log10(p-value)", plotid = sprintf("sim_ed_fisher_log_adj.pval_%s_%s", wt, mt)),
           list(method = "ed", label = sprintf("ed4_%s_%s", wt, mt), column = "ED4", data = check_cols(wt_mt, "ED4"), 
                plot_title = sprintf("log10(p-value) | ED4 : %s vs %s", wt, mt), y_title = "-log10(p-value)", plotid = sprintf("sim_ed4_fisher_log_adj.pval_%s_%s", wt, mt))
         ))
