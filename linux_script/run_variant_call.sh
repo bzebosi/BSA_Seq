@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 # load your settings:
 source "$(dirname "$0")/variant_call_config.sh"
 
@@ -8,7 +10,6 @@ source "$(dirname "$0")/variant_call_config.sh"
 # ──────────────────────────────────────────────────────────────────────────────
 
 
-############### Hepler functions ###############
 timestamp() { date '+%Y-%m-%d %H:%M:%S'; }
 logmsg() { echo "$(timestamp): $*"; }
 
@@ -126,16 +127,6 @@ index_genome () {
         fi
     fi
 }
-
-# loop through the goi list
-for genox in "${goi[@]}"; do
-  download_genome "$genox"
-  index_genome "$genox"
-done
-
-
-
-
 
 trim_reads () {
     local sample=$1 
@@ -273,53 +264,53 @@ map_reads (){
         fi
 
 
-            # Check if overall coverage file exists, create if missing
+        # Check if overall coverage file exists, create if missing
         local overall_coverage="${stat_dir}/overall_coverage.tsv"
-        if [[ -s ${overall_coverage} ]]; then
-            logmsg "${overall_coverage} already exists."
-        else
-            # Initialize the merged coverage file (header only)
+
+        # create the header only if missing
+        # Initialize the merged coverage file (header only)
+        if [[ ! -s "${overall_coverage}" ]]; then
             echo -e "Genome\tSample\tCoverage\tTotal_Reads\tMapped_Reads\tPaired_Reads\tAlignment_%" > "${overall_coverage}" \
                 && logmsg "Successfully created ${overall_coverage}" || { logmsg "Error creating ${overall_coverage}"; exit 1; }
-
-
-            # Run samtools flagstat and extract relevant values
-            local stats total_reads mapped_reads properly_paired depth
-            logmsg "Flagstat for $bam"
-            stats=$(samtools flagstat "${bam}")
-
-            # Extract values using awk
-            total_reads=$(echo "$stats" | awk 'NR==1 {print $1}') || total_reads=0
-            mapped_reads=$(echo "$stats" | awk 'NR==7 {print $1}') || mapped_reads=0
-            properly_paired=$(echo "$stats" | awk 'NR==12 {print $1}') || properly_paired=0
-
-            # Ensure extracted values are valid
-            if [[ -z "$total_reads" || -z "$mapped_reads" || "$total_reads" -eq 0 ]]; then
-                echo -e "Error:\tCould not retrieve valid read statistics from BAM file."
-                exit 1
-            fi
-
-            # Compute percentages safely (avoid division by zero)
-            local alignment_percentage properly_paired_percentage
-            if [[ "${total_reads}" -gt 0 ]]; then
-                alignment_percentage=$(awk -v total="${total_reads}" -v mapped="${mapped_reads}" 'BEGIN {printf "%.2f", (mapped/total)*100}')
-                properly_paired_percentage=$(awk -v total="${total_reads}" -v paired="${properly_paired}" 'BEGIN {printf "%.2f", (paired/total)*100}')
-            else
-                alignment_percentage=0
-                properly_paired_percentage=0
-            fi
-
-            # compute coverage depth using samtoools - depth
-            logmsg "computing coverage depth ${bam} started"
-            if depth=$(samtools depth -a ${bam} | awk '{sum+=$3} END { print sum/NR }'); then 
-                logmsg "Coverage calculated for ${bam}: ${depth}x"
-            else
-                logmsg "Coverage calculation failed for ${bam}" &&  exit 1
-            fi
-
-            # Append structured tab-separated results
-            echo -e "${gbase}\t${sbase}\t${depth}\t${total_reads}\t${mapped_reads}\t${properly_paired}\t${alignment_percentage%}" >> "${overall_coverage}"
         fi
+
+
+        # Run samtools flagstat and extract relevant values
+        local stats total_reads mapped_reads properly_paired depth
+        logmsg "Flagstat for $bam"
+        stats=$(samtools flagstat "${bam}")
+
+        # Extract values using awk
+        total_reads=$(echo "$stats" | awk 'NR==1 {print $1}') || total_reads=0
+        mapped_reads=$(echo "$stats" | awk 'NR==7 {print $1}') || mapped_reads=0
+        properly_paired=$(echo "$stats" | awk 'NR==12 {print $1}') || properly_paired=0
+
+        # Ensure extracted values are valid
+        if [[ -z "$total_reads" || -z "$mapped_reads" || "$total_reads" -eq 0 ]]; then
+            echo -e "Error:\tCould not retrieve valid read statistics from BAM file."
+            exit 1
+        fi
+
+        # Compute percentages safely (avoid division by zero)
+        local alignment_percentage properly_paired_percentage
+        if [[ "${total_reads}" -gt 0 ]]; then
+            alignment_percentage=$(awk -v total="${total_reads}" -v mapped="${mapped_reads}" 'BEGIN {printf "%.2f", (mapped/total)*100}')
+            properly_paired_percentage=$(awk -v total="${total_reads}" -v paired="${properly_paired}" 'BEGIN {printf "%.2f", (paired/total)*100}')
+        else
+            alignment_percentage=0
+            properly_paired_percentage=0
+        fi
+
+        # compute coverage depth using samtoools - depth
+        logmsg "computing coverage depth ${bam} started"
+        if depth=$(samtools depth -a ${bam} | awk '{sum+=$3} END { print sum/NR }'); then 
+            logmsg "Coverage calculated for ${bam}: ${depth}x"
+        else
+            logmsg "Coverage calculation failed for ${bam}" &&  exit 1
+        fi
+
+        # Append structured tab-separated results
+        echo -e "${gbase}\t${sbase}\t${depth}\t${total_reads}\t${mapped_reads}\t${properly_paired}\t${alignment_percentage%}" >> "${overall_coverage}"
 
         # Variant calling with bcftools mpileup + call
         logmsg "checking output vcf ${vcf}"

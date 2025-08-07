@@ -1,5 +1,9 @@
 #!/bin/bash
-# set to "false" to skip downloads
+
+# Copy variant_call_config.sh into your working directory and edit only that.
+
+# *******  User setting ********************
+# set to "false" to skip downloads or SV calling
 do_download="true"   
 sv_call="true" # set to "false" to skip downloads
 threads=8
@@ -29,7 +33,7 @@ declare -A sample_loc=(
     [q16]="/nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967"
 )
 
-# Genomes of interest
+# Genomes of interest - edit keys & URLs
 declare -A genome_urls=(
   [b73]="https://download.maizegdb.org/Genomes/B73/Zm-B73-REFERENCE-NAM-5.0/Zm-B73-REFERENCE-NAM-5.0.fa.gz"
   [mo17]="https://download.maizegdb.org/Genomes/Mo17/Zm-Mo17-REFERENCE-CAU-1.0/Zm-Mo17-REFERENCE-CAU-1.0.fa.gz"
@@ -49,7 +53,7 @@ declare -A genome_urls=(
   [b97]="https://download.maizegdb.org/Genomes/NAM_Founders/Zm-B97-REFERENCE-NAM-1.0/Zm-B97-REFERENCE-NAM-1.0.fa.gz"
 )
 
+# which genomes & which samples to process?
 goi=(b73 w22c a619)
-
-# Collect and sort files
 files=(q1)
+# *************** End of user setting **************************************
