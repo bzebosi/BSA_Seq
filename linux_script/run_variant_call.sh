@@ -37,7 +37,7 @@ create_dir(){
 ###############################################################################
 download_genome() {
   local gbase="$1"
-  local url=${genome_urls[${gbase}]}               
+  local url="${genome_urls[$gbase]:-}"               
   local genome="${ref_dir}/${gbase}.fa.gz"
   
   # make parent dirs exist (creates them if missing)
@@ -100,9 +100,9 @@ index_genome () {
     else
         logmsg "Running samtools faidx on $genome…"
         if samtools faidx ${genome} ; then
-            logmsg "Samtools faidx complete for $gbase"
+            logmsg "Samtools faidx complete for ${gbase}"
         else
-            echo "$(date '+%Y-%m-%d %H:%M:%S'): samtools index failed for ${gBASE}." &&  exit 1
+            echo "$(date '+%Y-%m-%d %H:%M:%S'): samtools index failed for ${gbase}." &&  exit 1
         fi
     fi
     echo "$(date '+%Y-%m-%d %H:%M:%S'): ${gbase} genome samtool indexing completed"
