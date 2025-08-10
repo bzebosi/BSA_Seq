@@ -51,4 +51,4 @@ fi
 # Deactivate and clean up environment
 conda deactivate
 
-echo "$(date '+%Y-%m-%d %H:%M:%S'): Interactive SLURM job completed."
+echo "$(date '+%Y-%m-%d %H:%M:%S'): SLURM job completed."
