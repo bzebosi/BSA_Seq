@@ -93,7 +93,7 @@ run_bsa_pipeline <- function(
   if ("pval" %in% plot_types) {
     message("==== Running Sliding Window Fisher p-value Plots ====")
     sim_pval_results <- run_simpval_only(wt_mt, ant_wt, ant_mt, ant_wt_ems, ant_mt_ems,
-      wt = if (only_mutant) NULL else Genotypes$wt, mt = Genotypes$mt,
+      wt=if(only_mutant) NULL else Genotypes$wt, mt = Genotypes$mt,
       prefix = prefix, plots_dir = plots_dir, output_dir = output_dir, ylim = ylim, only_mutant = only_mutant, 
       device = device, width = width, height = height, hwidth = hwidth, hheight = hheight, dpi = dpi, 
       plot_style = plot_style, threshold = threshold, save_intervals = save_intervals, save_excel = save_excel, plot_data = plot_data,
