@@ -126,8 +126,13 @@ run_simpval_only <- function(wt_mt = NULL, ant_wt = NULL, ant_mt = NULL, ant_wt_
   
   # Ensure stat_method is valid
   stat_method <- match.arg(stat_method, choices = c("af", "ed"), several.ok = TRUE)
-  if ("ed" %in% stat_method && only_mutant) {
-    stop("ed sliding window analysis requires both wildtype and mutant data (only_mutant = FALSE).")
+  if (only_mutant && "ed" %in% stat_method) {
+    warning("only_mutant=TRUE: dropping 'ed' from stat_method; ED requires WT+MT.")
+    stat_method <- setdiff(stat_method, "ed")
+  }
+  if (only_mutant && length(stat_method) == 0) {
+    message("only_mutant=TRUE: defaulting stat_method to 'af'.")
+    stat_method <- "af"
   }
   
   make_parameters <- function() {
@@ -193,7 +198,13 @@ run_simpval_only <- function(wt_mt = NULL, ant_wt = NULL, ant_mt = NULL, ant_wt_
   if (save_intervals) {
     if (save_excel) {
       if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
-      excel_path <- file.path(output_dir, sprintf("%s_%s_%s_sim_pval_results.xlsx", prefix, wt, mt))
+      excel_stub <- if (only_mutant || is.null(wt)) {
+        sprintf("%s_%s", prefix, mt)
+      } else {
+        sprintf("%s_%s_%s", prefix, wt, mt)
+      }
+
+      excel_path <- file.path(output_dir, sprintf("%s_%s_%s_sim_pval_results.xlsx", , excel_stub))
       wb <- createWorkbook()
       
       for (label in names(results_list)) {
