@@ -213,7 +213,7 @@ map_reads (){
     local genome_fa="$idx_dir/${gbase}.fa.gz"
 
     if [[ -s ${idx_mmi} && -s ${genome_fa} ]]; then
-        logmsg "Using index: $idx_mmi and FASTA: $genome_fa"
+        logmsg "Using index: $idx_mmi and FASTA: $genome_fa."
     else
         logmsg "ERROR – index or FASTA missing for $gbase" &&  exit 1
     fi
@@ -228,36 +228,36 @@ map_reads (){
         local vcf="${vcf_dir}/${tag}.vcf.gz"
 
         # Run Minimap2 alignment
-        logmsg "mapping ${sample} to ${gbase} started"
+        logmsg "mapping ${sample} to ${gbase} started."
         if [[ -s "$bam" ]]; then
             logmsg  "${bam} already exists. Skipping alignment."
         else
             if minimap2 -ax sr -t ${threads} "${idx_mmi}" ${O1} ${O2} > ${sam}; then
-                logmsg "Alignment completed for ${sbase} & $(basename ${sam}) created"
+                logmsg "Alignment completed for ${sbase} & $(basename ${sam}) created."
             else
                 logmsg "Aligment failed ${sam}. exiting"  && exit 1
             fi
 
             # Convert SAM to BAM, sort, and index
-            logmsg "samtools viewing and sorting ${bam} started"
+            logmsg "samtools viewing and sorting ${bam} started."
             if samtools view -bS ${sam} | samtools sort -o ${bam}; then
-                logmsg  "samtools viewing and sorting completeed for ${sbase} & $(basename ${bam}) created ."
+                logmsg  "samtools viewing and sorting completeed for ${sbase} & $(basename ${bam}) created."
             else
                 logmsg "creation of ${bam} failed. exiting"  &&  exit 1
             fi
 
             # Remove the SAM file after successful processing
-            logmsg "Removing ${sam}" echo 
+            logmsg "Removing ${sam}." 
             if rm -f ${sam}; then
-                logmsg "Removed ${sam}"
+                logmsg "Removed ${sam}."
             else
-                logmsg "Failed to remove ${sam}"
+                logmsg "Failed to remove ${sam}."
             fi
 
             # Index the BAM file
-            logmsg "samtools indexing ${bam} started"
+            logmsg "samtools indexing ${bam} started."
             if samtools index ${bam}; then
-                logmsg "${bam} sucessfully indexed"
+                logmsg "${bam} sucessfully indexed."
             else
                 logmsg "${bam} failed. exiting"  &&  exit 1
             fi
@@ -317,48 +317,48 @@ map_reads (){
         fi
 
         # Variant calling with bcftools mpileup + call
-        logmsg "checking output vcf ${vcf}"
-        logmsg  "mpileup and variant calling ${bam} against ${gbase} started"
+        logmsg "checking output vcf ${vcf}."
+        logmsg  "mpileup and variant calling ${bam} against ${gbase} started."
         if [[ -f ${vcf} && -s ${vcf} ]]; then
-            echo "$(date '+%Y-%m-%d %H:%M:%S'): ${vcf} already exists. Skipping."
+            logmsg "${vcf} already exists. Skipping."
         else
             if ! bcftools mpileup --ignore-RG -f "${genome_fa}" "${bam}" --threads "${threads}" \
                     | bcftools call -m -v -Oz --threads "${threads}" -o "${vcf}"; then
-                echo "$(date '+%Y-%m-%d %H:%M:%S'): bcftools mpileup for ${tag} failed" && exit 1
+                elogmsg "bcftools mpileup for ${tag} failed" && exit 1
             fi
-            echo "$(date '+%Y-%m-%d %H:%M:%S'): mpileup and variant calling for ${tag} completed"
+            logmsg "mpileup and variant calling for ${tag} completed."
 
             # index vcf files
-            echo "$(date '+%Y-%m-%d %H:%M:%S'): indexing ${vcf} started"
+            logmsg "indexing ${vcf} started."
             if ! bcftools index "${vcf}"; then
-                echo "$(date '+%Y-%m-%d %H:%M:%S'): bcftools index for ${vcf} failed" && exit 1
+                logmsg "bcftools index for ${vcf} failed" && exit 1
             fi
-            echo "$(date '+%Y-%m-%d %H:%M:%S'): indexing ${vcf} completed"
+            logmsg "indexing ${vcf} completed."
         fi
 
         # bcftool stats
         local bstats="${stat_dir}/${tag}_bcfstats.tsv"
         logmsg "Generating stats for VCF: ${vcf}"
         if [[ -s ${bstats} ]]; then
-        logmsg "Stats file already exists: ${bstats}"
+        logmsg "Stats file already exists: ${bstats}."
         else
             if ! bcftools stats "${vcf}" > "${bstats}"; then
                 logmsg "ERROR: bcftools stats failed on ${vcf}" && exit 1
             else 
-                logmsg "bcftools stats written to ${bstats}"
+                logmsg "bcftools stats written to ${bstats}."
             fi     
         fi
 
         # Statistics and Plotting
         local bplots="${plots_dir}/${tag}_plots"
-        logmsg "Plotting stats from ${bstats}"
+        logmsg "Plotting stats from ${bstats}."
         if [[ -s ${bplots} ]]; then
-            logmsg "Plots directory already exists: ${bplots}"
+            logmsg "Plots directory already exists: ${bplots}."
         else
             if ! plot-vcfstats -t "${tag}" -p "${bplots}" "${bstats}"; then
-                logmsg "WARNING: plot-vcfstats failed for ${bstats}"
+                logmsg "WARNING: plot-vcfstats failed for ${bstats}."
             else
-                logmsg "Plots generated in ${bplots}"
+                logmsg "Plots generated in ${bplots}."
             fi 
         fi
 
@@ -366,18 +366,18 @@ map_reads (){
         local snp_table="${snps_dir}/${tag}_snps.tsv"
         
         # Create readable snp files for downstream analysis
-        logmsg "Creating the Final SNP table for ${snp_table} started"
+        logmsg "Creating the Final SNP table for ${snp_table} started."
 
         if [[ -f ${snp_table} && -s ${snp_table} ]]; then
-            echo "$(date '+%Y-%m-%d %H:%M:%S'): ${snp_table} already exists. Skipping."
+            logmsg "${snp_table} already exists. Skipping."
         else
             echo -e "CHROM\tPOS\tREF\tALT\tQUAL\tDP\tFref\tRref\tFalt\tRalt" > ${snp_table}
 
             if bgzip -d -c ${vcf} | grep -E '^#|^chr[1-9]\b|^chr10\b' | \
                 bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\t%QUAL\t%DP\t[%DP4{0}]\t[%DP4{1}]\t[%DP4{2}]\t[%DP4{3}]\n'  >> ${snp_table}; then
-                echo "$(date '+%Y-%m-%d %H:%M:%S'): Creating the Final SNP table for ${vcf} completed"
+                logmsg "Creating the Final SNP table for ${vcf} completed."
             else
-                echo "$(date '+%Y-%m-%d %H:%M:%S'): bcf filter for ${tag} failed" && exit 1
+                logmsg "bcf filter for ${tag} failed" && exit 1
             fi
         fi
 
@@ -391,7 +391,7 @@ map_reads (){
             create_dir ${manta_dir} ${sv_vcf} ${sv_table} "${manta_run}"
 
             # Structural variant calling with Manta
-            logmsg "Running Manta for: ${tag} started"
+            logmsg "Running Manta for: ${tag} started."
 
             local vcfs=( "$manta_run"/results/variants/*.vcf.gz )
 
@@ -402,12 +402,12 @@ map_reads (){
                 # Configure Manta and run manta
                 if ! configManta.py --bam ${bam} --referenceFasta "${genome_fa}" \
                     --runDir ${manta_run} > "${manta_run}/configManta_${tag}.log" 2>&1; then
-                    echo "$(date '+%Y-%m-%d %H:%M:%S'): Manta configuration failed for ${tag}."
+                    logmsg "Manta configuration failed for ${tag}."
                     exit 1
                 fi
 
                 if ! ${manta_run}/runWorkflow.py -m local -j ${threads} > "${manta_run}/mantaWorkflow_${tag}.log" 2>&1; then
-                    echo "Manta workflow failed. Check log: ${manta_run}/mantaWorkflow_${tag}.log"
+                    logmsg "Manta workflow failed. Check log: ${manta_run}/mantaWorkflow_${tag}.log"
                     exit 1
                 fi
 
@@ -421,7 +421,7 @@ map_reads (){
                     logmsg "${variant_dir}/${svf} already exists—skipping copy."
                 else
                     cp "${variant_dir}/${svf}" "${sv_vcf}/${tag}_${svf}" || {
-                        echo "$(date '+%Y-%m-%d %H:%M:%S'): Failed to copy ${svf}"; exit 1; }
+                        logmsg "Failed to copy ${svf}"; exit 1; }
                 fi
             done
 
@@ -435,10 +435,11 @@ map_reads (){
                 else
                     echo -e "CHROM\tPOS\tREF\tALT\tQUAL\tFILTER\tSVTYPE\tSVLEN\tEND" > ${sv_tsv}
                     # decompress .vcf.gz and Extract specific fields from the diplodVCF file
-                    if bgzip -d -c ${vf} | grep -E '^#|^chr[1-9]\b|^chr10\b' | bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\t%QUAL\t%FILTER\t%INFO/SVTYPE\t%INFO/SVLEN\t%INFO/END\n'  >> ${sv_tsv}; then
-                        echo "$(date '+%Y-%m-%d %H:%M:%S'): $(basename ${sv_tsv}) successfully created"
+                    if bgzip -d -c ${vf} | grep -E '^#|^chr[1-9]\b|^chr10\b' \ 
+                        | bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\t%QUAL\t%FILTER\t%INFO/SVTYPE\t%INFO/SVLEN\t%INFO/END\n'  >> ${sv_tsv}; then
+                        logmsg "$(basename ${sv_tsv}) successfully created."
                     else
-                        echo "$(date '+%Y-%m-%d %H:%M:%S'): $(basename ${sv_tsv}) failed"
+                        logmsg "$(basename ${sv_tsv}) failed"
                     fi
                 fi
             done
