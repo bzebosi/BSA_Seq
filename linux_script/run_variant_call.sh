@@ -71,6 +71,9 @@ index_genome () {
     local genome="${ref_dir}/${gbase}.fa.gz"
     local idx_dir="${ref_dir}/indexs"
     local mmi="${idx_dir}/${gbase}.mmi"
+    local fai="${idx_dir}/${gbase}.fai"
+    local gzi="${idx_dir}/${gbase}.gzi"
+
     local link_fa="${idx_dir}/${gbase}.fa.gz"
 
     create_dir "$idx_dir"
@@ -95,24 +98,26 @@ index_genome () {
     fi
 
     # index the genome using samtools fadix .fai & .gzi
-    if [[ -s "${idx_dir}/${gbase}.fai" ]]; then
-        echo "$(date '+%Y-%m-%d %H:%M:%S'): samtools index for ${gbase}.fai already exists. Skipping indexing."
+
+
+
+    if [[ -s "${fai}" && -s "${gzi}" ]]; then
+        logmsg "samtools index for ${gbase}.fai already exists. Skipping indexing."
     else
         logmsg "Running samtools faidx on $genome…"
         if samtools faidx ${genome} ; then
             logmsg "Samtools faidx complete for ${gbase}"
         else
-            echo "$(date '+%Y-%m-%d %H:%M:%S'): samtools index failed for ${gbase}." &&  exit 1
+            logmsg "samtools index failed for ${gbase}." &&  exit 1
         fi
     fi
-    echo "$(date '+%Y-%m-%d %H:%M:%S'): ${gbase} genome samtool indexing completed"
 
     
      # Move auxiliary files to index directory
     for ext in gzi fai; do
         if [[ -f "${genome}.${ext}" ]]; then
             mv -u "${genome}.${ext}" "${idx_dir}" && \
-            echo "$(date '+%Y-%m-%d %H:%M:%S'): Moved ${genome}.${ext} to ${idx_dir}" 
+            logmsg "Moved ${genome}.${ext} to ${idx_dir}" 
         fi
     done
 
@@ -276,7 +281,7 @@ map_reads (){
 
         # ── Skip stats work if Genome+Sample already in table ──────────────────────
         if grep -Pq "^${gbase}\t${sbase}\t" "$overall_coverage"; then
-            logmsg "Coverage for ${gbase}\t${sample}_${sbase} already present — skipping stats."
+            logmsg "Coverage for ${gbase}_${sbase} already present — skipping stats."
         else
             # Run samtools flagstat and extract relevant values
             local stats total_reads mapped_reads properly_paired depth
@@ -435,11 +440,12 @@ map_reads (){
                 else
                     echo -e "CHROM\tPOS\tREF\tALT\tQUAL\tFILTER\tSVTYPE\tSVLEN\tEND" > ${sv_tsv}
                     # decompress .vcf.gz and Extract specific fields from the diplodVCF file
-                    if bgzip -d -c ${vf} | grep -E '^#|^chr[1-9]\b|^chr10\b' \ 
-                        | bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\t%QUAL\t%FILTER\t%INFO/SVTYPE\t%INFO/SVLEN\t%INFO/END\n'  >> ${sv_tsv}; then
-                        logmsg "$(basename ${sv_tsv}) successfully created."
+                    if bgzip -d -c "${vf}" \
+                        | grep -E '^#|^chr([1-9]|10)\b' \
+                        | bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\t%QUAL\t%FILTER\t%INFO/SVTYPE\t%INFO/SVLEN\t%INFO/END\n' >> "${sv_tsv}"; then
+                        logmsg "$(basename "${sv_tsv}") successfully created."
                     else
-                        logmsg "$(basename ${sv_tsv}) failed"
+                        logmsg "$(basename "${sv_tsv}") failed"
                     fi
                 fi
             done
@@ -448,7 +454,6 @@ map_reads (){
         fi
     done
 }
-
 
 
 # before any samples…

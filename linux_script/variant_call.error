@@ -1,0 +1,566 @@
+Warning: 'defaults' already in 'channels' list, moving to the top
+Warning: 'bioconda' already in 'channels' list, moving to the top
+Warning: 'conda-forge' already in 'channels' list, moving to the top
+
+
+==> WARNING: A newer version of conda exists. <==
+    current version: 24.7.1
+    latest version: 25.7.0
+
+Please update conda by running
+
+    $ conda update -n base -c defaults conda
+
+
+
+SafetyError: The package for snpeff located at /nfs5/BPP/Leiboff_Lab/Brian/opt/conda/x86_64/pkgs/snpeff-5.2-hdfd78af_1
+appears to be corrupted. The path 'share/snpeff-5.2-1/snpEff.config'
+has an incorrect size.
+  reported size: 19096108 bytes
+  actual size: 19096136 bytes
+
+
+Detecting adapter sequence for read1...
+No adapter detected for read1
+
+Detecting adapter sequence for read2...
+No adapter detected for read2
+
+Read1 before filtering:
+total reads: 11338173
+total bases: 1685605533
+Q20 bases: 1628522173(96.6135%)
+Q30 bases: 1551427175(92.0398%)
+
+Read2 before filtering:
+total reads: 11338173
+total bases: 1685684438
+Q20 bases: 1553065657(92.1326%)
+Q30 bases: 1425956772(84.5922%)
+
+Read1 after filtering:
+total reads: 11243805
+total bases: 1668139248
+Q20 bases: 1614253645(96.7697%)
+Q30 bases: 1538890777(92.2519%)
+
+Read2 after filtering:
+total reads: 11243805
+total bases: 1668110803
+Q20 bases: 1542520797(92.4711%)
+Q30 bases: 1417825809(84.9959%)
+
+Filtering result:
+reads passed filter: 22487610
+reads failed due to low quality: 184136
+reads failed due to too many N: 4600
+reads failed due to too short: 0
+reads with adapter trimmed: 1304682
+bases trimmed due to adapters: 7264268
+
+Duplication rate: 9.08248%
+
+Insert size peak (evaluated by paired-end reads): 261
+
+JSON report: /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/N1_fastp_report.json
+HTML report: /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/N1_fastp_report.html
+
+fastp -i /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/reads/N1_R1.fq.gz -I /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/reads/N1_R2.fq.gz -o /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/N1_trim_R1.fq.gz -O /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/N1_trim_R2.fq.gz --detect_adapter_for_pe -h /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/N1_fastp_report.html -j /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/N1_fastp_report.json 
+fastp v0.24.0, time used: 172 seconds
+Detecting adapter sequence for read1...
+No adapter detected for read1
+
+Detecting adapter sequence for read2...
+No adapter detected for read2
+
+Read1 before filtering:
+total reads: 8482046
+total bases: 1263506987
+Q20 bases: 1218144497(96.4098%)
+Q30 bases: 1157564333(91.6152%)
+
+Read2 before filtering:
+total reads: 8482046
+total bases: 1263526969
+Q20 bases: 1174141218(92.9257%)
+Q30 bases: 1084560580(85.836%)
+
+Read1 after filtering:
+total reads: 8420618
+total bases: 1252182650
+Q20 bases: 1208916024(96.5447%)
+Q30 bases: 1149433435(91.7944%)
+
+Read2 after filtering:
+total reads: 8420618
+total bases: 1252168175
+Q20 bases: 1167276914(93.2205%)
+Q30 bases: 1079219374(86.1881%)
+
+Filtering result:
+reads passed filter: 16841236
+reads failed due to low quality: 120386
+reads failed due to too many N: 2470
+reads failed due to too short: 0
+reads with adapter trimmed: 792796
+bases trimmed due to adapters: 4551584
+
+Duplication rate: 9.12331%
+
+Insert size peak (evaluated by paired-end reads): 261
+
+JSON report: /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/T2_fastp_report.json
+HTML report: /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/T2_fastp_report.html
+
+fastp -i /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/reads/T2_R1.fq.gz -I /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/reads/T2_R2.fq.gz -o /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/T2_trim_R1.fq.gz -O /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/T2_trim_R2.fq.gz --detect_adapter_for_pe -h /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/T2_fastp_report.html -j /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/T2_fastp_report.json 
+fastp v0.24.0, time used: 133 seconds
+[WARNING][1;31m Indexing parameters (-k, -w or -H) overridden by parameters used in the prebuilt index.[0m
+[M::main::51.096*0.28] loaded/built the index for 685 target sequence(s)
+[M::mm_mapopt_update::51.096*0.28] mid_occ = 1000
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 685
+[M::mm_idx_stat::54.378*0.32] distinct minimizers: 60810863 (55.20% are singletons); average occurrences: 6.710; average spacing: 5.348; total length: 2182075994
+[M::worker_pipeline::150.012*4.79] mapped 336642 sequences
+[M::worker_pipeline::240.050*5.91] mapped 336522 sequences
+[M::worker_pipeline::326.500*6.42] mapped 336598 sequences
+[M::worker_pipeline::413.270*6.71] mapped 336760 sequences
+[M::worker_pipeline::501.042*6.91] mapped 336718 sequences
+[M::worker_pipeline::589.078*7.05] mapped 336858 sequences
+[M::worker_pipeline::678.338*7.14] mapped 336424 sequences
+[M::worker_pipeline::767.433*7.21] mapped 336590 sequences
+[M::worker_pipeline::854.326*7.27] mapped 336702 sequences
+[M::worker_pipeline::945.253*7.33] mapped 336690 sequences
+[M::worker_pipeline::1032.679*7.37] mapped 336730 sequences
+[M::worker_pipeline::1125.433*7.41] mapped 336778 sequences
+[M::worker_pipeline::1210.941*7.44] mapped 336660 sequences
+[M::worker_pipeline::1302.323*7.46] mapped 336772 sequences
+[M::worker_pipeline::1389.869*7.48] mapped 336710 sequences
+[M::worker_pipeline::1477.203*7.50] mapped 336828 sequences
+[M::worker_pipeline::1566.969*7.52] mapped 336906 sequences
+[M::worker_pipeline::1657.488*7.54] mapped 336828 sequences
+[M::worker_pipeline::1745.486*7.55] mapped 336636 sequences
+[M::worker_pipeline::1832.456*7.56] mapped 336822 sequences
+[M::worker_pipeline::1919.663*7.58] mapped 336748 sequences
+[M::worker_pipeline::2011.059*7.58] mapped 336764 sequences
+[M::worker_pipeline::2100.605*7.58] mapped 336970 sequences
+[M::worker_pipeline::2188.823*7.59] mapped 336774 sequences
+[M::worker_pipeline::2276.730*7.60] mapped 336864 sequences
+[M::worker_pipeline::2363.890*7.61] mapped 336722 sequences
+[M::worker_pipeline::2451.173*7.62] mapped 336692 sequences
+[M::worker_pipeline::2538.781*7.62] mapped 336508 sequences
+[M::worker_pipeline::2624.598*7.63] mapped 336564 sequences
+[M::worker_pipeline::2712.395*7.64] mapped 336648 sequences
+[M::worker_pipeline::2798.446*7.64] mapped 336622 sequences
+[M::worker_pipeline::2885.116*7.65] mapped 336554 sequences
+[M::worker_pipeline::2975.113*7.65] mapped 336492 sequences
+[M::worker_pipeline::3061.670*7.66] mapped 336420 sequences
+[M::worker_pipeline::3150.181*7.66] mapped 336550 sequences
+[M::worker_pipeline::3237.769*7.66] mapped 336670 sequences
+[M::worker_pipeline::3325.415*7.67] mapped 337216 sequences
+[M::worker_pipeline::3412.598*7.67] mapped 337384 sequences
+[M::worker_pipeline::3501.002*7.67] mapped 337352 sequences
+[M::worker_pipeline::3591.317*7.68] mapped 337556 sequences
+[M::worker_pipeline::3678.830*7.68] mapped 337480 sequences
+[M::worker_pipeline::3766.335*7.68] mapped 337108 sequences
+[M::worker_pipeline::3854.989*7.69] mapped 337304 sequences
+[M::worker_pipeline::3940.509*7.69] mapped 337362 sequences
+[M::worker_pipeline::4028.474*7.69] mapped 337396 sequences
+[M::worker_pipeline::4117.340*7.69] mapped 337584 sequences
+[M::worker_pipeline::4205.800*7.69] mapped 337288 sequences
+[M::worker_pipeline::4292.781*7.70] mapped 337318 sequences
+[M::worker_pipeline::4380.481*7.70] mapped 337480 sequences
+[M::worker_pipeline::4467.025*7.70] mapped 337598 sequences
+[M::worker_pipeline::4555.699*7.70] mapped 337560 sequences
+[M::worker_pipeline::4644.353*7.71] mapped 337468 sequences
+[M::worker_pipeline::4731.120*7.71] mapped 337628 sequences
+[M::worker_pipeline::4818.723*7.71] mapped 337672 sequences
+[M::worker_pipeline::4907.606*7.71] mapped 337664 sequences
+[M::worker_pipeline::4995.025*7.71] mapped 337836 sequences
+[M::worker_pipeline::5082.575*7.71] mapped 337720 sequences
+[M::worker_pipeline::5169.499*7.72] mapped 337496 sequences
+[M::worker_pipeline::5254.845*7.72] mapped 337412 sequences
+[M::worker_pipeline::5342.876*7.72] mapped 337404 sequences
+[M::worker_pipeline::5431.604*7.72] mapped 337310 sequences
+[M::worker_pipeline::5517.840*7.72] mapped 337368 sequences
+[M::worker_pipeline::5608.788*7.72] mapped 337230 sequences
+[M::worker_pipeline::5695.304*7.72] mapped 337292 sequences
+[M::worker_pipeline::5784.318*7.72] mapped 337214 sequences
+[M::worker_pipeline::5872.602*7.72] mapped 336948 sequences
+[M::worker_pipeline::5933.842*7.72] mapped 244226 sequences
+[M::main] Version: 2.30-r1287
+[M::main] CMD: minimap2 -ax sr -t 8 /nfs5/BPP/Leiboff_Lab/Brian/bsa/others/genomes/indexs/b73.mmi /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/N1_trim_R1.fq.gz /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/N1_trim_R2.fq.gz
+[M::main] Real time: 5934.874 sec; CPU: 45813.539 sec; Peak RSS: 7.161 GB
+[bam_sort_core] merging from 11 files and 1 in-memory blocks...
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+[mpileup] 1 samples in 1 input files
+[mpileup] maximum number of reads per input file set to -d 250
+Parsing bcftools stats output: /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/stat_dir/b73_N1_bcfstats.tsv
+Plotting graphs: python3 plot.py
+Creating PDF: tectonic summary.tex >plot-vcfstats.log 2>&1
+Finished: /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/plots_dir/b73_N1_plots/summary.pdf
+[WARNING][1;31m Indexing parameters (-k, -w or -H) overridden by parameters used in the prebuilt index.[0m
+[M::main::12.578*0.90] loaded/built the index for 685 target sequence(s)
+[M::mm_mapopt_update::12.578*0.90] mid_occ = 1000
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 685
+[M::mm_idx_stat::13.925*0.91] distinct minimizers: 60810863 (55.20% are singletons); average occurrences: 6.710; average spacing: 5.348; total length: 2182075994
+[M::worker_pipeline::121.823*6.62] mapped 335836 sequences
+[M::worker_pipeline::211.967*7.14] mapped 335958 sequences
+[M::worker_pipeline::301.163*7.34] mapped 335954 sequences
+[M::worker_pipeline::390.212*7.44] mapped 335948 sequences
+[M::worker_pipeline::484.511*7.51] mapped 336030 sequences
+[M::worker_pipeline::578.194*7.55] mapped 335850 sequences
+[M::worker_pipeline::671.439*7.59] mapped 335848 sequences
+[M::worker_pipeline::760.401*7.62] mapped 335896 sequences
+[M::worker_pipeline::852.163*7.64] mapped 336010 sequences
+[M::worker_pipeline::945.346*7.66] mapped 335888 sequences
+[M::worker_pipeline::1035.679*7.68] mapped 336048 sequences
+[M::worker_pipeline::1125.915*7.69] mapped 336072 sequences
+[M::worker_pipeline::1216.730*7.70] mapped 336066 sequences
+[M::worker_pipeline::1305.817*7.71] mapped 335912 sequences
+[M::worker_pipeline::1395.570*7.72] mapped 336028 sequences
+[M::worker_pipeline::1484.576*7.73] mapped 335890 sequences
+[M::worker_pipeline::1572.214*7.74] mapped 336138 sequences
+[M::worker_pipeline::1660.570*7.74] mapped 336124 sequences
+[M::worker_pipeline::1749.603*7.75] mapped 335984 sequences
+[M::worker_pipeline::1840.033*7.75] mapped 335910 sequences
+[M::worker_pipeline::1929.375*7.75] mapped 335804 sequences
+[M::worker_pipeline::2017.426*7.76] mapped 335794 sequences
+[M::worker_pipeline::2104.389*7.77] mapped 335796 sequences
+[M::worker_pipeline::2194.776*7.77] mapped 335858 sequences
+[M::worker_pipeline::2281.657*7.77] mapped 335782 sequences
+[M::worker_pipeline::2369.151*7.77] mapped 335762 sequences
+[M::worker_pipeline::2458.229*7.78] mapped 336024 sequences
+[M::worker_pipeline::2544.794*7.78] mapped 336550 sequences
+[M::worker_pipeline::2633.767*7.78] mapped 336552 sequences
+[M::worker_pipeline::2721.347*7.78] mapped 336642 sequences
+[M::worker_pipeline::2809.289*7.78] mapped 336578 sequences
+[M::worker_pipeline::2896.907*7.79] mapped 336384 sequences
+[M::worker_pipeline::2983.789*7.79] mapped 336522 sequences
+[M::worker_pipeline::3074.465*7.79] mapped 336660 sequences
+[M::worker_pipeline::3163.465*7.79] mapped 336582 sequences
+[M::worker_pipeline::3252.266*7.79] mapped 336612 sequences
+[M::worker_pipeline::3341.705*7.79] mapped 336634 sequences
+[M::worker_pipeline::3431.200*7.79] mapped 336646 sequences
+[M::worker_pipeline::3518.628*7.80] mapped 336648 sequences
+[M::worker_pipeline::3610.918*7.80] mapped 336688 sequences
+[M::worker_pipeline::3701.773*7.80] mapped 336784 sequences
+[M::worker_pipeline::3791.529*7.80] mapped 336818 sequences
+[M::worker_pipeline::3883.497*7.80] mapped 336816 sequences
+[M::worker_pipeline::3970.919*7.80] mapped 336528 sequences
+[M::worker_pipeline::4063.195*7.80] mapped 336566 sequences
+[M::worker_pipeline::4154.159*7.80] mapped 336740 sequences
+[M::worker_pipeline::4253.667*7.78] mapped 336504 sequences
+[M::worker_pipeline::4348.740*7.78] mapped 336478 sequences
+[M::worker_pipeline::4439.916*7.78] mapped 336410 sequences
+[M::worker_pipeline::4529.681*7.78] mapped 336446 sequences
+[M::worker_pipeline::4535.585*7.78] mapped 29238 sequences
+[M::main] Version: 2.30-r1287
+[M::main] CMD: minimap2 -ax sr -t 8 /nfs5/BPP/Leiboff_Lab/Brian/bsa/others/genomes/indexs/b73.mmi /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/T2_trim_R1.fq.gz /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/T2_trim_R2.fq.gz
+[M::main] Real time: 4537.297 sec; CPU: 35273.134 sec; Peak RSS: 7.134 GB
+[bam_sort_core] merging from 8 files and 1 in-memory blocks...
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+[mpileup] 1 samples in 1 input files
+[mpileup] maximum number of reads per input file set to -d 250
+Parsing bcftools stats output: /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/stat_dir/b73_T2_bcfstats.tsv
+Plotting graphs: python3 plot.py
+Creating PDF: tectonic summary.tex >plot-vcfstats.log 2>&1
+Finished: /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/plots_dir/b73_T2_plots/summary.pdf
+[WARNING][1;31m Indexing parameters (-k, -w or -H) overridden by parameters used in the prebuilt index.[0m
+[M::main::2053.983*0.01] loaded/built the index for 11 target sequence(s)
+[M::mm_mapopt_update::2053.983*0.01] mid_occ = 1000
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 11
+[M::mm_idx_stat::2056.263*0.01] distinct minimizers: 60365748 (55.58% are singletons); average occurrences: 6.486; average spacing: 5.450; total length: 2133882028
+[M::worker_pipeline::2164.159*0.38] mapped 336642 sequences
+[M::worker_pipeline::2253.075*0.67] mapped 336522 sequences
+[M::worker_pipeline::2350.902*0.96] mapped 336598 sequences
+[M::worker_pipeline::2443.232*1.22] mapped 336760 sequences
+[M::worker_pipeline::2535.619*1.46] mapped 336718 sequences
+[M::worker_pipeline::2625.703*1.68] mapped 336858 sequences
+[M::worker_pipeline::2718.113*1.89] mapped 336424 sequences
+[M::worker_pipeline::2809.003*2.08] mapped 336590 sequences
+[M::worker_pipeline::2899.502*2.26] mapped 336702 sequences
+[M::worker_pipeline::2991.687*2.44] mapped 336690 sequences
+[M::worker_pipeline::3082.874*2.60] mapped 336730 sequences
+[M::worker_pipeline::3172.881*2.75] mapped 336778 sequences
+[M::worker_pipeline::3263.159*2.89] mapped 336660 sequences
+[M::worker_pipeline::3353.244*3.02] mapped 336772 sequences
+[M::worker_pipeline::3444.778*3.15] mapped 336710 sequences
+[M::worker_pipeline::3533.871*3.27] mapped 336828 sequences
+[M::worker_pipeline::3626.077*3.38] mapped 336906 sequences
+[M::worker_pipeline::3717.110*3.49] mapped 336828 sequences
+[M::worker_pipeline::3809.226*3.59] mapped 336636 sequences
+[M::worker_pipeline::3898.986*3.69] mapped 336822 sequences
+[M::worker_pipeline::3989.449*3.78] mapped 336748 sequences
+[M::worker_pipeline::4079.773*3.87] mapped 336764 sequences
+[M::worker_pipeline::4170.788*3.96] mapped 336970 sequences
+[M::worker_pipeline::4259.949*4.04] mapped 336774 sequences
+[M::worker_pipeline::4351.215*4.12] mapped 336864 sequences
+[M::worker_pipeline::4443.484*4.20] mapped 336722 sequences
+[M::worker_pipeline::4534.802*4.27] mapped 336692 sequences
+[M::worker_pipeline::4626.144*4.34] mapped 336508 sequences
+[M::worker_pipeline::4716.134*4.41] mapped 336564 sequences
+[M::worker_pipeline::4807.775*4.48] mapped 336648 sequences
+[M::worker_pipeline::4900.639*4.54] mapped 336622 sequences
+[M::worker_pipeline::4988.519*4.60] mapped 336554 sequences
+[M::worker_pipeline::5084.393*4.66] mapped 336492 sequences
+[M::worker_pipeline::5176.519*4.71] mapped 336420 sequences
+[M::worker_pipeline::5270.116*4.77] mapped 336550 sequences
+[M::worker_pipeline::5367.124*4.83] mapped 336670 sequences
+[M::worker_pipeline::5457.579*4.88] mapped 337216 sequences
+[M::worker_pipeline::5549.283*4.92] mapped 337384 sequences
+[M::worker_pipeline::5641.217*4.97] mapped 337352 sequences
+[M::worker_pipeline::5734.584*5.02] mapped 337556 sequences
+[M::worker_pipeline::5826.647*5.06] mapped 337480 sequences
+[M::worker_pipeline::5919.435*5.10] mapped 337108 sequences
+[M::worker_pipeline::6010.843*5.15] mapped 337304 sequences
+[M::worker_pipeline::6100.804*5.18] mapped 337362 sequences
+[M::worker_pipeline::6195.665*5.22] mapped 337396 sequences
+[M::worker_pipeline::6287.025*5.26] mapped 337584 sequences
+[M::worker_pipeline::6380.310*5.30] mapped 337288 sequences
+[M::worker_pipeline::6470.037*5.33] mapped 337318 sequences
+[M::worker_pipeline::6563.286*5.37] mapped 337480 sequences
+[M::worker_pipeline::6655.239*5.40] mapped 337598 sequences
+[M::worker_pipeline::6747.332*5.43] mapped 337560 sequences
+[M::worker_pipeline::6842.659*5.47] mapped 337468 sequences
+[M::worker_pipeline::6934.553*5.50] mapped 337628 sequences
+[M::worker_pipeline::7024.901*5.53] mapped 337672 sequences
+[M::worker_pipeline::7116.965*5.56] mapped 337664 sequences
+[M::worker_pipeline::7212.167*5.59] mapped 337836 sequences
+[M::worker_pipeline::7303.853*5.61] mapped 337720 sequences
+[M::worker_pipeline::7395.861*5.64] mapped 337496 sequences
+[M::worker_pipeline::7486.261*5.67] mapped 337412 sequences
+[M::worker_pipeline::7578.900*5.69] mapped 337404 sequences
+[M::worker_pipeline::7670.630*5.72] mapped 337310 sequences
+[M::worker_pipeline::7766.306*5.75] mapped 337368 sequences
+[M::worker_pipeline::7858.516*5.77] mapped 337230 sequences
+[M::worker_pipeline::7951.636*5.79] mapped 337292 sequences
+[M::worker_pipeline::8043.388*5.82] mapped 337214 sequences
+[M::worker_pipeline::8133.968*5.84] mapped 336948 sequences
+[M::worker_pipeline::8199.524*5.85] mapped 244226 sequences
+[M::main] Version: 2.30-r1287
+[M::main] CMD: minimap2 -ax sr -t 8 /nfs5/BPP/Leiboff_Lab/Brian/bsa/others/genomes/indexs/w22c.mmi /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/N1_trim_R1.fq.gz /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/N1_trim_R2.fq.gz
+[M::main] Real time: 8201.107 sec; CPU: 48000.681 sec; Peak RSS: 7.064 GB
+[bam_sort_core] merging from 11 files and 1 in-memory blocks...
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+[mpileup] 1 samples in 1 input files
+[mpileup] maximum number of reads per input file set to -d 250
+Parsing bcftools stats output: /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/stat_dir/w22c_N1_bcfstats.tsv
+Plotting graphs: python3 plot.py
+Creating PDF: tectonic summary.tex >plot-vcfstats.log 2>&1
+Finished: /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/plots_dir/w22c_N1_plots/summary.pdf
+[WARNING][1;31m Indexing parameters (-k, -w or -H) overridden by parameters used in the prebuilt index.[0m
+[M::main::360.119*0.03] loaded/built the index for 11 target sequence(s)
+[M::mm_mapopt_update::360.119*0.03] mid_occ = 1000
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 11
+[M::mm_idx_stat::361.471*0.03] distinct minimizers: 60365748 (55.58% are singletons); average occurrences: 6.486; average spacing: 5.450; total length: 2133882028
+[M::worker_pipeline::486.215*1.61] mapped 335836 sequences
+[M::worker_pipeline::576.392*2.58] mapped 335958 sequences
+[M::worker_pipeline::670.625*3.32] mapped 335954 sequences
+[M::worker_pipeline::762.521*3.86] mapped 335948 sequences
+[M::worker_pipeline::857.467*4.28] mapped 336030 sequences
+[M::worker_pipeline::949.717*4.63] mapped 335850 sequences
+[M::worker_pipeline::1042.486*4.91] mapped 335848 sequences
+[M::worker_pipeline::1136.958*5.15] mapped 335896 sequences
+[M::worker_pipeline::1227.953*5.35] mapped 336010 sequences
+[M::worker_pipeline::1321.194*5.52] mapped 335888 sequences
+[M::worker_pipeline::1410.922*5.67] mapped 336048 sequences
+[M::worker_pipeline::1502.904*5.80] mapped 336072 sequences
+[M::worker_pipeline::1596.355*5.91] mapped 336066 sequences
+[M::worker_pipeline::1687.948*6.01] mapped 335912 sequences
+[M::worker_pipeline::1779.643*6.11] mapped 336028 sequences
+[M::worker_pipeline::1874.265*6.20] mapped 335890 sequences
+[M::worker_pipeline::1966.576*6.27] mapped 336138 sequences
+[M::worker_pipeline::2059.776*6.34] mapped 336124 sequences
+[M::worker_pipeline::2151.955*6.41] mapped 335984 sequences
+[M::worker_pipeline::2243.998*6.46] mapped 335910 sequences
+[M::worker_pipeline::2337.692*6.52] mapped 335804 sequences
+[M::worker_pipeline::2430.251*6.57] mapped 335794 sequences
+[M::worker_pipeline::2524.084*6.61] mapped 335796 sequences
+[M::worker_pipeline::2617.738*6.66] mapped 335858 sequences
+[M::worker_pipeline::2708.564*6.70] mapped 335782 sequences
+[M::worker_pipeline::2802.453*6.74] mapped 335762 sequences
+[M::worker_pipeline::2896.251*6.77] mapped 336024 sequences
+[M::worker_pipeline::2992.704*6.80] mapped 336550 sequences
+[M::worker_pipeline::3086.401*6.83] mapped 336552 sequences
+[M::worker_pipeline::3177.991*6.86] mapped 336642 sequences
+[M::worker_pipeline::3269.323*6.89] mapped 336578 sequences
+[M::worker_pipeline::3364.645*6.91] mapped 336384 sequences
+[M::worker_pipeline::3459.199*6.94] mapped 336522 sequences
+[M::worker_pipeline::3552.015*6.96] mapped 336660 sequences
+[M::worker_pipeline::3644.083*6.98] mapped 336582 sequences
+[M::worker_pipeline::3734.514*7.00] mapped 336612 sequences
+[M::worker_pipeline::3831.760*7.02] mapped 336634 sequences
+[M::worker_pipeline::3923.744*7.04] mapped 336646 sequences
+[M::worker_pipeline::4017.895*7.06] mapped 336648 sequences
+[M::worker_pipeline::4110.712*7.07] mapped 336688 sequences
+[M::worker_pipeline::4203.736*7.09] mapped 336784 sequences
+[M::worker_pipeline::4298.620*7.11] mapped 336818 sequences
+[M::worker_pipeline::4392.123*7.12] mapped 336816 sequences
+[M::worker_pipeline::4485.216*7.13] mapped 336528 sequences
+[M::worker_pipeline::4576.912*7.15] mapped 336566 sequences
+[M::worker_pipeline::4670.422*7.16] mapped 336740 sequences
+[M::worker_pipeline::4762.725*7.17] mapped 336504 sequences
+[M::worker_pipeline::4859.086*7.19] mapped 336478 sequences
+[M::worker_pipeline::4950.684*7.20] mapped 336410 sequences
+[M::worker_pipeline::5042.750*7.21] mapped 336446 sequences
+[M::worker_pipeline::5047.064*7.21] mapped 29238 sequences
+[M::main] Version: 2.30-r1287
+[M::main] CMD: minimap2 -ax sr -t 8 /nfs5/BPP/Leiboff_Lab/Brian/bsa/others/genomes/indexs/w22c.mmi /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/T2_trim_R1.fq.gz /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/T2_trim_R2.fq.gz
+[M::main] Real time: 5049.476 sec; CPU: 36397.165 sec; Peak RSS: 7.043 GB
+[bam_sort_core] merging from 8 files and 1 in-memory blocks...
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+[mpileup] 1 samples in 1 input files
+[mpileup] maximum number of reads per input file set to -d 250
+Parsing bcftools stats output: /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/stat_dir/w22c_T2_bcfstats.tsv
+Plotting graphs: python3 plot.py
+Creating PDF: tectonic summary.tex >plot-vcfstats.log 2>&1
+Finished: /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/plots_dir/w22c_T2_plots/summary.pdf
+[WARNING][1;31m Indexing parameters (-k, -w or -H) overridden by parameters used in the prebuilt index.[0m
+[M::main::2819.385*0.01] loaded/built the index for 10 target sequence(s)
+[M::mm_mapopt_update::2819.385*0.01] mid_occ = 1000
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 10
+[M::mm_idx_stat::2820.729*0.01] distinct minimizers: 60691333 (55.36% are singletons); average occurrences: 6.519; average spacing: 5.349; total length: 2116423899
+[M::worker_pipeline::2935.463*0.26] mapped 336642 sequences
+[M::worker_pipeline::3025.141*0.49] mapped 336522 sequences
+[M::worker_pipeline::3119.303*0.70] mapped 336598 sequences
+[M::worker_pipeline::3213.375*0.91] mapped 336760 sequences
+[M::worker_pipeline::3303.083*1.10] mapped 336718 sequences
+[M::worker_pipeline::3394.166*1.28] mapped 336858 sequences
+[M::worker_pipeline::3488.126*1.46] mapped 336424 sequences
+[M::worker_pipeline::3582.257*1.62] mapped 336590 sequences
+[M::worker_pipeline::3672.114*1.77] mapped 336702 sequences
+[M::worker_pipeline::3765.045*1.92] mapped 336690 sequences
+[M::worker_pipeline::3857.407*2.06] mapped 336730 sequences
+[M::worker_pipeline::3947.972*2.19] mapped 336778 sequences
+[M::worker_pipeline::4039.661*2.32] mapped 336660 sequences
+[M::worker_pipeline::4133.342*2.45] mapped 336772 sequences
+[M::worker_pipeline::4225.315*2.56] mapped 336710 sequences
+[M::worker_pipeline::4315.663*2.67] mapped 336828 sequences
+[M::worker_pipeline::4406.826*2.78] mapped 336906 sequences
+[M::worker_pipeline::4499.536*2.88] mapped 336828 sequences
+[M::worker_pipeline::4593.047*2.98] mapped 336636 sequences
+[M::worker_pipeline::4684.550*3.08] mapped 336822 sequences
+[M::worker_pipeline::4775.695*3.17] mapped 336748 sequences
+[M::worker_pipeline::4868.709*3.26] mapped 336764 sequences
+[M::worker_pipeline::4958.923*3.34] mapped 336970 sequences
+[M::worker_pipeline::5049.243*3.42] mapped 336774 sequences
+[M::worker_pipeline::5141.882*3.50] mapped 336864 sequences
+[M::worker_pipeline::5232.368*3.58] mapped 336722 sequences
+[M::worker_pipeline::5321.992*3.65] mapped 336692 sequences
+[M::worker_pipeline::5418.785*3.71] mapped 336508 sequences
+[M::worker_pipeline::5513.156*3.78] mapped 336564 sequences
+[M::worker_pipeline::5601.771*3.84] mapped 336648 sequences
+[M::worker_pipeline::5695.154*3.91] mapped 336622 sequences
+[M::worker_pipeline::5786.546*3.97] mapped 336554 sequences
+[M::worker_pipeline::5877.924*4.03] mapped 336492 sequences
+[M::worker_pipeline::5970.221*4.09] mapped 336420 sequences
+[M::worker_pipeline::6062.058*4.14] mapped 336550 sequences
+[M::worker_pipeline::6156.943*4.20] mapped 336670 sequences
+[M::worker_pipeline::6250.245*4.25] mapped 337216 sequences
+[M::worker_pipeline::6342.508*4.30] mapped 337384 sequences
+[M::worker_pipeline::6431.508*4.35] mapped 337352 sequences
+[M::worker_pipeline::6521.814*4.40] mapped 337556 sequences
+[M::worker_pipeline::6617.377*4.45] mapped 337480 sequences
+[M::worker_pipeline::6707.547*4.49] mapped 337108 sequences
+[M::worker_pipeline::6798.884*4.54] mapped 337304 sequences
+[M::worker_pipeline::6891.575*4.58] mapped 337362 sequences
+[M::worker_pipeline::6984.182*4.62] mapped 337396 sequences
+[M::worker_pipeline::7075.895*4.66] mapped 337584 sequences
+[M::worker_pipeline::7167.789*4.70] mapped 337288 sequences
+[M::worker_pipeline::7260.659*4.74] mapped 337318 sequences
+[M::worker_pipeline::7351.134*4.78] mapped 337480 sequences
+[M::worker_pipeline::7444.310*4.82] mapped 337598 sequences
+[M::worker_pipeline::7536.258*4.85] mapped 337560 sequences
+[M::worker_pipeline::7627.604*4.89] mapped 337468 sequences
+[M::worker_pipeline::7722.214*4.92] mapped 337628 sequences
+[M::worker_pipeline::7814.817*4.96] mapped 337672 sequences
+[M::worker_pipeline::7906.900*4.99] mapped 337664 sequences
+[M::worker_pipeline::8002.573*5.02] mapped 337836 sequences
+[M::worker_pipeline::8092.310*5.05] mapped 337720 sequences
+[M::worker_pipeline::8186.125*5.08] mapped 337496 sequences
+[M::worker_pipeline::8279.379*5.12] mapped 337412 sequences
+[M::worker_pipeline::8370.548*5.15] mapped 337404 sequences
+[M::worker_pipeline::8464.319*5.18] mapped 337310 sequences
+[M::worker_pipeline::8557.940*5.20] mapped 337368 sequences
+[M::worker_pipeline::8651.956*5.23] mapped 337230 sequences
+[M::worker_pipeline::8744.401*5.26] mapped 337292 sequences
+[M::worker_pipeline::8836.446*5.29] mapped 337214 sequences
+[M::worker_pipeline::8927.226*5.31] mapped 336948 sequences
+[M::worker_pipeline::8990.195*5.33] mapped 244226 sequences
+[M::main] Version: 2.30-r1287
+[M::main] CMD: minimap2 -ax sr -t 8 /nfs5/BPP/Leiboff_Lab/Brian/bsa/others/genomes/indexs/a619.mmi /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/N1_trim_R1.fq.gz /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/N1_trim_R2.fq.gz
+[M::main] Real time: 8991.356 sec; CPU: 47897.241 sec; Peak RSS: 7.095 GB
+[bam_sort_core] merging from 11 files and 1 in-memory blocks...
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+[mpileup] 1 samples in 1 input files
+[mpileup] maximum number of reads per input file set to -d 250
+Parsing bcftools stats output: /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/stat_dir/a619_N1_bcfstats.tsv
+Plotting graphs: python3 plot.py
+Creating PDF: tectonic summary.tex >plot-vcfstats.log 2>&1
+Finished: /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/plots_dir/a619_N1_plots/summary.pdf
+[WARNING][1;31m Indexing parameters (-k, -w or -H) overridden by parameters used in the prebuilt index.[0m
+[M::main::415.527*0.02] loaded/built the index for 10 target sequence(s)
+[M::mm_mapopt_update::415.527*0.02] mid_occ = 1000
+[M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 10
+[M::mm_idx_stat::416.767*0.03] distinct minimizers: 60691333 (55.36% are singletons); average occurrences: 6.519; average spacing: 5.349; total length: 2116423899
+[M::worker_pipeline::533.841*1.32] mapped 335836 sequences
+[M::worker_pipeline::622.421*2.22] mapped 335958 sequences
+[M::worker_pipeline::707.774*2.89] mapped 335954 sequences
+[M::worker_pipeline::794.380*3.42] mapped 335948 sequences
+[M::worker_pipeline::880.934*3.85] mapped 336030 sequences
+[M::worker_pipeline::967.797*4.20] mapped 335850 sequences
+[M::worker_pipeline::1053.097*4.49] mapped 335848 sequences
+[M::worker_pipeline::1142.355*4.73] mapped 335896 sequences
+[M::worker_pipeline::1227.716*4.95] mapped 336010 sequences
+[M::worker_pipeline::1321.620*5.10] mapped 335888 sequences
+[M::worker_pipeline::1408.557*5.26] mapped 336048 sequences
+[M::worker_pipeline::1495.645*5.41] mapped 336072 sequences
+[M::worker_pipeline::1582.517*5.55] mapped 336066 sequences
+[M::worker_pipeline::1667.323*5.66] mapped 335912 sequences
+[M::worker_pipeline::1753.394*5.77] mapped 336028 sequences
+[M::worker_pipeline::1838.969*5.87] mapped 335890 sequences
+[M::worker_pipeline::1928.525*5.94] mapped 336138 sequences
+[M::worker_pipeline::2013.624*6.02] mapped 336124 sequences
+[M::worker_pipeline::2104.817*6.08] mapped 335984 sequences
+[M::worker_pipeline::2196.274*6.13] mapped 335910 sequences
+[M::worker_pipeline::2282.260*6.20] mapped 335804 sequences
+[M::worker_pipeline::2366.265*6.26] mapped 335794 sequences
+[M::worker_pipeline::2453.553*6.31] mapped 335796 sequences
+[M::worker_pipeline::2543.577*6.35] mapped 335858 sequences
+[M::worker_pipeline::2631.113*6.40] mapped 335782 sequences
+[M::worker_pipeline::2716.783*6.44] mapped 335762 sequences
+[M::worker_pipeline::2807.465*6.48] mapped 336024 sequences
+[M::worker_pipeline::2895.088*6.52] mapped 336550 sequences
+[M::worker_pipeline::2979.833*6.55] mapped 336552 sequences
+[M::worker_pipeline::3066.185*6.59] mapped 336642 sequences
+[M::worker_pipeline::3152.939*6.62] mapped 336578 sequences
+[M::worker_pipeline::3243.272*6.64] mapped 336384 sequences
+[M::worker_pipeline::3331.279*6.67] mapped 336522 sequences
+[M::worker_pipeline::3426.982*6.68] mapped 336660 sequences
+[M::worker_pipeline::3515.901*6.70] mapped 336582 sequences
+[M::worker_pipeline::3602.052*6.72] mapped 336612 sequences
+[M::worker_pipeline::3689.609*6.74] mapped 336634 sequences
+[M::worker_pipeline::3778.474*6.76] mapped 336646 sequences
+[M::worker_pipeline::3865.240*6.78] mapped 336648 sequences
+[M::worker_pipeline::3951.235*6.81] mapped 336688 sequences
+[M::worker_pipeline::4039.374*6.82] mapped 336784 sequences
+[M::worker_pipeline::4128.149*6.84] mapped 336818 sequences
+[M::worker_pipeline::4211.610*6.86] mapped 336816 sequences
+[M::worker_pipeline::4300.127*6.87] mapped 336528 sequences
+[M::worker_pipeline::4390.279*6.89] mapped 336566 sequences
+[M::worker_pipeline::4483.548*6.91] mapped 336740 sequences
+[M::worker_pipeline::4575.120*6.93] mapped 336504 sequences
+[M::worker_pipeline::4666.602*6.95] mapped 336478 sequences
+[M::worker_pipeline::4756.040*6.97] mapped 336410 sequences
+[M::worker_pipeline::4849.098*6.98] mapped 336446 sequences
+[M::worker_pipeline::4854.422*6.98] mapped 29238 sequences
+[M::main] Version: 2.30-r1287
+[M::main] CMD: minimap2 -ax sr -t 8 /nfs5/BPP/Leiboff_Lab/Brian/bsa/others/genomes/indexs/a619.mmi /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/T2_trim_R1.fq.gz /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/trim_dir/T2_trim_R2.fq.gz
+[M::main] Real time: 4855.760 sec; CPU: 33891.317 sec; Peak RSS: 7.046 GB
+[bam_sort_core] merging from 8 files and 1 in-memory blocks...
+Note: none of --samples-file, --ploidy or --ploidy-file given, assuming all sites are diploid
+[mpileup] 1 samples in 1 input files
+[mpileup] maximum number of reads per input file set to -d 250
+Parsing bcftools stats output: /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/stat_dir/a619_T2_bcfstats.tsv
+Plotting graphs: python3 plot.py
+Creating PDF: tectonic summary.tex >plot-vcfstats.log 2>&1
+Finished: /nfs5/BPP/Leiboff_Lab/Brian/bsa/bds1_ts/minimap_dir/plots_dir/a619_T2_plots/summary.pdf

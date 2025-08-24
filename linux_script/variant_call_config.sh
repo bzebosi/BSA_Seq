@@ -6,8 +6,8 @@
 # set to "false" to skip downloads or SV calling
 do_download="true"   
 sv_call="true" # set to "false" to skip downloads
-threads=8
-genome_tmp="/nfs5/BPP/Leiboff_Lab/Brian/bsa/others"
+threads=174
+genome_tmp="/nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp"
 ref_dir="${genome_tmp}/genomes"
 
 
@@ -54,6 +54,6 @@ declare -A genome_urls=(
 )
 
 # which genomes & which samples to process?
-goi=(b73 w22c a619)
-files=(q1)
+goi=(w22 b73 a619 mo17 a632 p39 oh43 b97 a188)
+files=(q16 q17 q18 q8 q6 q7 q5 q11 q10 q2 q9 q12 q4 q13 q3)
 # *************** End of user setting **************************************
