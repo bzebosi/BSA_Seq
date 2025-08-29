@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --nodes=1   # Number of nodes
-#SBATCH --ntasks-per-node=16 # Number of processor cores per node
+#SBATCH --ntasks-per-node=174 # Number of processor cores per node
 #SBATCH --output="variant_call.out"  # Job standard output file
 #SBATCH --error="variant_call.error"  # Job standard error file
 #SBATCH -p leiboff_lab   # specify the partition to submit the job to
