@@ -71,8 +71,8 @@ index_genome () {
     local genome="${ref_dir}/${gbase}.fa.gz"
     local idx_dir="${ref_dir}/indexs"
     local mmi="${idx_dir}/${gbase}.mmi"
-    local fai="${idx_dir}/${gbase}.fai"
-    local gzi="${idx_dir}/${gbase}.gzi"
+    local fai="${idx_dir}/${gbase}.fa.gz.fai"
+    local gzi="${idx_dir}/${gbase}.fa.gz.gzi"
 
     local link_fa="${idx_dir}/${gbase}.fa.gz"
 
@@ -102,24 +102,29 @@ index_genome () {
 
 
     if [[ -s "${fai}" && -s "${gzi}" ]]; then
-        logmsg "samtools index for ${gbase}.fai already exists. Skipping indexing."
+        logmsg "samtools index .fai/.gzi for ${gbase} already exists. Skipping indexing."
     else
-        logmsg "Running samtools faidx on $genome…"
-        if samtools faidx ${genome} ; then
-            logmsg "Samtools faidx complete for ${gbase}"
+        if [[ -s "${genome}.fai" && -s "${genome}.gzi" ]]; then
+            mv -u "${genome}.fai" "${fai}" && logmsg "Moved ${genome}.fai to ${fai}"
+            mv -u "${genome}.gzi" "${gzi}" && logmsg "Moved ${genome}.gzi to ${gzi}"
         else
-            logmsg "samtools index failed for ${gbase}." &&  exit 1
+            logmsg "Running samtools faidx on $genome…"
+            if samtools faidx ${genome} ; then
+                logmsg "Samtools faidx complete for ${gbase}"
+
+                # Move auxiliary files to index directory
+                for ext in gzi fai; do
+                    dst="${idx_dir}/${gbase}.fa.gz.${ext}"
+                    if [[ -f "${genome}.${ext}" ]]; then
+                        mv -u "${genome}.${ext}" "${dst}" && \
+                        logmsg "Moved ${genome}.${ext} to ${dst}"
+                    fi
+                done
+            else
+                logmsg "samtools index failed for ${gbase}." &&  exit 1
+            fi
         fi
     fi
-
-    
-     # Move auxiliary files to index directory
-    for ext in gzi fai; do
-        if [[ -f "${genome}.${ext}" ]]; then
-            mv -u "${genome}.${ext}" "${idx_dir}" && \
-            logmsg "Moved ${genome}.${ext} to ${idx_dir}" 
-        fi
-    done
 
     # create FASTA symlink beside the indexes (handy for downstream)
     if [[ -e "$link_fa" ]]; then
@@ -133,6 +138,8 @@ index_genome () {
     fi
 }
 
+
+
 trim_reads () {
     local sample=$1 
     local sample_dir="${sample_loc[$sample]}"
@@ -141,14 +148,12 @@ trim_reads () {
     local stat_dir="${sample_dir}/minimap_dir/stat_dir"
 
     create_dir ${trim_dir} ${stat_dir}
-
-
     logmsg "${sample_dir}"
 
     # Initialize the summary file
     local summary="$stat_dir/reads_trim_summary.tsv"
-    if [[ -f ${summary} ]]; then 
-        echo "$(date '+%Y-%m-%d %H:%M:%S'): ${summary} already exist."
+    if [[ -f ${summary} && -s ${summary} ]]; then 
+        logmsg "${summary} already exist."
     else
         # Add a header to the summary file
         echo -e "Sample\tOriginal_Reads_R1\tOriginal_Reads_R2\tTrimmed_Reads_R1\tTrimmed_Reads_R2\t\
@@ -167,37 +172,63 @@ trim_reads () {
         local ht=${trim_dir}/${sbase}_fastp_report.html
         local jt=${trim_dir}/${sbase}_fastp_report.json
 
-
         # Ensure trim directory exists
-        if [[ ! -s ${O1} ]] && [[ ! -s ${O2} ]]; then
-            if fastp -i $R1 -I $R2 -o $O1 -O $O2 --detect_adapter_for_pe -h ${ht} -j ${jt}; then
+        if [[ -s ${O1} ]] && [[ -s ${O2} ]]; then
+            if ! grep -q -E "^${sbase}\t" "$summary"; then
+                logmsg "trim files exist but ${summary} missing entry for ${sbase} ..."
+
                 # Calculate total reads in the output files (divide line count by 4)
-                local trR1=$(zcat $R1 | wc -l | awk '{print $1/4}')
-                local trR2=$(zcat $R2 | wc -l | awk '{print $1/4}')
-                local trO1=$(zcat $O1 | wc -l | awk '{print $1/4}')
-                local trO2=$(zcat $O2 | wc -l | awk '{print $1/4}')
+                local trR1=$(zcat "$R1" | wc -l | awk '{print $1/4}')
+                local trR2=$(zcat "$R2" | wc -l | awk '{print $1/4}')
+                local trO1=$(zcat "$O1" | wc -l | awk '{print $1/4}')
+                local trO2=$(zcat "$O2" | wc -l | awk '{print $1/4}')
+
+                if [[ -s "${jt}" ]]; then
+                    local metrics=$(jq -r '
+                        [.summary.fastp_version, .summary.before_filtering.total_reads, .summary.before_filtering.total_bases, 
+                        .summary.before_filtering.q20_bases, .summary.before_filtering.q30_bases, .summary.before_filtering.gc_content, 
+                        .summary.after_filtering.total_reads, .summary.after_filtering.total_bases, 
+                        .summary.after_filtering.q20_bases, .summary.after_filtering.q30_bases, .summary.after_filtering.gc_content, 
+                        .filtering_result.passed_filter_reads, .filtering_result.low_quality_reads, .filtering_result.too_many_N_reads, 
+                        .filtering_result.too_short_reads, .duplication.rate, .insert_size.peak ] | @tsv' "${jt}")
+                fi
+
+                if [[ -n "${metrics}" ]]; then
+                    echo -e "${sbase}\t${trR1}\t${trR2}\t${trO1}\t${trO2}\t${metrics}" >> "$summary"
+                else
+                    echo -e "${sbase}\t${trR1}\t${trR2}\t${trO1}\t${trO2}" >> "$summary"
+                    logmsg "Warning: ${jt} missing/unparsable; recorded counts only for ${sbase}."
+                fi
+            else
+                logmsg "$(basename ${O1}) and $(basename ${O2}) already exist and trimmed. skipping..."
             fi
-
-            # Extract metrics from the JSON file and store as a string
-            local metrics=$(jq -r '
-                [.summary.fastp_version, .summary.before_filtering.total_reads, .summary.before_filtering.total_bases, 
-                .summary.before_filtering.q20_bases, .summary.before_filtering.q30_bases, .summary.before_filtering.gc_content, 
-                .summary.after_filtering.total_reads, .summary.after_filtering.total_bases, 
-                .summary.after_filtering.q20_bases, .summary.after_filtering.q30_bases, .summary.after_filtering.gc_content, 
-                .filtering_result.passed_filter_reads, .filtering_result.low_quality_reads, .filtering_result.too_many_N_reads, 
-                .filtering_result.too_short_reads, .duplication.rate, .insert_size.peak ] | @tsv' "${jt}")
-
-            # Append detailed metrics to the summary file
-            echo -e "${sbase}\t${trR1}\t${trR2}\t${trO1}\t${trO2}\t${metrics}" >> "$summary"
-
-            logmsg "fastp complete and stats added for $sbase"
         else
-            logmsg "$(basename ${O1}) and $(basename ${O1}) already exists and trimmed. skipping..."
+            if fastp -i "$R1" -I "$R2" -o "$O1" -O "$O2" --detect_adapter_for_pe -h "${ht}" -j "${jt}"; then
+                # Calculate total reads in the output files (divide line count by 4)
+                local trR1=$(zcat "$R1" | wc -l | awk '{print $1/4}')
+                local trR2=$(zcat "$R2" | wc -l | awk '{print $1/4}')
+                local trO1=$(zcat "$O1" | wc -l | awk '{print $1/4}')
+                local trO2=$(zcat "$O2" | wc -l | awk '{print $1/4}')
+
+                # Extract metrics from the JSON file and store as a string
+                local metrics=$(jq -r '
+                    [.summary.fastp_version, .summary.before_filtering.total_reads, .summary.before_filtering.total_bases, 
+                    .summary.before_filtering.q20_bases, .summary.before_filtering.q30_bases, .summary.before_filtering.gc_content, 
+                    .summary.after_filtering.total_reads, .summary.after_filtering.total_bases, 
+                    .summary.after_filtering.q20_bases, .summary.after_filtering.q30_bases, .summary.after_filtering.gc_content, 
+                    .filtering_result.passed_filter_reads, .filtering_result.low_quality_reads, .filtering_result.too_many_N_reads, 
+                    .filtering_result.too_short_reads, .duplication.rate, .insert_size.peak ] | @tsv' "${jt}")
+
+                # Append detailed metrics to the summary file
+                echo -e "${sbase}\t${trR1}\t${trR2}\t${trO1}\t${trO2}\t${metrics}" >> "$summary"
+
+                logmsg "fastp complete and stats added for $sbase"
+            else
+                logmsg "fastp failed for $sbase"
+            fi
         fi
     done
 }
-
-
 
 map_reads (){
     local sample=$1 
@@ -280,7 +311,7 @@ map_reads (){
         fi
 
         # ── Skip stats work if Genome+Sample already in table ──────────────────────
-        if grep -Pq "^${gbase}\t${sbase}\t" "$overall_coverage"; then
+        if grep -q -E "^${gbase}\t${sbase}\t" "$overall_coverage"; then
             logmsg "Coverage for ${gbase}_${sbase} already present — skipping stats."
         else
             # Run samtools flagstat and extract relevant values
@@ -329,7 +360,7 @@ map_reads (){
         else
             if ! bcftools mpileup --ignore-RG -f "${genome_fa}" "${bam}" --threads "${threads}" \
                     | bcftools call -m -v -Oz --threads "${threads}" -o "${vcf}"; then
-                elogmsg "bcftools mpileup for ${tag} failed" && exit 1
+                logmsg "bcftools mpileup for ${tag} failed" && exit 1
             fi
             logmsg "mpileup and variant calling for ${tag} completed."
 
