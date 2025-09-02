@@ -65,7 +65,7 @@ download_genome() {
             if wget -O ${genome} ${url}; then
             logmsg "Successfully downloaded ${gbase}."
             else
-            logmsg "ERROR: download failed or URL missing for ${genox}."
+            logmsg "ERROR: download failed or URL missing for ${gbase}."
             fi
         fi
     else
@@ -147,8 +147,6 @@ index_genome () {
         fi
     fi
 }
-
-
 
 trim_reads () {
     local sample=$1 
@@ -410,17 +408,27 @@ map_reads (){
 
         # decompress .vcf.gz and pipe to bcftools
         local snp_table="${snps_dir}/${tag}_snps.tsv"
-        
-        # Create readable snp files for downstream analysis
         logmsg "Creating the Final SNP table for ${snp_table} started."
 
         if [[ -f ${snp_table} && -s ${snp_table} ]]; then
             logmsg "${snp_table} already exists. Skipping."
         else
-            echo -e "CHROM\tPOS\tREF\tALT\tQUAL\tDP\tFref\tRref\tFalt\tRalt" > ${snp_table}
+            echo -e "CHROM\tPOS\tREF\tALT\tQUAL\tDP\tFref\tRref\tFalt\tRalt" > "${snp_table}"
+            if bgzip -d -c "${vcf}" | grep -E '^#|^chr[1-9]\b|^chr10\b' \
+               | bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\t%QUAL\t%DP\t[%DP4{0}]\t[%DP4{1}]\t[%DP4{2}]\t[%DP4{3}]\n' >> "${snp_table}"; then
+                logmsg "SNP table created for ${vcf}."
+            else
+                logmsg "bcf filter for ${tag} failed" && exit 1
+            fi
+        fi
 
-            if bgzip -d -c ${vcf} | grep -E '^#|^chr[1-9]\b|^chr10\b' | \
-                bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\t%QUAL\t%DP\t[%DP4{0}]\t[%DP4{1}]\t[%DP4{2}]\t[%DP4{3}]\n'  >> ${snp_table}; then
+        if [[ ${sv_call}="true" ]] ; then
+            local manta_dir="${sample_dir}/minimap_dir/manta_dir"
+            local manta_run="${manta_dir}/${tag}_manta_sv"
+            local sv_vcf="${sample_dir}/minimap_dir/svs_vcf"
+            local sv_table="${sample_dir}/minimap_dir/svs_tsv"
+            
+            # make sure all dirs exist
             create_dir ${manta_dir} ${sv_vcf} ${sv_table} "${manta_run}"
 
             # Structural variant calling with Manta

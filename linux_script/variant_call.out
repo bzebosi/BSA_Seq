@@ -1,3 +1,90 @@
-2025-09-02 13:47:00: Conda environment 'variant_call_packages' already exists.
-2025-09-02 13:47:01: Running script: /nfs5/BPP/Leiboff_Lab/Brian/scripts/BSA_Seq/linux_script/run_variant_call.sh
-2025-09-02 13:47:02: SLURM job completed.
+2025-09-02 14:44:28: Conda environment 'variant_call_packages' already exists.
+2025-09-02 14:44:30: Running script: /nfs5/BPP/Leiboff_Lab/Brian/scripts/BSA_Seq/linux_script/run_variant_call.sh
+2025-09-02 14:44:30: directory /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes already exists.
+2025-09-02 14:44:30: Checking genome w22 : /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/w22.fa.gz
+2025-09-02 14:44:30: downloading w22 required
+2025-09-02 14:44:30: Genome /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/w22.fa.gz already exists — skipping download.
+2025-09-02 14:44:30: directory /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs already exists.
+2025-09-02 14:44:30: Starting Minimap2 indexing for /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/w22.fa.gz
+2025-09-02 14:44:30: Minimap2 index exists for w22 — skipping.
+2025-09-02 14:44:30: samtools index .fai/.gzi for w22 already exists. Skipping indexing.
+2025-09-02 14:44:30: Symlink already exists: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/w22.fa.gz
+2025-09-02 14:44:30: directory /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes already exists.
+2025-09-02 14:44:30: Checking genome b73 : /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/b73.fa.gz
+2025-09-02 14:44:30: downloading b73 required
+2025-09-02 14:44:30: Genome /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/b73.fa.gz already exists — skipping download.
+2025-09-02 14:44:30: directory /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs already exists.
+2025-09-02 14:44:30: Starting Minimap2 indexing for /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/b73.fa.gz
+2025-09-02 14:44:30: Minimap2 index exists for b73 — skipping.
+2025-09-02 14:44:30: samtools index .fai/.gzi for b73 already exists. Skipping indexing.
+2025-09-02 14:44:30: Symlink already exists: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/b73.fa.gz
+2025-09-02 14:44:30: directory /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes already exists.
+2025-09-02 14:44:30: Checking genome a619 : /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/a619.fa.gz
+2025-09-02 14:44:30: downloading a619 required
+2025-09-02 14:44:30: Genome /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/a619.fa.gz already exists — skipping download.
+2025-09-02 14:44:30: directory /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs already exists.
+2025-09-02 14:44:30: Starting Minimap2 indexing for /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/a619.fa.gz
+2025-09-02 14:44:30: Minimap2 index exists for a619 — skipping.
+2025-09-02 14:44:30: samtools index .fai/.gzi for a619 already exists. Skipping indexing.
+2025-09-02 14:44:30: Symlink already exists: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/a619.fa.gz
+2025-09-02 14:44:30: directory /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes already exists.
+2025-09-02 14:44:30: Checking genome mo17 : /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/mo17.fa.gz
+2025-09-02 14:44:30: downloading mo17 required
+2025-09-02 14:44:30: Genome /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/mo17.fa.gz already exists — skipping download.
+2025-09-02 14:44:30: directory /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs already exists.
+2025-09-02 14:44:30: Starting Minimap2 indexing for /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/mo17.fa.gz
+2025-09-02 14:44:30: Minimap2 index exists for mo17 — skipping.
+2025-09-02 14:44:31: samtools index .fai/.gzi for mo17 already exists. Skipping indexing.
+2025-09-02 14:44:31: Symlink already exists: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/mo17.fa.gz
+2025-09-02 14:44:31: directory /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes already exists.
+2025-09-02 14:44:31: Checking genome a632 : /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/a632.fa.gz
+2025-09-02 14:44:31: downloading a632 required
+2025-09-02 14:44:31: Genome /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/a632.fa.gz already exists — skipping download.
+2025-09-02 14:44:31: directory /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs already exists.
+2025-09-02 14:44:31: Starting Minimap2 indexing for /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/a632.fa.gz
+2025-09-02 14:44:31: Minimap2 index exists for a632 — skipping.
+2025-09-02 14:44:31: samtools index .fai/.gzi for a632 already exists. Skipping indexing.
+2025-09-02 14:44:31: Symlink already exists: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/a632.fa.gz
+2025-09-02 14:44:31: directory /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes already exists.
+2025-09-02 14:44:31: Checking genome p39 : /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/p39.fa.gz
+2025-09-02 14:44:31: downloading p39 required
+2025-09-02 14:44:31: Genome /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/p39.fa.gz already exists — skipping download.
+2025-09-02 14:44:31: directory /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs already exists.
+2025-09-02 14:44:31: Starting Minimap2 indexing for /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/p39.fa.gz
+2025-09-02 14:44:31: Minimap2 index exists for p39 — skipping.
+2025-09-02 14:44:31: samtools index .fai/.gzi for p39 already exists. Skipping indexing.
+2025-09-02 14:44:31: Symlink already exists: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/p39.fa.gz
+2025-09-02 14:44:31: directory /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes already exists.
+2025-09-02 14:44:31: Checking genome oh43 : /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/oh43.fa.gz
+2025-09-02 14:44:31: downloading oh43 required
+2025-09-02 14:44:31: Genome /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/oh43.fa.gz already exists — skipping download.
+2025-09-02 14:44:31: directory /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs already exists.
+2025-09-02 14:44:31: Starting Minimap2 indexing for /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/oh43.fa.gz
+2025-09-02 14:44:31: Minimap2 index exists for oh43 — skipping.
+2025-09-02 14:44:31: samtools index .fai/.gzi for oh43 already exists. Skipping indexing.
+2025-09-02 14:44:31: Symlink already exists: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/oh43.fa.gz
+2025-09-02 14:44:31: directory /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes already exists.
+2025-09-02 14:44:31: Checking genome b97 : /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/b97.fa.gz
+2025-09-02 14:44:31: downloading b97 required
+2025-09-02 14:44:31: Genome /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/b97.fa.gz already exists — skipping download.
+2025-09-02 14:44:31: directory /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs already exists.
+2025-09-02 14:44:31: Starting Minimap2 indexing for /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/b97.fa.gz
+2025-09-02 14:44:31: Minimap2 index exists for b97 — skipping.
+2025-09-02 14:44:31: samtools index .fai/.gzi for b97 already exists. Skipping indexing.
+2025-09-02 14:44:31: Symlink already exists: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/b97.fa.gz
+2025-09-02 14:44:31: directory /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes already exists.
+2025-09-02 14:44:31: Checking genome a188 : /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/a188.fa.gz
+2025-09-02 14:44:31: downloading a188 required
+2025-09-02 14:44:31: Genome /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/a188.fa.gz already exists — skipping download.
+2025-09-02 14:44:31: directory /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs already exists.
+2025-09-02 14:44:31: Starting Minimap2 indexing for /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/a188.fa.gz
+2025-09-02 14:44:31: Minimap2 index exists for a188 — skipping.
+2025-09-02 14:44:31: samtools index .fai/.gzi for a188 already exists. Skipping indexing.
+2025-09-02 14:44:31: Symlink already exists: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/a188.fa.gz
+2025-09-02 14:44:31: q16 ready for downstream analysis (dir: )
+2025-09-02 14:44:31: trimming q16
+2025-09-02 14:44:31: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/trim_dir already exists.
+2025-09-02 14:44:31: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir already exists.
+2025-09-02 14:44:31: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967
+2025-09-02 14:44:31: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/reads_trim_summary.tsv already exist.
+2025-09-02 14:44:31: trim files exist but /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/reads_trim_summary.tsv missing entry for mb8 ...
