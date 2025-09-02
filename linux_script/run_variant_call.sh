@@ -22,7 +22,6 @@ get_sample_dir() {
     logmsg "WARN: sample '$s' missing/empty (known: ${!sample_loc[@]})"
     return 1
   fi
- logmsg "${spath}"
 }
 
 # create directory function 
@@ -153,7 +152,6 @@ index_genome () {
 
 trim_reads () {
     local sample=$1 
-    local sample_dir
     local sample_dir="${sample_loc[$sample]}"
     local reads_dir="${sample_dir}/reads"
     local trim_dir="${sample_dir}/minimap_dir/trim_dir"
