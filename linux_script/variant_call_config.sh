@@ -55,7 +55,7 @@ declare -A genome_urls=(
 
 # which genomes & which samples to process?
 goi=(w22 b73 a619 mo17 a632 p39 oh43 b97 a188)
-files=(q16 q17 q18 q8 q6 q7 q5 q11 q10 q2 q9 q12 q4 q13 q3)
+files=(q16 q17 q15 q20)
 
 
 # *************** End of user setting **************************************

@@ -14,6 +14,17 @@ timestamp() { date '+%Y-%m-%d %H:%M:%S'; }
 logmsg() { echo "$(timestamp): $*"; }
 
 
+# Always-skip lookup: if missing/empty -> warn + return 1
+get_sample_dir() {
+  local sample=$1
+  local spath="${sample_loc[$sample]:-}"
+  if [[ -z $spath ]]; then
+    logmsg "WARN: sample '$s' missing/empty (known: ${!sample_loc[@]})"
+    return 1
+  fi
+ logmsg "${spath}"
+}
+
 # create directory function 
 create_dir(){
     for dir in "$@"; do
@@ -142,6 +153,7 @@ index_genome () {
 
 trim_reads () {
     local sample=$1 
+    local sample_dir
     local sample_dir="${sample_loc[$sample]}"
     local reads_dir="${sample_dir}/reads"
     local trim_dir="${sample_dir}/minimap_dir/trim_dir"
@@ -248,6 +260,19 @@ map_reads (){
     local idx_mmi="$idx_dir/${gbase}.mmi"
     local genome_fa="$idx_dir/${gbase}.fa.gz"
 
+    if [[ -s ${idx_mmi} && -s ${genome_fa} ]]; then
+        logmsg "Using index: $idx_mmi and FASTA: $genome_fa."
+    else
+        logmsg "ERROR – index or FASTA missing for $gbase" &&  exit 1
+    fi
+
+    #iterate over trimmed pair
+    for O1 in ${trim_dir}/*_trim_R1.fq.gz; do
+        local sbase=$(basename "$O1" _trim_R1.fq.gz)
+        local O2="$trim_dir/${sbase}_trim_R2.fq.gz"
+        local tag="${gbase}_${sbase}"
+        local sam="${align_dir}/${tag}.sam"
+        local bam="${align_dir}/${tag}.bam"
     if [[ -s ${idx_mmi} && -s ${genome_fa} ]]; then
         logmsg "Using index: $idx_mmi and FASTA: $genome_fa."
     else
@@ -411,19 +436,6 @@ map_reads (){
 
             if bgzip -d -c ${vcf} | grep -E '^#|^chr[1-9]\b|^chr10\b' | \
                 bcftools query -f '%CHROM\t%POS\t%REF\t%ALT\t%QUAL\t%DP\t[%DP4{0}]\t[%DP4{1}]\t[%DP4{2}]\t[%DP4{3}]\n'  >> ${snp_table}; then
-                logmsg "Creating the Final SNP table for ${vcf} completed."
-            else
-                logmsg "bcf filter for ${tag} failed" && exit 1
-            fi
-        fi
-
-        if [[ ${sv_call}="true" ]] ; then
-            local manta_dir="${sample_dir}/minimap_dir/manta_dir"
-            local manta_run="${manta_dir}/${tag}_manta_sv"
-            local sv_vcf="${sample_dir}/minimap_dir/svs_vcf"
-            local sv_table="${sample_dir}/minimap_dir/svs_tsv"
-            
-            # make sure all dirs exist
             create_dir ${manta_dir} ${sv_vcf} ${sv_table} "${manta_run}"
 
             # Structural variant calling with Manta
@@ -495,10 +507,16 @@ done
 
 
 for sx in "${files[@]}"; do
-    logmsg "trimming ${sx}"
-    trim_reads "$sx"
+   if sample_dir="$(get_sample_dir "$sx")"; then
+      logmsg "$sx ready for downstream analysis (dir: $sample_dir)"
+      logmsg "trimming ${sx}"
+      trim_reads "$sx"
 
-    for gx in "${goi[@]}"; do
+      for gx in "${goi[@]}"; do
         map_reads "$sx" "$gx"
-    done
+      done
+   else
+      logmsg "Skipping '$sx' — missing/empty in sample_loc"
+      continue
+   fi
 done
