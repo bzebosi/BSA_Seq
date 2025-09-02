@@ -19,7 +19,7 @@ get_sample_dir() {
   local sample=$1
   local spath="${sample_loc[$sample]:-}"
   if [[ -z $spath ]]; then
-    logmsg "WARN: sample '$s' missing/empty (known: ${!sample_loc[@]})"
+    logmsg "WARN: sample '$sample' missing/empty (known: ${!sample_loc[@]})"
     return 1
   fi
 }
