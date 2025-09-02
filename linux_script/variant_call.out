@@ -1,3 +1,3 @@
-2025-09-02 13:30:34: Conda environment 'variant_call_packages' already exists.
-2025-09-02 13:30:35: Running script: /nfs5/BPP/Leiboff_Lab/Brian/scripts/BSA_Seq/linux_script/run_variant_call.sh
-2025-09-02 13:30:35: SLURM job completed.
+2025-09-02 13:47:00: Conda environment 'variant_call_packages' already exists.
+2025-09-02 13:47:01: Running script: /nfs5/BPP/Leiboff_Lab/Brian/scripts/BSA_Seq/linux_script/run_variant_call.sh
+2025-09-02 13:47:02: SLURM job completed.

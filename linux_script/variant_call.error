@@ -1,4 +1,4 @@
 Warning: 'defaults' already in 'channels' list, moving to the top
 Warning: 'bioconda' already in 'channels' list, moving to the top
 Warning: 'conda-forge' already in 'channels' list, moving to the top
-/nfs5/BPP/Leiboff_Lab/Brian/scripts/BSA_Seq/linux_script/run_variant_call.sh: line 498: syntax error near unexpected token `done'
+/nfs5/BPP/Leiboff_Lab/Brian/scripts/BSA_Seq/linux_script/run_variant_call.sh: line 485: syntax error near unexpected token `done'

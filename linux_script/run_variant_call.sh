@@ -273,19 +273,6 @@ map_reads (){
         local tag="${gbase}_${sbase}"
         local sam="${align_dir}/${tag}.sam"
         local bam="${align_dir}/${tag}.bam"
-    if [[ -s ${idx_mmi} && -s ${genome_fa} ]]; then
-        logmsg "Using index: $idx_mmi and FASTA: $genome_fa."
-    else
-        logmsg "ERROR – index or FASTA missing for $gbase" &&  exit 1
-    fi
-
-    #iterate over trimmed pair
-    for O1 in ${trim_dir}/*_trim_R1.fq.gz; do
-        local sbase=$(basename "$O1" _trim_R1.fq.gz)
-        local O2="$trim_dir/${sbase}_trim_R2.fq.gz"
-        local tag="${gbase}_${sbase}"
-        local sam="${align_dir}/${tag}.sam"
-        local bam="${align_dir}/${tag}.bam"
         local vcf="${vcf_dir}/${tag}.vcf.gz"
 
         # Run Minimap2 alignment
