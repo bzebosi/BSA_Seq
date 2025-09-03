@@ -1,3 +1,8 @@
 Warning: 'defaults' already in 'channels' list, moving to the top
 Warning: 'bioconda' already in 'channels' list, moving to the top
 Warning: 'conda-forge' already in 'channels' list, moving to the top
+
+gzip: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb6_ts071L/reads/MB6_R1.fq.gz: decompression OK, trailing garbage ignored
+
+gzip: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb6_ts071L/reads/MB6_R2.fq.gz: decompression OK, trailing garbage ignored
+/nfs5/BPP/Leiboff_Lab/Brian/scripts/BSA_Seq/linux_script/run_variant_call.sh: line 204: metrics: unbound variable

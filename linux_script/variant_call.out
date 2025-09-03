@@ -88,3 +88,731 @@
 2025-09-02 14:44:31: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967
 2025-09-02 14:44:31: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/reads_trim_summary.tsv already exist.
 2025-09-02 14:44:31: trim files exist but /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/reads_trim_summary.tsv missing entry for mb8 ...
+2025-09-02 15:20:53: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir already exists.
+2025-09-02 15:20:53: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/plots_dir already exists.
+2025-09-02 15:20:53: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir already exists.
+2025-09-02 15:20:53: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir already exists.
+2025-09-02 15:20:53: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir already exists.
+2025-09-02 15:20:54: Using index: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/w22.mmi and FASTA: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/w22.fa.gz.
+2025-09-02 15:20:54: mapping q16 to w22 started.
+2025-09-02 15:20:54: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/w22_mb8.bam already exists. Skipping alignment.
+2025-09-02 15:20:54: Flagstat for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/w22_mb8.bam
+2025-09-02 15:24:31: computing coverage depth /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/w22_mb8.bam started
+2025-09-02 15:33:42: Coverage calculated for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/w22_mb8.bam: 27.4726x
+2025-09-02 15:33:42: checking output vcf /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/w22_mb8.vcf.gz.
+2025-09-02 15:33:42: mpileup and variant calling /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/w22_mb8.bam against w22 started.
+2025-09-02 15:33:42: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/w22_mb8.vcf.gz already exists. Skipping.
+2025-09-02 15:33:42: Generating stats for VCF: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/w22_mb8.vcf.gz
+2025-09-02 15:33:42: Stats file already exists: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/w22_mb8_bcfstats.tsv.
+2025-09-02 15:33:42: Plotting stats from /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/w22_mb8_bcfstats.tsv.
+2025-09-02 15:33:42: Plots directory already exists: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/plots_dir/w22_mb8_plots.
+2025-09-02 15:33:42: Creating the Final SNP table for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir/w22_mb8_snps.tsv started.
+2025-09-02 15:33:42: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir/w22_mb8_snps.tsv already exists. Skipping.
+2025-09-02 15:33:42: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/manta_dir already exists.
+2025-09-02 15:33:42: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_vcf already exists.
+2025-09-02 15:33:42: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv already exists.
+2025-09-02 15:33:42: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/manta_dir/w22_mb8_manta_sv already exists.
+2025-09-02 15:33:42: Running Manta for: w22_mb8 started.
+2025-09-02 15:33:42: Manta SVs already exist for w22_mb8, skipping.
+2025-09-02 15:33:44: Extracting important SV info from: a188_mb8_candidateSmallIndels.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: a188_mb8_candidateSV.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: a188_mb8_diploidSV.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: a619_mb8_candidateSmallIndels.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: a619_mb8_candidateSV.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: a619_mb8_diploidSV.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: a632_mb8_candidateSmallIndels.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: a632_mb8_candidateSV.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: a632_mb8_diploidSV.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: b73_mb8_candidateSmallIndels.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: b73_mb8_candidateSV.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: b73_mb8_diploidSV.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: b97_mb8_candidateSmallIndels.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: b97_mb8_candidateSV.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: b97_mb8_diploidSV.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: mo17_mb8_candidateSmallIndels.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: mo17_mb8_candidateSV.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: mo17_mb8_diploidSV.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: oh43_mb8_candidateSmallIndels.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: oh43_mb8_candidateSV.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: oh43_mb8_diploidSV.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: p39_mb8_candidateSmallIndels.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: p39_mb8_candidateSV.tsv
+2025-09-02 15:33:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:33:44: Extracting important SV info from: p39_mb8_diploidSV.tsv
+2025-09-02 15:33:45: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:33:45: Extracting important SV info from: w22_mb8_candidateSmallIndels.tsv
+2025-09-02 15:33:45: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:33:45: Extracting important SV info from: w22_mb8_candidateSV.tsv
+2025-09-02 15:33:45: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:33:45: Extracting important SV info from: w22_mb8_diploidSV.tsv
+2025-09-02 15:33:45: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:33:45: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir already exists.
+2025-09-02 15:33:45: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/plots_dir already exists.
+2025-09-02 15:33:45: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir already exists.
+2025-09-02 15:33:45: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir already exists.
+2025-09-02 15:33:45: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir already exists.
+2025-09-02 15:33:45: Using index: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/b73.mmi and FASTA: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/b73.fa.gz.
+2025-09-02 15:33:45: mapping q16 to b73 started.
+2025-09-02 15:33:45: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/b73_mb8.bam already exists. Skipping alignment.
+2025-09-02 15:33:45: Flagstat for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/b73_mb8.bam
+2025-09-02 15:37:10: computing coverage depth /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/b73_mb8.bam started
+2025-09-02 15:46:09: Coverage calculated for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/b73_mb8.bam: 26.5818x
+2025-09-02 15:46:10: checking output vcf /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/b73_mb8.vcf.gz.
+2025-09-02 15:46:10: mpileup and variant calling /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/b73_mb8.bam against b73 started.
+2025-09-02 15:46:10: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/b73_mb8.vcf.gz already exists. Skipping.
+2025-09-02 15:46:10: Generating stats for VCF: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/b73_mb8.vcf.gz
+2025-09-02 15:46:10: Stats file already exists: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/b73_mb8_bcfstats.tsv.
+2025-09-02 15:46:10: Plotting stats from /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/b73_mb8_bcfstats.tsv.
+2025-09-02 15:46:10: Plots directory already exists: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/plots_dir/b73_mb8_plots.
+2025-09-02 15:46:10: Creating the Final SNP table for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir/b73_mb8_snps.tsv started.
+2025-09-02 15:46:10: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir/b73_mb8_snps.tsv already exists. Skipping.
+2025-09-02 15:46:10: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/manta_dir already exists.
+2025-09-02 15:46:10: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_vcf already exists.
+2025-09-02 15:46:10: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv already exists.
+2025-09-02 15:46:10: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/manta_dir/b73_mb8_manta_sv already exists.
+2025-09-02 15:46:10: Running Manta for: b73_mb8 started.
+2025-09-02 15:46:10: Manta SVs already exist for b73_mb8, skipping.
+2025-09-02 15:46:12: Extracting important SV info from: a188_mb8_candidateSmallIndels.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: a188_mb8_candidateSV.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: a188_mb8_diploidSV.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: a619_mb8_candidateSmallIndels.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: a619_mb8_candidateSV.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: a619_mb8_diploidSV.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: a632_mb8_candidateSmallIndels.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: a632_mb8_candidateSV.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: a632_mb8_diploidSV.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: b73_mb8_candidateSmallIndels.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: b73_mb8_candidateSV.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: b73_mb8_diploidSV.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: b97_mb8_candidateSmallIndels.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: b97_mb8_candidateSV.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: b97_mb8_diploidSV.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: mo17_mb8_candidateSmallIndels.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: mo17_mb8_candidateSV.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: mo17_mb8_diploidSV.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: oh43_mb8_candidateSmallIndels.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: oh43_mb8_candidateSV.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: oh43_mb8_diploidSV.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: p39_mb8_candidateSmallIndels.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: p39_mb8_candidateSV.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: p39_mb8_diploidSV.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: w22_mb8_candidateSmallIndels.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: w22_mb8_candidateSV.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:46:12: Extracting important SV info from: w22_mb8_diploidSV.tsv
+2025-09-02 15:46:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:46:12: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir already exists.
+2025-09-02 15:46:12: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/plots_dir already exists.
+2025-09-02 15:46:12: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir already exists.
+2025-09-02 15:46:12: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir already exists.
+2025-09-02 15:46:12: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir already exists.
+2025-09-02 15:46:12: Using index: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/a619.mmi and FASTA: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/a619.fa.gz.
+2025-09-02 15:46:12: mapping q16 to a619 started.
+2025-09-02 15:46:13: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/a619_mb8.bam already exists. Skipping alignment.
+2025-09-02 15:46:13: Flagstat for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/a619_mb8.bam
+2025-09-02 15:49:45: computing coverage depth /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/a619_mb8.bam started
+2025-09-02 15:58:35: Coverage calculated for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/a619_mb8.bam: 27.6143x
+2025-09-02 15:58:35: checking output vcf /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/a619_mb8.vcf.gz.
+2025-09-02 15:58:35: mpileup and variant calling /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/a619_mb8.bam against a619 started.
+2025-09-02 15:58:35: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/a619_mb8.vcf.gz already exists. Skipping.
+2025-09-02 15:58:35: Generating stats for VCF: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/a619_mb8.vcf.gz
+2025-09-02 15:58:35: Stats file already exists: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/a619_mb8_bcfstats.tsv.
+2025-09-02 15:58:35: Plotting stats from /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/a619_mb8_bcfstats.tsv.
+2025-09-02 15:58:35: Plots directory already exists: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/plots_dir/a619_mb8_plots.
+2025-09-02 15:58:35: Creating the Final SNP table for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir/a619_mb8_snps.tsv started.
+2025-09-02 15:58:35: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir/a619_mb8_snps.tsv already exists. Skipping.
+2025-09-02 15:58:35: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/manta_dir already exists.
+2025-09-02 15:58:35: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_vcf already exists.
+2025-09-02 15:58:35: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv already exists.
+2025-09-02 15:58:35: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/manta_dir/a619_mb8_manta_sv already exists.
+2025-09-02 15:58:35: Running Manta for: a619_mb8 started.
+2025-09-02 15:58:35: Manta SVs already exist for a619_mb8, skipping.
+2025-09-02 15:58:38: Extracting important SV info from: a188_mb8_candidateSmallIndels.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: a188_mb8_candidateSV.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: a188_mb8_diploidSV.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: a619_mb8_candidateSmallIndels.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: a619_mb8_candidateSV.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: a619_mb8_diploidSV.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: a632_mb8_candidateSmallIndels.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: a632_mb8_candidateSV.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: a632_mb8_diploidSV.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: b73_mb8_candidateSmallIndels.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: b73_mb8_candidateSV.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: b73_mb8_diploidSV.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: b97_mb8_candidateSmallIndels.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: b97_mb8_candidateSV.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: b97_mb8_diploidSV.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: mo17_mb8_candidateSmallIndels.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: mo17_mb8_candidateSV.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: mo17_mb8_diploidSV.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: oh43_mb8_candidateSmallIndels.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: oh43_mb8_candidateSV.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: oh43_mb8_diploidSV.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: p39_mb8_candidateSmallIndels.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: p39_mb8_candidateSV.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: p39_mb8_diploidSV.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: w22_mb8_candidateSmallIndels.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: w22_mb8_candidateSV.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 15:58:38: Extracting important SV info from: w22_mb8_diploidSV.tsv
+2025-09-02 15:58:38: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 15:58:38: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir already exists.
+2025-09-02 15:58:38: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/plots_dir already exists.
+2025-09-02 15:58:38: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir already exists.
+2025-09-02 15:58:38: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir already exists.
+2025-09-02 15:58:38: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir already exists.
+2025-09-02 15:58:38: Using index: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/mo17.mmi and FASTA: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/mo17.fa.gz.
+2025-09-02 15:58:38: mapping q16 to mo17 started.
+2025-09-02 15:58:39: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/mo17_mb8.bam already exists. Skipping alignment.
+2025-09-02 15:58:39: Flagstat for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/mo17_mb8.bam
+2025-09-02 16:02:01: computing coverage depth /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/mo17_mb8.bam started
+2025-09-02 16:11:11: Coverage calculated for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/mo17_mb8.bam: 26.6885x
+2025-09-02 16:11:11: checking output vcf /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/mo17_mb8.vcf.gz.
+2025-09-02 16:11:11: mpileup and variant calling /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/mo17_mb8.bam against mo17 started.
+2025-09-02 16:11:11: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/mo17_mb8.vcf.gz already exists. Skipping.
+2025-09-02 16:11:11: Generating stats for VCF: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/mo17_mb8.vcf.gz
+2025-09-02 16:11:11: Stats file already exists: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/mo17_mb8_bcfstats.tsv.
+2025-09-02 16:11:11: Plotting stats from /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/mo17_mb8_bcfstats.tsv.
+2025-09-02 16:11:11: Plots directory already exists: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/plots_dir/mo17_mb8_plots.
+2025-09-02 16:11:11: Creating the Final SNP table for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir/mo17_mb8_snps.tsv started.
+2025-09-02 16:11:11: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir/mo17_mb8_snps.tsv already exists. Skipping.
+2025-09-02 16:11:11: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/manta_dir already exists.
+2025-09-02 16:11:11: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_vcf already exists.
+2025-09-02 16:11:11: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv already exists.
+2025-09-02 16:11:11: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/manta_dir/mo17_mb8_manta_sv already exists.
+2025-09-02 16:11:11: Running Manta for: mo17_mb8 started.
+2025-09-02 16:11:12: Manta SVs already exist for mo17_mb8, skipping.
+2025-09-02 16:11:14: Extracting important SV info from: a188_mb8_candidateSmallIndels.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: a188_mb8_candidateSV.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: a188_mb8_diploidSV.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: a619_mb8_candidateSmallIndels.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: a619_mb8_candidateSV.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: a619_mb8_diploidSV.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: a632_mb8_candidateSmallIndels.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: a632_mb8_candidateSV.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: a632_mb8_diploidSV.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: b73_mb8_candidateSmallIndels.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: b73_mb8_candidateSV.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: b73_mb8_diploidSV.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: b97_mb8_candidateSmallIndels.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: b97_mb8_candidateSV.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: b97_mb8_diploidSV.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: mo17_mb8_candidateSmallIndels.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: mo17_mb8_candidateSV.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: mo17_mb8_diploidSV.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: oh43_mb8_candidateSmallIndels.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: oh43_mb8_candidateSV.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: oh43_mb8_diploidSV.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: p39_mb8_candidateSmallIndels.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: p39_mb8_candidateSV.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: p39_mb8_diploidSV.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: w22_mb8_candidateSmallIndels.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: w22_mb8_candidateSV.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:11:14: Extracting important SV info from: w22_mb8_diploidSV.tsv
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:11:14: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir already exists.
+2025-09-02 16:11:14: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/plots_dir already exists.
+2025-09-02 16:11:14: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir already exists.
+2025-09-02 16:11:14: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir already exists.
+2025-09-02 16:11:14: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir already exists.
+2025-09-02 16:11:14: Using index: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/a632.mmi and FASTA: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/a632.fa.gz.
+2025-09-02 16:11:14: mapping q16 to a632 started.
+2025-09-02 16:11:14: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/a632_mb8.bam already exists. Skipping alignment.
+2025-09-02 16:11:14: Flagstat for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/a632_mb8.bam
+2025-09-02 16:14:45: computing coverage depth /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/a632_mb8.bam started
+2025-09-02 16:23:41: Coverage calculated for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/a632_mb8.bam: 26.4528x
+2025-09-02 16:23:41: checking output vcf /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/a632_mb8.vcf.gz.
+2025-09-02 16:23:41: mpileup and variant calling /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/a632_mb8.bam against a632 started.
+2025-09-02 16:23:41: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/a632_mb8.vcf.gz already exists. Skipping.
+2025-09-02 16:23:41: Generating stats for VCF: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/a632_mb8.vcf.gz
+2025-09-02 16:23:41: Stats file already exists: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/a632_mb8_bcfstats.tsv.
+2025-09-02 16:23:41: Plotting stats from /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/a632_mb8_bcfstats.tsv.
+2025-09-02 16:23:41: Plots directory already exists: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/plots_dir/a632_mb8_plots.
+2025-09-02 16:23:41: Creating the Final SNP table for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir/a632_mb8_snps.tsv started.
+2025-09-02 16:23:41: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir/a632_mb8_snps.tsv already exists. Skipping.
+2025-09-02 16:23:41: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/manta_dir already exists.
+2025-09-02 16:23:41: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_vcf already exists.
+2025-09-02 16:23:41: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv already exists.
+2025-09-02 16:23:41: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/manta_dir/a632_mb8_manta_sv already exists.
+2025-09-02 16:23:41: Running Manta for: a632_mb8 started.
+2025-09-02 16:23:41: Manta SVs already exist for a632_mb8, skipping.
+2025-09-02 16:23:44: Extracting important SV info from: a188_mb8_candidateSmallIndels.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: a188_mb8_candidateSV.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: a188_mb8_diploidSV.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: a619_mb8_candidateSmallIndels.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: a619_mb8_candidateSV.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: a619_mb8_diploidSV.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: a632_mb8_candidateSmallIndels.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: a632_mb8_candidateSV.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: a632_mb8_diploidSV.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: b73_mb8_candidateSmallIndels.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: b73_mb8_candidateSV.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: b73_mb8_diploidSV.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: b97_mb8_candidateSmallIndels.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: b97_mb8_candidateSV.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: b97_mb8_diploidSV.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: mo17_mb8_candidateSmallIndels.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: mo17_mb8_candidateSV.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: mo17_mb8_diploidSV.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: oh43_mb8_candidateSmallIndels.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: oh43_mb8_candidateSV.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: oh43_mb8_diploidSV.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: p39_mb8_candidateSmallIndels.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: p39_mb8_candidateSV.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: p39_mb8_diploidSV.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: w22_mb8_candidateSmallIndels.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: w22_mb8_candidateSV.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:23:44: Extracting important SV info from: w22_mb8_diploidSV.tsv
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:23:44: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir already exists.
+2025-09-02 16:23:44: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/plots_dir already exists.
+2025-09-02 16:23:44: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir already exists.
+2025-09-02 16:23:44: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir already exists.
+2025-09-02 16:23:44: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir already exists.
+2025-09-02 16:23:44: Using index: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/p39.mmi and FASTA: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/p39.fa.gz.
+2025-09-02 16:23:44: mapping q16 to p39 started.
+2025-09-02 16:23:44: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/p39_mb8.bam already exists. Skipping alignment.
+2025-09-02 16:23:44: Flagstat for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/p39_mb8.bam
+2025-09-02 16:27:13: computing coverage depth /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/p39_mb8.bam started
+2025-09-02 16:36:02: Coverage calculated for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/p39_mb8.bam: 27.1367x
+2025-09-02 16:36:02: checking output vcf /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/p39_mb8.vcf.gz.
+2025-09-02 16:36:02: mpileup and variant calling /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/p39_mb8.bam against p39 started.
+2025-09-02 16:36:02: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/p39_mb8.vcf.gz already exists. Skipping.
+2025-09-02 16:36:02: Generating stats for VCF: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/p39_mb8.vcf.gz
+2025-09-02 16:36:03: Stats file already exists: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/p39_mb8_bcfstats.tsv.
+2025-09-02 16:36:03: Plotting stats from /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/p39_mb8_bcfstats.tsv.
+2025-09-02 16:36:03: Plots directory already exists: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/plots_dir/p39_mb8_plots.
+2025-09-02 16:36:03: Creating the Final SNP table for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir/p39_mb8_snps.tsv started.
+2025-09-02 16:36:03: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir/p39_mb8_snps.tsv already exists. Skipping.
+2025-09-02 16:36:03: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/manta_dir already exists.
+2025-09-02 16:36:03: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_vcf already exists.
+2025-09-02 16:36:03: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv already exists.
+2025-09-02 16:36:03: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/manta_dir/p39_mb8_manta_sv already exists.
+2025-09-02 16:36:03: Running Manta for: p39_mb8 started.
+2025-09-02 16:36:03: Manta SVs already exist for p39_mb8, skipping.
+2025-09-02 16:36:06: Extracting important SV info from: a188_mb8_candidateSmallIndels.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: a188_mb8_candidateSV.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: a188_mb8_diploidSV.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: a619_mb8_candidateSmallIndels.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: a619_mb8_candidateSV.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: a619_mb8_diploidSV.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: a632_mb8_candidateSmallIndels.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: a632_mb8_candidateSV.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: a632_mb8_diploidSV.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: b73_mb8_candidateSmallIndels.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: b73_mb8_candidateSV.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: b73_mb8_diploidSV.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: b97_mb8_candidateSmallIndels.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: b97_mb8_candidateSV.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: b97_mb8_diploidSV.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: mo17_mb8_candidateSmallIndels.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: mo17_mb8_candidateSV.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: mo17_mb8_diploidSV.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: oh43_mb8_candidateSmallIndels.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: oh43_mb8_candidateSV.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: oh43_mb8_diploidSV.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: p39_mb8_candidateSmallIndels.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: p39_mb8_candidateSV.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: p39_mb8_diploidSV.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: w22_mb8_candidateSmallIndels.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: w22_mb8_candidateSV.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:36:06: Extracting important SV info from: w22_mb8_diploidSV.tsv
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:36:06: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir already exists.
+2025-09-02 16:36:06: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/plots_dir already exists.
+2025-09-02 16:36:06: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir already exists.
+2025-09-02 16:36:06: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir already exists.
+2025-09-02 16:36:06: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir already exists.
+2025-09-02 16:36:06: Using index: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/oh43.mmi and FASTA: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/oh43.fa.gz.
+2025-09-02 16:36:06: mapping q16 to oh43 started.
+2025-09-02 16:36:06: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/oh43_mb8.bam already exists. Skipping alignment.
+2025-09-02 16:36:06: Flagstat for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/oh43_mb8.bam
+2025-09-02 16:39:26: computing coverage depth /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/oh43_mb8.bam started
+2025-09-02 16:48:24: Coverage calculated for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/oh43_mb8.bam: 26.6216x
+2025-09-02 16:48:24: checking output vcf /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/oh43_mb8.vcf.gz.
+2025-09-02 16:48:24: mpileup and variant calling /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/oh43_mb8.bam against oh43 started.
+2025-09-02 16:48:24: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/oh43_mb8.vcf.gz already exists. Skipping.
+2025-09-02 16:48:24: Generating stats for VCF: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/oh43_mb8.vcf.gz
+2025-09-02 16:48:24: Stats file already exists: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/oh43_mb8_bcfstats.tsv.
+2025-09-02 16:48:24: Plotting stats from /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/oh43_mb8_bcfstats.tsv.
+2025-09-02 16:48:24: Plots directory already exists: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/plots_dir/oh43_mb8_plots.
+2025-09-02 16:48:24: Creating the Final SNP table for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir/oh43_mb8_snps.tsv started.
+2025-09-02 16:48:24: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir/oh43_mb8_snps.tsv already exists. Skipping.
+2025-09-02 16:48:24: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/manta_dir already exists.
+2025-09-02 16:48:24: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_vcf already exists.
+2025-09-02 16:48:25: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv already exists.
+2025-09-02 16:48:25: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/manta_dir/oh43_mb8_manta_sv already exists.
+2025-09-02 16:48:25: Running Manta for: oh43_mb8 started.
+2025-09-02 16:48:25: Manta SVs already exist for oh43_mb8, skipping.
+2025-09-02 16:48:27: Extracting important SV info from: a188_mb8_candidateSmallIndels.tsv
+2025-09-02 16:48:27: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:48:27: Extracting important SV info from: a188_mb8_candidateSV.tsv
+2025-09-02 16:48:27: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:48:27: Extracting important SV info from: a188_mb8_diploidSV.tsv
+2025-09-02 16:48:27: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:48:27: Extracting important SV info from: a619_mb8_candidateSmallIndels.tsv
+2025-09-02 16:48:27: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:48:27: Extracting important SV info from: a619_mb8_candidateSV.tsv
+2025-09-02 16:48:27: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:48:27: Extracting important SV info from: a619_mb8_diploidSV.tsv
+2025-09-02 16:48:27: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:48:27: Extracting important SV info from: a632_mb8_candidateSmallIndels.tsv
+2025-09-02 16:48:27: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:48:27: Extracting important SV info from: a632_mb8_candidateSV.tsv
+2025-09-02 16:48:27: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:48:27: Extracting important SV info from: a632_mb8_diploidSV.tsv
+2025-09-02 16:48:27: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:48:27: Extracting important SV info from: b73_mb8_candidateSmallIndels.tsv
+2025-09-02 16:48:27: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:48:27: Extracting important SV info from: b73_mb8_candidateSV.tsv
+2025-09-02 16:48:27: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:48:27: Extracting important SV info from: b73_mb8_diploidSV.tsv
+2025-09-02 16:48:27: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:48:27: Extracting important SV info from: b97_mb8_candidateSmallIndels.tsv
+2025-09-02 16:48:27: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:48:27: Extracting important SV info from: b97_mb8_candidateSV.tsv
+2025-09-02 16:48:27: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:48:27: Extracting important SV info from: b97_mb8_diploidSV.tsv
+2025-09-02 16:48:27: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:48:28: Extracting important SV info from: mo17_mb8_candidateSmallIndels.tsv
+2025-09-02 16:48:28: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:48:28: Extracting important SV info from: mo17_mb8_candidateSV.tsv
+2025-09-02 16:48:28: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:48:28: Extracting important SV info from: mo17_mb8_diploidSV.tsv
+2025-09-02 16:48:28: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:48:28: Extracting important SV info from: oh43_mb8_candidateSmallIndels.tsv
+2025-09-02 16:48:28: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:48:28: Extracting important SV info from: oh43_mb8_candidateSV.tsv
+2025-09-02 16:48:28: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:48:28: Extracting important SV info from: oh43_mb8_diploidSV.tsv
+2025-09-02 16:48:28: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:48:28: Extracting important SV info from: p39_mb8_candidateSmallIndels.tsv
+2025-09-02 16:48:28: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:48:28: Extracting important SV info from: p39_mb8_candidateSV.tsv
+2025-09-02 16:48:28: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:48:28: Extracting important SV info from: p39_mb8_diploidSV.tsv
+2025-09-02 16:48:28: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:48:28: Extracting important SV info from: w22_mb8_candidateSmallIndels.tsv
+2025-09-02 16:48:28: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 16:48:28: Extracting important SV info from: w22_mb8_candidateSV.tsv
+2025-09-02 16:48:28: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 16:48:28: Extracting important SV info from: w22_mb8_diploidSV.tsv
+2025-09-02 16:48:28: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 16:48:28: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir already exists.
+2025-09-02 16:48:28: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/plots_dir already exists.
+2025-09-02 16:48:28: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir already exists.
+2025-09-02 16:48:28: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir already exists.
+2025-09-02 16:48:28: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir already exists.
+2025-09-02 16:48:28: Using index: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/b97.mmi and FASTA: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/b97.fa.gz.
+2025-09-02 16:48:28: mapping q16 to b97 started.
+2025-09-02 16:48:28: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/b97_mb8.bam already exists. Skipping alignment.
+2025-09-02 16:48:28: Flagstat for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/b97_mb8.bam
+2025-09-02 16:52:00: computing coverage depth /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/b97_mb8.bam started
+2025-09-02 17:01:09: Coverage calculated for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/b97_mb8.bam: 26.38x
+2025-09-02 17:01:09: checking output vcf /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/b97_mb8.vcf.gz.
+2025-09-02 17:01:09: mpileup and variant calling /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/b97_mb8.bam against b97 started.
+2025-09-02 17:01:09: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/b97_mb8.vcf.gz already exists. Skipping.
+2025-09-02 17:01:09: Generating stats for VCF: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/b97_mb8.vcf.gz
+2025-09-02 17:01:09: Stats file already exists: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/b97_mb8_bcfstats.tsv.
+2025-09-02 17:01:09: Plotting stats from /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/b97_mb8_bcfstats.tsv.
+2025-09-02 17:01:09: Plots directory already exists: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/plots_dir/b97_mb8_plots.
+2025-09-02 17:01:09: Creating the Final SNP table for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir/b97_mb8_snps.tsv started.
+2025-09-02 17:01:09: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir/b97_mb8_snps.tsv already exists. Skipping.
+2025-09-02 17:01:09: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/manta_dir already exists.
+2025-09-02 17:01:09: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_vcf already exists.
+2025-09-02 17:01:09: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv already exists.
+2025-09-02 17:01:09: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/manta_dir/b97_mb8_manta_sv already exists.
+2025-09-02 17:01:09: Running Manta for: b97_mb8 started.
+2025-09-02 17:01:10: Manta SVs already exist for b97_mb8, skipping.
+2025-09-02 17:01:12: Extracting important SV info from: a188_mb8_candidateSmallIndels.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: a188_mb8_candidateSV.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: a188_mb8_diploidSV.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: a619_mb8_candidateSmallIndels.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: a619_mb8_candidateSV.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: a619_mb8_diploidSV.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: a632_mb8_candidateSmallIndels.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: a632_mb8_candidateSV.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: a632_mb8_diploidSV.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: b73_mb8_candidateSmallIndels.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: b73_mb8_candidateSV.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: b73_mb8_diploidSV.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: b97_mb8_candidateSmallIndels.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: b97_mb8_candidateSV.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: b97_mb8_diploidSV.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: mo17_mb8_candidateSmallIndels.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: mo17_mb8_candidateSV.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: mo17_mb8_diploidSV.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: oh43_mb8_candidateSmallIndels.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: oh43_mb8_candidateSV.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: oh43_mb8_diploidSV.tsv
+2025-09-02 17:01:12: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 17:01:12: Extracting important SV info from: p39_mb8_candidateSmallIndels.tsv
+2025-09-02 17:01:13: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 17:01:13: Extracting important SV info from: p39_mb8_candidateSV.tsv
+2025-09-02 17:01:13: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 17:01:13: Extracting important SV info from: p39_mb8_diploidSV.tsv
+2025-09-02 17:01:13: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 17:01:13: Extracting important SV info from: w22_mb8_candidateSmallIndels.tsv
+2025-09-02 17:01:13: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 17:01:13: Extracting important SV info from: w22_mb8_candidateSV.tsv
+2025-09-02 17:01:13: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 17:01:13: Extracting important SV info from: w22_mb8_diploidSV.tsv
+2025-09-02 17:01:13: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 17:01:13: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir already exists.
+2025-09-02 17:01:13: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/plots_dir already exists.
+2025-09-02 17:01:13: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir already exists.
+2025-09-02 17:01:13: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir already exists.
+2025-09-02 17:01:13: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir already exists.
+2025-09-02 17:01:13: Using index: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/a188.mmi and FASTA: /nfs5/BPP/Leiboff_Lab/Brian/genomes_tmp/genomes/indexs/a188.fa.gz.
+2025-09-02 17:01:13: mapping q16 to a188 started.
+2025-09-02 17:01:13: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/a188_mb8.bam already exists. Skipping alignment.
+2025-09-02 17:01:13: Flagstat for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/a188_mb8.bam
+2025-09-02 17:04:43: computing coverage depth /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/a188_mb8.bam started
+2025-09-02 17:13:46: Coverage calculated for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/a188_mb8.bam: 25.8416x
+2025-09-02 17:13:46: checking output vcf /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/a188_mb8.vcf.gz.
+2025-09-02 17:13:46: mpileup and variant calling /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/align_dir/a188_mb8.bam against a188 started.
+2025-09-02 17:13:46: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/a188_mb8.vcf.gz already exists. Skipping.
+2025-09-02 17:13:46: Generating stats for VCF: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/vcf_dir/a188_mb8.vcf.gz
+2025-09-02 17:13:46: Stats file already exists: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/a188_mb8_bcfstats.tsv.
+2025-09-02 17:13:46: Plotting stats from /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/stat_dir/a188_mb8_bcfstats.tsv.
+2025-09-02 17:13:46: Plots directory already exists: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/plots_dir/a188_mb8_plots.
+2025-09-02 17:13:46: Creating the Final SNP table for /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir/a188_mb8_snps.tsv started.
+2025-09-02 17:13:46: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/snps_dir/a188_mb8_snps.tsv already exists. Skipping.
+2025-09-02 17:13:46: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/manta_dir already exists.
+2025-09-02 17:13:46: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_vcf already exists.
+2025-09-02 17:13:46: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv already exists.
+2025-09-02 17:13:46: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/manta_dir/a188_mb8_manta_sv already exists.
+2025-09-02 17:13:46: Running Manta for: a188_mb8 started.
+2025-09-02 17:13:47: Manta SVs already exist for a188_mb8, skipping.
+2025-09-02 17:13:49: Extracting important SV info from: a188_mb8_candidateSmallIndels.tsv
+2025-09-02 17:13:49: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 17:13:49: Extracting important SV info from: a188_mb8_candidateSV.tsv
+2025-09-02 17:13:49: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 17:13:49: Extracting important SV info from: a188_mb8_diploidSV.tsv
+2025-09-02 17:13:49: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a188_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 17:13:49: Extracting important SV info from: a619_mb8_candidateSmallIndels.tsv
+2025-09-02 17:13:49: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 17:13:49: Extracting important SV info from: a619_mb8_candidateSV.tsv
+2025-09-02 17:13:49: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 17:13:49: Extracting important SV info from: a619_mb8_diploidSV.tsv
+2025-09-02 17:13:49: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a619_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 17:13:49: Extracting important SV info from: a632_mb8_candidateSmallIndels.tsv
+2025-09-02 17:13:49: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 17:13:49: Extracting important SV info from: a632_mb8_candidateSV.tsv
+2025-09-02 17:13:49: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 17:13:49: Extracting important SV info from: a632_mb8_diploidSV.tsv
+2025-09-02 17:13:49: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/a632_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 17:13:49: Extracting important SV info from: b73_mb8_candidateSmallIndels.tsv
+2025-09-02 17:13:49: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 17:13:49: Extracting important SV info from: b73_mb8_candidateSV.tsv
+2025-09-02 17:13:49: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 17:13:49: Extracting important SV info from: b73_mb8_diploidSV.tsv
+2025-09-02 17:13:49: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b73_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 17:13:50: Extracting important SV info from: b97_mb8_candidateSmallIndels.tsv
+2025-09-02 17:13:50: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 17:13:50: Extracting important SV info from: b97_mb8_candidateSV.tsv
+2025-09-02 17:13:50: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 17:13:50: Extracting important SV info from: b97_mb8_diploidSV.tsv
+2025-09-02 17:13:50: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/b97_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 17:13:50: Extracting important SV info from: mo17_mb8_candidateSmallIndels.tsv
+2025-09-02 17:13:50: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 17:13:50: Extracting important SV info from: mo17_mb8_candidateSV.tsv
+2025-09-02 17:13:50: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 17:13:50: Extracting important SV info from: mo17_mb8_diploidSV.tsv
+2025-09-02 17:13:50: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/mo17_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 17:13:50: Extracting important SV info from: oh43_mb8_candidateSmallIndels.tsv
+2025-09-02 17:13:50: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 17:13:50: Extracting important SV info from: oh43_mb8_candidateSV.tsv
+2025-09-02 17:13:50: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 17:13:50: Extracting important SV info from: oh43_mb8_diploidSV.tsv
+2025-09-02 17:13:50: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/oh43_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 17:13:50: Extracting important SV info from: p39_mb8_candidateSmallIndels.tsv
+2025-09-02 17:13:50: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 17:13:50: Extracting important SV info from: p39_mb8_candidateSV.tsv
+2025-09-02 17:13:50: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 17:13:50: Extracting important SV info from: p39_mb8_diploidSV.tsv
+2025-09-02 17:13:50: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/p39_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 17:13:50: Extracting important SV info from: w22_mb8_candidateSmallIndels.tsv
+2025-09-02 17:13:50: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_candidateSmallIndels.tsv already exists—skipping.
+2025-09-02 17:13:50: Extracting important SV info from: w22_mb8_candidateSV.tsv
+2025-09-02 17:13:50: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_candidateSV.tsv already exists—skipping.
+2025-09-02 17:13:50: Extracting important SV info from: w22_mb8_diploidSV.tsv
+2025-09-02 17:13:50: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb8_ts1967/minimap_dir/svs_tsv/w22_mb8_diploidSV.tsv already exists—skipping.
+2025-09-02 17:13:50: q17 ready for downstream analysis (dir: )
+2025-09-02 17:13:50: trimming q17
+2025-09-02 17:13:50: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb6_ts071L/minimap_dir/trim_dir already exists.
+2025-09-02 17:13:50: directory /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb6_ts071L/minimap_dir/stat_dir already exists.
+2025-09-02 17:13:50: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb6_ts071L
+2025-09-02 17:13:50: /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb6_ts071L/minimap_dir/stat_dir/reads_trim_summary.tsv already exist.
+2025-09-02 17:13:50: trim files exist but /nfs5/BPP/Leiboff_Lab/Brian/bsa/mb6_ts071L/minimap_dir/stat_dir/reads_trim_summary.tsv missing entry for MB6 ...
+2025-09-02 17:56:54: SLURM job completed.

@@ -22,6 +22,7 @@ get_sample_dir() {
     logmsg "WARN: sample '$sample' missing/empty (known: ${!sample_loc[@]})"
     return 1
   fi
+echo "$spath"
 }
 
 # create directory function 
@@ -191,8 +192,10 @@ trim_reads () {
                 local trO1=$(zcat "$O1" | wc -l | awk '{print $1/4}')
                 local trO2=$(zcat "$O2" | wc -l | awk '{print $1/4}')
 
+
+		local metrics=""
                 if [[ -s "${jt}" ]]; then
-                    local metrics=$(jq -r '
+                    metrics=$(jq -r '
                         [.summary.fastp_version, .summary.before_filtering.total_reads, .summary.before_filtering.total_bases, 
                         .summary.before_filtering.q20_bases, .summary.before_filtering.q30_bases, .summary.before_filtering.gc_content, 
                         .summary.after_filtering.total_reads, .summary.after_filtering.total_bases, 
@@ -219,7 +222,8 @@ trim_reads () {
                 local trO2=$(zcat "$O2" | wc -l | awk '{print $1/4}')
 
                 # Extract metrics from the JSON file and store as a string
-                local metrics=$(jq -r '
+                local metrics=""
+		metrics=$(jq -r '
                     [.summary.fastp_version, .summary.before_filtering.total_reads, .summary.before_filtering.total_bases, 
                     .summary.before_filtering.q20_bases, .summary.before_filtering.q30_bases, .summary.before_filtering.gc_content, 
                     .summary.after_filtering.total_reads, .summary.after_filtering.total_bases, 
