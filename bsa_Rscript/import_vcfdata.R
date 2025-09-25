@@ -49,7 +49,7 @@ import_vcfdata <- function(vcf_dir, prefix, pattern, Genotypes = list(wt = "wild
     # Rename columns
     if (ncol(data) >= 10) {
       expected_colnames <- c("CHROM", "POS", "REF", "ALT", "QUAL", "DP", "Fref", "Rref", "Falt", "Ralt")
-      data.table::setnames(data, old = colnames(data)[1:10], new = expectedcol_names)
+      data.table::setnames(data, old = colnames(data)[1:10], new = expected_colnames)
     } else {
       stop("The input file does not contain the expected number of columns (10).")
     }
