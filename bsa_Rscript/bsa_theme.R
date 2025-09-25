@@ -3,7 +3,7 @@ bsa_theme <- function(base_size = 60, legendit = "none") {
   theme_linedraw(base_size = base_size) + 
     theme(
       plot.title = element_text(size = base_size, face = "bold", hjust = 0.5, color = "black"),
-      axis.text.x = element_text(size = base_size * 0.7, face = "bold", colour = "black", vjust = 1),
+      axis.text.x = element_text(angle = 45, hjust = 1, size = base_size * 0.7, face = "bold", color = "black"),
       axis.text.y = element_text(size = base_size, face = "bold", colour = "black", hjust = 1),
       axis.title.x = element_text(size = base_size, face = "bold", color = "black"),
       axis.title.y = element_text(size = base_size, face = "bold", angle = 90, color = "black"),
@@ -11,8 +11,9 @@ bsa_theme <- function(base_size = 60, legendit = "none") {
       axis.ticks = element_line(colour = "black", linewidth = 4),
       axis.ticks.length = unit(0.5, "cm"),
       panel.border = element_rect(linewidth = 7, fill = NA),
-      panel.spacing = unit(0.8, "lines"),
-      panel.grid.minor = element_line(colour = "grey90", linewidth = 1.5),
+      panel.spacing.x = unit(2, "lines"),
+      panel.spacing.y = unit(2, "lines"),
+      panel.grid.minor = element_line(colour = "grey90", linewidth = 2),
       panel.grid.major = element_line(colour = "grey90", linewidth = 0.0),
       strip.background = element_rect(fill = "grey80", colour = "black", linewidth = 7),
       strip.text = element_text(colour = "black", face = "bold", size = base_size),
