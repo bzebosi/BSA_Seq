@@ -8,14 +8,8 @@
 #' @param min_QUAL Minimum QUAL score to keep a record.
 #' @param only_mutant Logical; if TRUE read only the mutant file.
 #' @return A list of filtered and processed data tables.
-#' @examples
-#' \dontrun{
-#' geno <- import_vcfdata(
-#'   vcf_dir = "/path/to/files", prefix = "b73", pattern = "snps\\.tsv$",
-#'   Genotypes = list(wt = "S7A", mt = "S7B"), min_DP = 10, min_QUAL = 30)
-#' }
+#' @return
 #' @export
-
 import_vcfdata <- function(vcf_dir, prefix, pattern, Genotypes = list(wt = "wildtype", mt = "mutant"),
                            min_DP = 5, min_QUAL = 5, only_mutant = FALSE) {
   
@@ -42,42 +36,41 @@ import_vcfdata <- function(vcf_dir, prefix, pattern, Genotypes = list(wt = "wild
     
     # Read file
     data <- tryCatch({
-      fread(geno_file)
+      data.table::fread(geno_file)
     }, error = function(e) {
       stop(paste("Error reading file for", genotype, ":", geno_file, ":", e$message))
     })
     
+    if (!data.table::is.data.table(data)) data.table::setDT(data)
     if (is.null(data) || nrow(data) == 0) {stop(paste("File for", genotype, "is empty or invalid"))}
     
     message(paste("Loaded", genotype, "data with", nrow(data), "rows."))
     
     # Rename columns
     if (ncol(data) >= 10) {
-      expectedcol_names <- c("CHROM", "POS", "REF", "ALT", "QUAL", "DP", "Fref", "Rref", "Falt", "Ralt")
-      setnames(data, old = colnames(data)[1:10], new = expectedcol_names)
-      if (!is.data.table(data)) data <- as.data.table(data)
+      expected_colnames <- c("CHROM", "POS", "REF", "ALT", "QUAL", "DP", "Fref", "Rref", "Falt", "Ralt")
+      data.table::setnames(data, old = colnames(data)[1:10], new = expectedcol_names)
     } else {
       stop("The input file does not contain the expected number of columns (10).")
     }
     
     # Keep only SNPs (exclude indels)
     data <- data[nchar(REF) == 1 & nchar(ALT) == 1]
-    
-    if (!is.data.table(data)) data <- as.data.table(data)
-    
+  
     # Filter by depth and quality
     data <- data[!is.na(DP) & DP > min_DP & QUAL >= min_QUAL]
     message(paste("Filtered", genotype, "data with", nrow(data), "rows based on DP and QUAL."))
     
     # Compute allele frequency (AF)
-    data[, AF := fifelse(
+    data[, AF := data.table::fifelse(
       (Fref + Rref + Falt + Ralt) > 0, 
       (Falt + Ralt) / (Fref + Rref + Falt + Ralt), NA_real_) ]
     
     # Sort and prefix columns
-    setorder(data, CHROM, POS)
+    data[, POS := as.integer(POS)]
+    data.table::setorder(data, CHROM, POS)
     cols_to_prefix <- setdiff(names(data), c("CHROM", "POS"))
-    setnames(data, old = cols_to_prefix, new = paste0(genotype, "_", cols_to_prefix))
+    data.table::setnames(data, old = cols_to_prefix, new = paste0(genotype, "_", cols_to_prefix))
     
     geno_data[[genotype]] <- data
   }
@@ -90,3 +83,14 @@ import_vcfdata <- function(vcf_dir, prefix, pattern, Genotypes = list(wt = "wild
   message("Successfully created list for results.")
   return(geno_data)
 }
+
+
+# vcf_dir = "/Users/zebosi/Documents/osu_postdoc/BSA/S7_6508K/data/snps"
+# wt <- c("S7A6508K") or wt <- NULL (if only_mutant = TRUE)
+# mt <- c("S7B6508K")
+# pattern = "snps\\.tsv$"
+# min_DP=10
+# min_QUAL=10
+# prefix = c("b73")
+# a <- import_vcfdata(vcf_dir, prefix, pattern, Genotypes = list(wt = wt, mt = mt),
+#                    min_DP, min_QUAL, only_mutant = FALSE)
