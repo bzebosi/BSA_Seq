@@ -1,3 +1,20 @@
+#' Window-based BSA analysis for multiple metrics
+#'
+#' @description
+#' Wrapper around window_bsa_compute() to run sliding-window summaries for:
+#' - AF (allele frequency) from mutant (mt_AF), wildtype (wt_AF), or both (via ant_*  and ant_*_ems)
+#' - Joint metrics ED, ED4, AFD, G from wt_mt.
+#' Respects use_ems (use EMS tables) and only_mutant (skip WT + joint metrics).
+#' @param data List with tables: ant_mt, ant_wt, optional ant_mt_ems, ant_wt_ems, and wt_mt for joint metrics.
+#' @param metrics Character vector: one or more of "af","ed","ed4","afd","g","all".
+#' @param af_col Which AF to use: "mt_AF","wt_AF","both". Default "mt_AF".
+#' @param use_ems Logical; if TRUE, use *_ems tables for AF. Default FALSE.
+#' @param only_mutant Logical; if TRUE, skip WT AF and joint metrics. Default FALSE.
+#' @param window_size,step_size,rollmedian,nn_prop,find_intervals,offhold,min_vsize
+#' @inheritParams window_bsa_compute
+#'   Passed through to window_bsa_compute().
+#' @return A list with:
+
 window_bsa_compute_all <- function(data, metrics = c("af","ed","ed4","afd","g","all"),
                                af_col = "mt_AF", use_ems = FALSE, only_mutant = FALSE,
                                window_size = 2e6, step_size = 1e5,rollmedian = 100L, nn_prop = 0.1,
@@ -7,7 +24,6 @@ window_bsa_compute_all <- function(data, metrics = c("af","ed","ed4","afd","g","
   if ("all" %in% metrics) metrics <- c("af","ed","ed4","afd","g")
   
   out <- list(windows = list(), intervals = list())
-  
   
   af_cols <- if ("both" %in% af_col) c("mt_AF","wt_AF") else af_col
   
