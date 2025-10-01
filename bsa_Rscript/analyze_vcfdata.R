@@ -12,8 +12,7 @@
 #'        - NULL/empty => compute nothing; "all" => afd+ed+g.
 #' @return List with wt_mt, ant_mt, ant_wt, ant_mt_ems, ant_wt_ems (subset depends on mode).
 #' @export
-analyze_vcfdata <- function(geno_data, prefix, save_results = FALSE, output_dir = "post_analysis", 
-                            bsa_metrics = c("afd", "g","ed", "all"), only_mutant = FALSE) {
+analyze_vcfdata <- function(geno_data, prefix, save_results = FALSE, output_dir = "post_analysis", only_mutant = FALSE) {
   
   naturalsort <- function(x) {
     if (requireNamespace("stringr", quietly = TRUE)) stringr::str_sort(x, numeric = TRUE) else sort(x)
@@ -38,14 +37,6 @@ analyze_vcfdata <- function(geno_data, prefix, save_results = FALSE, output_dir 
     unique_snps[, CHROM := factor(CHROM, levels = naturalsort(unique(CHROM)))]
     unique_snps <- unique_snps[order(CHROM, POS)]
     return(unique_snps)
-  }
-  
-  # normalize metric selection
-  if (is.null(bsa_metrics) || length(bsa_metrics) == 0L) {
-    bsa_metrics <- character(0)  # compute nothing
-  } else {
-    bsa_metrics <- unique(tolower(bsa_metrics))
-    if ("all" %in% bsa_metrics) bsa_metrics <- c("afd","ed","g")
   }
   
   # Process mutant-only mode
@@ -86,30 +77,16 @@ analyze_vcfdata <- function(geno_data, prefix, save_results = FALSE, output_dir 
       ant_mt_ems <- get_ems(ant_mt, "mt_REF", "mt_ALT", "mutant")
       
       #  # Statistical metrics : Allele frequency diff, ED, G-statistics, p-values
-      if ("afd" %in% bsa_metrics) {
         message("Calculating AFD")
-        if (!all(c("wt_AF","mt_AF") %in% names(wt_mt)))
-          stop("AFD requires columns wt_AF and mt_AF in wt_mt.")
         wt_mt[, AFD := abs(wt_AF - mt_AF)]
-      }
       
       # Calculate Euclidean Distance (ED) and its fourth power (ED4)
-      if ("ed" %in% bsa_metrics) {
         message("Calculating ED and ED4")
-        if (!all(c("wt_AF","mt_AF") %in% names(wt_mt)))
-          stop("ED requires columns wt_AF and mt_AF in wt_mt.")
-        
         wt_mt[, ED := sqrt(2) * abs(wt_AF - mt_AF)]
         wt_mt[, ED4 := ED^4]
-      }
       
       # Calculate G-statistics for each SNP
-      if ("g" %in% bsa_metrics) {
         message("Calculating G-stats")
-        need_g <- c("mt_Fref","mt_Rref","mt_Falt","mt_Ralt","wt_Fref","wt_Rref","wt_Falt","wt_Ralt")
-        if (!all(need_g %in% names(wt_mt)))
-          stop("G requires columns: ", paste(need_g, collapse = ", "), " in wt_mt.")
-        
         compute_G <- function(mt_Fref, mt_Rref, mt_Falt, mt_Ralt,
                                    wt_Fref, wt_Rref, wt_Falt, wt_Ralt) {
           # Compute allele counts
@@ -138,7 +115,6 @@ analyze_vcfdata <- function(geno_data, prefix, save_results = FALSE, output_dir 
         }
         
         wt_mt[, G := mapply(compute_G,mt_Fref, mt_Rref, mt_Falt, mt_Ralt, wt_Fref, wt_Rref, wt_Falt, wt_Ralt)]
-      }
         
       result <- list(wt_mt = wt_mt, ant_mt = ant_mt, ant_wt = ant_wt, ant_mt_ems = ant_mt_ems, ant_wt_ems = ant_wt_ems)
       
@@ -166,4 +142,4 @@ analyze_vcfdata <- function(geno_data, prefix, save_results = FALSE, output_dir 
 # prefix = c("b73")
 # a <- import_vcfdata(vcf_dir, prefix, pattern, Genotypes = list(wt = wt, mt = mt),
 #                    min_DP, min_QUAL, only_mutant = FALSE)
-#d <- analyze_vcfdata(a, prefix, save_results = FALSE, bsa_metrics = "all", output_dir, only_mutant = FALSE)
+#d <- analyze_vcfdata(a, prefix, save_results = FALSE, output_dir, only_mutant = FALSE)
