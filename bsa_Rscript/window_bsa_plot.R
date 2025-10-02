@@ -177,9 +177,9 @@ window_bsa_plot <- function(data, prefix, mt = "mutant", wt = "wildtype", only_m
 #'                                window_size = 2e6, step_size = 1e5,rollmedian = 100L, nn_prop = 0.1,
 #'                                find_intervals = TRUE, offhold = 0.90, min_vsize = 1e6)
 
-ak<- window_bsa_plot(data=win1, prefix, mt = mt, wt = wt, only_mutant = FALSE, use_ems = FALSE,
-                     bsa_metrics = c("all"),
-                     use_col = c("lft","rmd"), hwidth = 30, hheight = 18, 
-                     width = 45, height =15, plots_dir = plots_dir, facet_column = 5, line_size = 5,
-                     plot_style = "grid", color_panel = c("blue","red")) 
+# ak<- window_bsa_plot(data=win1, prefix, mt = mt, wt = wt, only_mutant = FALSE, use_ems = FALSE,
+#                     bsa_metrics = c("all"),
+#                     use_col = c("lft","rmd"), hwidth = 30, hheight = 18, 
+#                     width = 45, height =15, plots_dir = plots_dir, facet_column = 5, line_size = 5,
+#                     plot_style = "grid", color_panel = c("blue","red")) 
 
