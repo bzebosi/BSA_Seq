@@ -7,17 +7,17 @@
 #' @param rollmedian Integer width for rolling median over window series.
 #' @param nn_prop Numeric; nearest-neighbor fraction for locfit smoothing.
 #' @param af_min Numeric in (0,1). SNPs with AF >= af_min (or <= 1-af_min) count as homozygous.
-#' @param find_intervals Logical; if TRUE, call window_peak_interval() on the window table.
+#' @param find_intervals Logical; if TRUE, call peak_interval() on the window table.
 #' @param offhold Numeric in (0,1). Interval cutoff = peak * offhold.
 #' @param min_vsize Integer. Minimum genomic width (bp) to keep an interval.
 #' @param use_col Character vector of summaries to compute/scan for peaks: c("lft","rmd","wmd") or "all".
 #' @return If find_intervals=FALSE: list(windows = data.table).
-#' @seealso window_peak_interval
+#' @seealso peak_interval
 #' @export
-window_homozygosity_compute <- function(data, af_col = NULL, window_size = 5e5, step_size = 1e5, 
-                                        rollmedian = 101L, nn_prop = 0.1, af_min = 0.99, 
-                                        find_intervals = TRUE, offhold = 0.90, min_vsize = 1e6,
-                                        use_col=c("lft","rmd","wmd", "all")) {
+window_homozygosity_compute <- function(
+    data, af_col = NULL, window_size = 2e6, step_size = 1e5, rollmedian = 101L, 
+    nn_prop = 0.1, af_min = 0.99, find_intervals = TRUE, offhold = 0.90, 
+    min_vsize = 1e6, use_col=c("lft","rmd","wmd", "all")) {
  
   naturalsort <- function(x) {
     if (requireNamespace("stringr", quietly = TRUE)) stringr::str_sort(x, numeric = TRUE) else sort(x)
@@ -34,7 +34,7 @@ window_homozygosity_compute <- function(data, af_col = NULL, window_size = 5e5, 
   tracks <- tolower(use_col)
   if (length(tracks) == 1 && identical(tracks, "all")) tracks <- c("wmd","lft","rmd")
   tracks <- intersect(tracks, c("wmd","lft","rmd"))
-  if (!length(tracks)) tracks <- "wmd"  # always have at least the base win-median
+  if (!length(tracks)) tracks <- "wmd"
   
   datax <- data.table::as.data.table(data)
   datax[, POS := as.integer(POS)]
@@ -91,7 +91,6 @@ window_homozygosity_compute <- function(data, af_col = NULL, window_size = 5e5, 
       }
     }
     
-    # append once per chromosome (important)
     results[[length(results) + 1L]] <- chr_res
   }
   
@@ -101,8 +100,8 @@ window_homozygosity_compute <- function(data, af_col = NULL, window_size = 5e5, 
   
   # === optional: compute genomic peak intervals from the window table ===
   if (isTRUE(find_intervals)) {
-    if (!exists("window_peak_interval", mode = "function")) {
-      stop("window_peak_interval=TRUE but window_peak_interval() is not available in the environment.")
+    if (!exists("peak_interval", mode = "function")) {
+      stop("peak_interval=TRUE but peak_interval() is not available in the environment.")
     }
     
     # build the list of score columns that actually exist
@@ -110,32 +109,13 @@ window_homozygosity_compute <- function(data, af_col = NULL, window_size = 5e5, 
     candidate_cols <- candidate_cols[candidate_cols %in% names(out)]
     if (!length(candidate_cols)) candidate_cols <- "Homozygosity_wmd"
     
-    intervals <- window_peak_interval(data=out, offhold = offhold, min_vsize= min_vsize, use_col = candidate_cols)
+    intervals <- peak_interval(data=out, offhold = offhold, min_vsize= min_vsize, use_col = candidate_cols)
 
     return(list(windows = out, intervals = intervals))
   } else {
     return(list(windows = out))
   }
 }
-
-# vcf_dir = "/Users/zebosi/Documents/osu_postdoc/BSA/S7_6508K/data/snps"
-# output_dir = "/Users/zebosi/Documents/osu_postdoc/BSA/S7_6508K/post_analysis"
-# wt <- c("S7A6508K") or wt <- NULL (if only_mutant = TRUE)
-# mt <- c("S7B6508K")
-# pattern = "snps\\.tsv$"
-# min_DP=10
-# min_QUAL=10
-# prefix = c("b73")
-# a <- import_vcfdata(vcf_dir, prefix, pattern, Genotypes = list(wt = wt, mt = mt),
-#                    min_DP, min_QUAL, only_mutant = FALSE)
-# d <- analyze_vcfdata(a, prefix, save_results = FALSE, bsa_metrics = "all", output_dir, only_mutant = FALSE)
-
-#, win <- compute_window_homozygosity(
-#'  data = d$ant_mt, af_col = "mt_AF",
-#'  window_size = 5e5, step_size = 1e5, find_intervals = TRUE,
-#'  rollmedian = 101L, af_min = 0.99, nn_prop = 0.1, offhold = 0.80, min_vsize = 1e6,
-#'   use_col = c("Homozygosity_lft","Homozygosity_ma","Homozygosity")
-# )
 
 
 
