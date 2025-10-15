@@ -33,53 +33,44 @@ window_bsa_pipeline <- function(vcf_dir, prefix, pattern, Genotypes = list(wt = 
   )
   
   # ---- Simple save: one Excel with interval sheets ----
-  # ---- Save intervals to Excel (one sheet per metric) ----
   if (isTRUE(save_interval) && isTRUE(find_intervals)) {
-    message("=== Step 4: Saving interval excel ====")
-    if (!requireNamespace("openxlsx", quietly = TRUE)) {
-      warning("save_interval=TRUE but package 'openxlsx' is not installed. Skipping Excel write.")
-    } else {
+    message("=== Step 4: Saving interval excel ===")
+    if (requireNamespace("openxlsx", quietly = TRUE)) {
       if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
       wt_name <- if (!is.null(Genotypes$wt)) Genotypes$wt else "wt"
       mt_name <- if (!is.null(Genotypes$mt)) Genotypes$mt else "mt"
-      
-      file_name <- if (isTRUE(interval_mutant)) {
-        sprintf("%s_%s_intervals.xlsx", prefix, mt_name)
+      file_name <- if (isTRUE(only_mutant)) {
+        sprintf("%s_%s__intervals.xlsx", prefix, mt_name)
       } else {
         sprintf("%s_%s_vs_%s_bsa_intervals.xlsx", prefix, wt_name, mt_name)
       }
-      
-      # If intervals list exists and has any non-empty data frames, write them
-      has_any <- FALSE
       wb <- openxlsx::createWorkbook()
-      if (!is.null(win$intervals) && length(win$intervals)) {
-        for (label in names(win$intervals)) {
-          iv <- win$intervals[[label]]
-          if (is.null(iv)) next
-          if (is.data.frame(iv) && nrow(iv) > 0L) {
-            has_any <- TRUE
-            sheet <- substr(paste0(label, "_intervals"), 1, 31)  # Excel sheet name limit
-            openxlsx::addWorksheet(wb, sheet)
-            openxlsx::writeData(wb, sheet, iv)
-          }
+      labs <- names(win$intervals)
+      if (isTRUE(only_mutant)) labs <- labs[grepl("^mt_", labs)]
+      for (label in labs) {
+        iv <- win$intervals[[label]]
+        if (!is.null(iv) && is.data.frame(iv) && nrow(iv) > 0L) {
+          sheet <- substr(paste0(label, "_intervals"), 1, 31)
+          openxlsx::addWorksheet(wb, sheet)
+          openxlsx::writeData(wb, sheet, iv)
         }
       }
-      
       xlsx_path <- file.path(output_dir, file_name)
-      if (isTRUE(has_any)) {
+      if (length(wb$worksheets) > 0L) {
         openxlsx::saveWorkbook(wb, xlsx_path, overwrite = TRUE)
         message("Saved intervals to: ", xlsx_path)
       } else {
         message("No interval rows to save (all empty).")
       }
+    } else {
+      warning("save_interval=TRUE but 'openxlsx' is not installed. Skipping Excel write.")
     }
   }
+  
 
   if (isTRUE(do_plot)) {
     message("=== Step 5: Plotting ===")
     if (!dir.exists(plots_dir)) dir.create(plots_dir, recursive = TRUE)
-    
-    # Labels for plot titles
     mt_label <- if (!is.null(Genotypes$mt)) Genotypes$mt else "mutant"
     wt_label <- if (!is.null(Genotypes$wt)) Genotypes$wt else "wildtype"
     

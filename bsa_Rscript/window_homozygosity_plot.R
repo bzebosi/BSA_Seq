@@ -23,8 +23,6 @@ window_homozygosity_plot <- function(data, prefix, bwidth = 1000000, mt = "mutan
   
   # If only_mutant is TRUE, drop WT label entirely
   if (only_mutant) wt <- NULL
-  
-  # Ensure plots directory exists
   if (!dir.exists(plots_dir)) dir.create(plots_dir, recursive = TRUE)
   
   # Helper mini-function : Captalize the first letter 
@@ -234,20 +232,4 @@ window_homozygosity_plot <- function(data, prefix, bwidth = 1000000, mt = "mutan
   }
   invisible(out_files)
 }
-
-
-# Example usage:
-# window_homozygosity_plot(
-#   data = res_both,
-#   mt = "S7C6508K",
-#   wt = "S7A6508K",
-#   prefix = "B73",
-#   plots_dir = "output/plots",
-#   bsa_metrics = c("maf", "homozygosity"),
-#   plot_mode = c("hist", "line"),
-#   use_ems = TRUE,
-#   plot_style = "wrap",
-#   device = "png"
-# )
-
 

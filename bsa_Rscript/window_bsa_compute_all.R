@@ -85,6 +85,5 @@ window_bsa_compute_all <- function(data, bsa_metrics = c("waf","maf","ed","ed4",
   } else if (only_mutant && length(joint)) {
     message("only_mutant=TRUE: skipping joint metrics (", paste(joint, collapse = ", "), ").")
   }
-  
   return(out)
 }

@@ -47,7 +47,6 @@ window_homozygosity_single <- function(
     plot_style = c("wrap","grid"), color_panel = c("blue","red")
 ){
   
-  plots_dir <- file.path(plots_dir, "window_hom_plots")
   dir.create(plots_dir, showWarnings = FALSE, recursive = TRUE)
   
   message("=== Step 1: Importing VCF Data ===")

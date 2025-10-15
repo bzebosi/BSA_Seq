@@ -11,8 +11,8 @@
 
 src_base <- "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/"
 for (f in c(
-  "multi_package_installer.R","bsa_theme.R","import_vcfdata.R","analyze_vcfdata.R","peak_interval.R",
-  "window_homozygosity_compute.R", "window_homozygosity_plot.R", 
+  "multi_package_installer.R","bsa_theme.R","import_vcfdata.R", "analyze_vcfdata.R",
+  "peak_interval.R", "window_homozygosity_compute.R", "window_homozygosity_plot.R", 
   "window_homozygosity_single.R", "window_homozygosity_multi.R"
   )) source(file.path(src_base, f), local = TRUE)
 
