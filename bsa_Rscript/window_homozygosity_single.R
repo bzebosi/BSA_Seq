@@ -104,6 +104,7 @@ window_homozygosity_single <- function(
   }
   
   # ---- Simple save: one Excel with interval sheets ----
+  # ---- Simple save: one Excel with interval sheets ----
   if (isTRUE(save_interval) && isTRUE(find_intervals)) {
     message("=== Step 4: Saving interval excel ===")
     if (!requireNamespace("openxlsx", quietly = TRUE)) {
@@ -113,10 +114,14 @@ window_homozygosity_single <- function(
       wt_name <- if (!is.null(Genotypes$wt)) Genotypes$wt else "wt"
       mt_name <- if (!is.null(Genotypes$mt)) Genotypes$mt else "mt"
       
+      # <<< NEW: choose suffix based on use_ems >>>
+      ems_suffix <- if (isTRUE(use_ems)) "ems" else "all"
+      
+      # <<< NEW: add suffix to filename >>>
       file_name <- if (isTRUE(only_mutant)) {
-        sprintf("%s_%s_homozygosity_intervals.xlsx", prefix, mt_name)
+        sprintf("%s_%s_homozygosity_intervals_%s.xlsx", prefix, mt_name, ems_suffix)
       } else {
-        sprintf("%s_%s_vs_%s_homozygosity_intervals.xlsx", prefix, wt_name, mt_name)
+        sprintf("%s_%s_vs_%s_homozygosity_intervals_%s.xlsx", prefix, wt_name, mt_name, ems_suffix)
       }
       
       wb <- openxlsx::createWorkbook()
