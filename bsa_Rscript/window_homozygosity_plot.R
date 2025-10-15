@@ -1,15 +1,35 @@
-window_homozygosity_plot <- function(data, prefix, ylim = NULL, bwidth = 1000000, mt = "mutant", wt = "wildtype", plot_mutant = FALSE,
-                         plot_metrics = c("hist","homo","median","locfit","all"), af_min = 0.99, hwidth = 30, hheight = 18, 
-                         width = 45, height =15, dpi, device, plots_dir, facet_column = 5, line_size = 5,
-                         plot_style = c("wrap","grid"), color_panel = c("blue","red")) {
+#' Plot Homozygosity and Allele Frequency Distributions
+#' Creates histograms of allele frequency and line plots of homozygosity across chromosomes.
+#' @param data A list with `results` and `out` tables.
+#' @param prefix Reference genome or sample name (e.g., "B73").
+#' @param bwidth Binwidth for histograms in base pairs.
+#' @param mt, wt Labels for mutant and wildtype samples.
+#' @param bsa_metrics Which metrics to plot: "maf", "waf", "homozygosity", or "all".
+#' @param use_col Which homozygosity tracks to use: "wmd", "lft", "rmd", or "all".
+#' @param plot_mode "hist", "line", or "all".
+#' @param use_ems Logical, whether to use EMS-only filtered data.
+#' @param af_min Allele frequency filter threshold.
+#' @param plot_style Plot layout: "wrap" or "grid".
+#' @param plots_dir Output directory for saved plots.
+#' @return (Invisibly) a list of plot file names or plot objects.
+#' @export
+window_homozygosity_plot <- function(data, prefix, bwidth = 1000000, mt = "mutant", wt = "wildtype", 
+                                     bsa_metrics = c("waf","maf","homozygosity", "all"),
+                                     use_col = c("wmd","lft","rmd","all"), plot_mode = c("hist","line", "all"),
+                                     use_ems = FALSE, af_min = 0.99, hwidth = 30, hheight = 18, 
+                                     width = 45, height = 15, dpi=300, device = "png", plots_dir = "plots_dir", 
+                                     facet_column = 5, line_size = 5, only_mutant = FALSE,
+                                     plot_style = c("wrap","grid"), color_panel = c("blue","red")) {
+  
+  # If only_mutant is TRUE, drop WT label entirely
+  if (only_mutant) wt <- NULL
   
   # Ensure plots directory exists
   if (!dir.exists(plots_dir)) dir.create(plots_dir, recursive = TRUE)
   
   # Helper mini-function : Captalize the first letter 
   capitalize_first <- function(text) {
-    substr(text, 1, 1) <- toupper(substr(text, 1, 1)) 
-    return(text)
+    paste0(toupper(substr(text, 1, 1)), substr(text, 2, nchar(text)))
   }
   
   # Capitalize inbred name from prefix
@@ -27,7 +47,7 @@ window_homozygosity_plot <- function(data, prefix, ylim = NULL, bwidth = 1000000
   
   # Histogram binwidth: convert once from bp to Mb
   make_hist_plot <- function(df_hist, column, plot_title, y_title, inbred, facet_layer, color_panel, bwidth,
-                        plots_dir, device, plot_style, hwidth, hheight, width, height, dpi, file_suffix, af_min) {
+                             plots_dir, device, plot_style, hwidth, hheight, width, height, dpi, file_suffix, af_min) {
     
     if (is.null(df_hist) || !all(c("CHROM","POS") %in% names(df_hist))) return(NULL)
     dfh <- df_hist %>% dplyr::mutate(PosMb = POS / 1e6)
@@ -58,7 +78,6 @@ window_homozygosity_plot <- function(data, prefix, ylim = NULL, bwidth = 1000000
     return(hplot)
   }
   
-  
   make_line_plot <- function(df_line, column, plot_title, y_title, inbred, facet_layer, color_panel,
                              plots_dir, device, plot_style, hwidth, hheight, width, height, dpi, file_suffix) {
     
@@ -88,98 +107,108 @@ window_homozygosity_plot <- function(data, prefix, ylim = NULL, bwidth = 1000000
     return(lplot)
   }
   
-  homoz <- list(
-    mt_all = data$out$homoz_mt$windows,
-    mt_ems = data$out$homoz_mt_ems$windows,
-    wt_all = if (!plot_mutant) data$out$homoz_wt$windows else NULL,
-    wt_ems = if (!plot_mutant) data$out$homoz_wt_ems$windows else NULL
-  )
+  # Which plot mode(s)?
+  mode_choice <- match.arg(plot_mode, several.ok = TRUE)
+  do_hist <- mode_choice %in% c("hist","all")
+  do_line <- mode_choice %in% c("line","all")
   
-  ant_mt_all = data$results$ant_mt
-  ant_mt_ems = data$results$ant_mt_ems
-  ant_wt_all = if (!plot_mutant) data$results$ant_wt else NULL
-  ant_wt_ems = if (!plot_mutant) data$results$ant_wt_ems else NULL
+  # Normalize requested metrics
+  pm <- tolower(unique(bsa_metrics))
+  if ("all" %in% pm) {
+    if (only_mutant) {
+      pm <- c("maf","homozygosity")
+    } else {
+      pm <- c("waf","maf","homozygosity")
+    }
+  }
   
+  # data locations (per-site for hist; windowed for lines)
+  res <- data$results
+  out <- data$out
+  
+  # select EMS or ALL tables
+  ant_mt <- if (use_ems) res$ant_mt_ems else res$ant_mt
+  ant_wt <- if (use_ems) res$ant_wt_ems else res$ant_wt
+  
+  # ---- parameter builders ----
   hist_parameters <- function() {
-    if (plot_mutant) {
-      list(
-        list(ptype = "hist", column = "mt_AF", data = ant_mt_all, plot_title = sprintf("%s all snps only | homo", mt), y_title = "SNPs / Mb (×10³)", plotid = sprintf("%s_histogram_all", mt)),
-        list(ptype = "hist", column = "mt_AF", data = ant_mt_ems, plot_title = sprintf("%s ems snps only | homo", mt), y_title = "SNPs / Mb (×10³)", plotid = sprintf("%s_histogram_ems", mt))
-      )
-    } else {
-      list(
-        list(ptype = "hist", column = "mt_AF", data = ant_mt_all, plot_title = sprintf("%s all snps only | homo", mt), y_title = "SNPs / Mb (×10³)", plotid = sprintf("%s_histogram_all", mt)),
-        list(ptype = "hist", column = "mt_AF", data = ant_mt_ems, plot_title = sprintf("%s ems snps only | homo", mt), y_title = "SNPs / Mb (×10³)", plotid = sprintf("%s_histogram_ems", mt)),
-        list(ptype = "hist", column = "wt_AF", data = ant_wt_all, plot_title = sprintf("%s all snps only | homo", wt), y_title = "SNPs / Mb (×10³)", plotid = sprintf("%s_histogram_all", wt)),
-        list(ptype = "hist", column = "wt_AF", data = ant_wt_ems, plot_title = sprintf("%s ems snps only | homo", wt), y_title = "SNPs / Mb (×10³)", plotid = sprintf("%s_histogram_ems", wt))
-      )
-    }
-  }
-  
-  hom_parameters <- function() {
-    if (plot_mutant) {
-      list(
-        list(ptype = "line", column = "Homozygosity", data = homoz$mt_all, plot_title = sprintf("%s all snps only", mt), y_title = "Homozygosity", plotid = sprintf("%s_homozygosity_all", mt)),
-        list(ptype = "line", column = "Homozygosity", data = homoz$mt_ems, plot_title = sprintf("%s ems snps only", mt), y_title = "Homozygosity", plotid = sprintf("%s_homozygosity_ems", mt))
-      )
-    } else {
-      list(
-        list(ptype = "line", column = "Homozygosity", data = homoz$mt_all, plot_title = sprintf("%s all snps only", mt), y_title = "Homozygosity", plotid = sprintf("%s_homozygosity_all", mt)),
-        list(ptype = "line", column = "Homozygosity", data = homoz$mt_ems, plot_title = sprintf("%s ems snps only", mt), y_title = "Homozygosity", plotid = sprintf("%s_homozygosity_ems", mt)),
-        list(ptype = "line", column = "Homozygosity", data = homoz$wt_all, plot_title = sprintf("%s all snps only", wt), y_title = "Homozygosity", plotid = sprintf("%s_homozygosity_all", wt)),
-        list(ptype = "line", column = "Homozygosity", data = homoz$wt_ems, plot_title = sprintf("%s ems snps only", wt), y_title = "Homozygosity", plotid = sprintf("%s_homozygosity_ems", wt))
+    if (!do_hist) return(list())
+    gens <- if (only_mutant) "mt" else c("mt","wt")
+    outp <- list()
+    for (g in gens) {
+      want_metric <- if (g == "mt") "maf" else "waf"
+      if (!(want_metric %in% pm)) next
+      
+      tbl <- if (g == "mt") ant_mt else ant_wt
+      if (is.null(tbl)) next
+      
+      col <- if (g == "mt") "mt_AF" else "wt_AF"
+      who <- if (g == "mt") mt else wt
+      var <- if (use_ems) "ems" else "all"
+      
+      outp[[length(outp) + 1L]] <- list(
+        ptype = "hist", column = col, data = tbl,
+        plot_title = sprintf("%s %s snps only | homo", who, var),
+        y_title = "SNPs / Mb (×10³)",
+        plotid = sprintf("%s_histogram_%s", who, var)
       )
     }
+    outp
   }
   
-  locfit_parameters <- function() {
-    if (plot_mutant) {
-      list(
-        list(ptype = "line", column = "Homozygosity_lft", data = homoz$mt_all, plot_title = sprintf("%s all snps only | locfit", mt), y_title = "Homozygosity", plotid = sprintf("%s_homozygosity_fit_all", mt)),
-        list(ptype = "line", column = "Homozygosity_lft", data = homoz$mt_ems, plot_title = sprintf("%s ems snps only | locfit", mt), y_title = "Homozygosity", plotid = sprintf("%s_homozygosity_fit_ems", mt))
-      )
-    } else {
-      list(
-        list(ptype = "line", column = "Homozygosity_lft", data = homoz$mt_all, plot_title = sprintf("%s all snps only | locfit" , mt), y_title = "Homozygosity", plotid = sprintf("%s_homozygosity_fit_all", mt)),
-        list(ptype = "line", column = "Homozygosity_lft", data = homoz$mt_ems, plot_title = sprintf("%s ems snps only | locfit", mt), y_title = "Homozygosity", plotid = sprintf("%s_homozygosity_fit_ems", mt)),
-        list(ptype = "line", column = "Homozygosity_lft", data = homoz$wt_all, plot_title = sprintf("%s all snps only | locfit", wt), y_title = "Homozygosity", plotid = sprintf("%s_homozygosity_fit_all", wt)),
-        list(ptype = "line", column = "Homozygosity_lft", data = homoz$wt_ems, plot_title = sprintf("%s ems snps only | locfit", wt), y_title = "Homozygosity", plotid = sprintf("%s_homozygosity_fit_ems", wt))
-      )
-    }
-  }
   
-  rollmedian_parameters <- function() {
-    if (plot_mutant) {
-      list(
-        list(ptype = "line", column = "Homozygosity_ma", data = homoz$mt_all, plot_title = sprintf("%s all snps only | rollmedian", mt), y_title = "Homozygosity", plotid = sprintf("%s_homozygosity_rmedian_all", mt)),
-        list(ptype = "line", column = "Homozygosity_ma", data = homoz$mt_ems, plot_title = sprintf("%s ems snps only | rollmedian", mt), y_title = "Homozygosity", plotid = sprintf("%s_homozygosity_rmedian_ems", mt))
-      )
-    } else {
-      list(
-        list(ptype = "line", column = "Homozygosity_ma", data = homoz$mt_all, plot_title = sprintf("%s all snps only | rollmedian", mt), y_title = "Homozygosity", plotid = sprintf("%s_homozygosity_rmedian_all", mt)),
-        list(ptype = "line", column = "Homozygosity_ma", data = homoz$mt_ems, plot_title = sprintf("%s ems snps only | rollmedian" , mt), y_title = "Homozygosity", plotid = sprintf("%s_homozygosity_rmedian_ems", mt)),
-        list(ptype = "line", column = "Homozygosity_ma", data = homoz$wt_all, plot_title = sprintf("%s all snps only | rollmedian", wt), y_title = "Homozygosity", plotid = sprintf("%s_homozygosity_rmedian_all", wt)),
-        list(ptype = "line", column = "Homozygosity_ma", data = homoz$wt_ems, plot_title = sprintf("%s ems snps only | rollmedian", wt), y_title = "Homozygosity", plotid = sprintf("%s_homozygosity_rmedian_ems", wt))
-      )
-    }
-  }
+  # track label pretty-name
+  tracks <- if (identical(use_col, "all")) c("wmd","lft","rmd") else unique(tolower(use_col))
+  tracks <- intersect(tracks, c("wmd","lft","rmd"))
+  if (!length(tracks)) tracks <- "wmd"
+  track_name <- function(tr) switch(tr, wmd = "winmedian", lft = "locfit", rmd = "rollmedian", tr)
   
-  # choose what to plot based on plot_metrics
-  plot_metrics <- match.arg(plot_metrics,
-    choices = c("hist","homo","median","locfit","all"),
-    several.ok = TRUE
-  )
-  params <- list()
+  # after (safe & identical behavior for non-mutant-only)
+  hom_mt <- {
+    x <- if (use_ems) out$homoz_mt_ems else out$homoz_mt
+    if (!is.null(x)) x$windows else NULL
+  } 
   
-  if ("all" %in% plot_metrics) {
-    params <- c(hist_parameters(), hom_parameters(), locfit_parameters(), rollmedian_parameters())
+  hom_wt <- if (only_mutant) {
+    NULL
   } else {
-    params <- list()
-    if ("homo"   %in% plot_metrics) params <- c(params, hom_parameters())
-    if ("hist"   %in% plot_metrics) params <- c(params, hist_parameters())
-    if ("median" %in% plot_metrics) params <- c(params, rollmedian_parameters())
-    if ("locfit" %in% plot_metrics) params <- c(params, locfit_parameters())
+    x <- if (use_ems) out$homoz_wt_ems else out$homoz_wt
+    if (!is.null(x)) x$windows else NULL
   }
+  
+  homo_parameters <- function() {
+    if (!do_line || !("homozygosity" %in% pm)) return(list())
+    
+    gens <- if (only_mutant) "mt" else c("mt","wt")
+    outp <- list()
+    
+    for (g in gens) {
+      tbl <- if (g == "mt") hom_mt else hom_wt
+      if (is.null(tbl)) next
+      
+      who <- if (g == "mt") mt else wt
+      var <- if (use_ems) "ems" else "all"
+      
+      for (tr in tracks) {
+        # accept either Homozygosity_rmd or Homozygosity_ma
+        col <- switch(tr, 
+                      wmd = "Homozygosity_wmd", lft = "Homozygosity_lft",
+                      rmd = "Homozygosity_rmd")
+        
+        if (!col %in% names(tbl)) next
+        
+        outp[[length(outp) + 1L]] <- list(
+          ptype = "line", column = col, data = tbl,
+          plot_title = sprintf("%s | Homozygosity | %s", who, track_name(tr)),
+          y_title = "Homozygosity", plotid   = sprintf("%s_homo_%s_%s", who, tr, var)
+        )
+      }
+    }
+    outp
+  }
+  
+  params <- c(hist_parameters(), homo_parameters())
+  if (!length(params)) stop("No matching data found for requested metrics/mode.")
   
   # ---- loop: single dispatch by ptype (no AF logic) ----
   out_files <- list()
@@ -187,42 +216,38 @@ window_homozygosity_plot <- function(data, prefix, ylim = NULL, bwidth = 1000000
     if (is.null(p$data)) next
     
     if (identical(p$ptype, "hist")) {
-      g <- make_hist_plot(
-        df_hist = p$data, column = p$column, plot_title=p$plot_title, 
-        y_title=p$y_title, inbred=inbred,
-        facet_layer = facet_layer, color_panel = color_panel,
-        bwidth = bwidth, plots_dir = plots_dir,
-        device = device, plot_style = plot_style, hwidth = hwidth, hheight = hheight,
-        width = width, height  = height, dpi = dpi, file_suffix = p$plotid,af_min = af_min
+      g <- make_hist_plot(df_hist = p$data, column = p$column, plot_title=p$plot_title, 
+                          y_title=p$y_title, inbred=inbred,facet_layer = facet_layer, 
+                          color_panel = color_panel,bwidth = bwidth, plots_dir = plots_dir,
+                          device = device, plot_style = plot_style, hwidth = hwidth, hheight = hheight,
+                          width = width, height = height, dpi = dpi, file_suffix = p$plotid, af_min = af_min
       )
     } else {
-      g <- make_line_plot(
-        df_line = p$data, column = p$column, plot_title=p$plot_title, 
-        y_title=p$y_title, inbred=inbred,
-        facet_layer = facet_layer, color_panel = color_panel,plots_dir = plots_dir,
-        device = device, plot_style = plot_style, hwidth = hwidth, hheight = hheight,
-        width = width, height  = height, dpi = dpi, file_suffix = p$plotid
+      g <- make_line_plot(df_line = p$data, column = p$column, plot_title=p$plot_title, 
+                          y_title=p$y_title, inbred=inbred,facet_layer = facet_layer, 
+                          color_panel = color_panel,plots_dir = plots_dir, device = device, 
+                          plot_style = plot_style, hwidth = hwidth, hheight = hheight,width = width, 
+                          height  = height, dpi = dpi, file_suffix = p$plotid
       )
     }
-    
     if (!is.null(g)) out_files[[p$plotid]] <- TRUE
   }
   invisible(out_files)
 }
 
 
+# Example usage:
+# window_homozygosity_plot(
+#   data = res_both,
+#   mt = "S7C6508K",
+#   wt = "S7A6508K",
+#   prefix = "B73",
+#   plots_dir = "output/plots",
+#   bsa_metrics = c("maf", "homozygosity"),
+#   plot_mode = c("hist", "line"),
+#   use_ems = TRUE,
+#   plot_style = "wrap",
+#   device = "png"
+# )
 
-# --- test run ---
-#plot_vcfdata(
-#  data = res_both,
-#  mt = "S7C6508K",
-#  wt = "S7A6508K",
-#  prefix = "B73",
-#  plots_dir = "/Users/zebosi/Downloads/plots_outiio",
-#  plot_metrics = c("hist","median","locfit"),
-#  device = "png",
-#  plot_style = "grid",
-#  plot_mutant = TRUE,
-#  width = 45, height = 13, dpi = 300
-#)
 

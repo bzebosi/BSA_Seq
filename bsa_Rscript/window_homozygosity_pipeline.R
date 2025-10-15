@@ -1,18 +1,12 @@
-#' Window-based Homozygosity Pipeline
-#'
-#' Runs the complete BSA-Seq pipeline: imports VCF data, analyzes SNPs, computes
-#' window-based homozygosity, finds peak intervals, and generates plots.
-#'
 #' @param vcf_dir Directory containing the VCF/TSV files.
 #' @param prefix Prefix used in file names.
 #' @param pattern Regex pattern to match input files.
-#' @param Genotypes Named list with `wt` and `mt` identifiers.
+#' @param Genotypes Named list with wt and mt identifiers.
 #' @param output_dir Directory to save outputs.
 #' @param min_DP Minimum read depth filter.
 #' @param min_QUAL Minimum quality filter.
 #' @param only_mutant Logical; run mutant-only mode.
-#' @param interval_mutant Logical; restrict intervals to mutant only.
-#' @param is_ems Logical; include EMS-type SNPs.
+#' @param use_ems Logical; include EMS-type SNPs.
 #' @param save_results Logical; save analysis results.
 #' @param save_interval Logical; save interval results to Excel.
 #' @param rollmedian Window size for rolling median smoothing.
@@ -25,7 +19,7 @@
 #' @param find_intervals Logical; find genomic peak intervals.
 #' @param offhold Proportion threshold for peak cutoff.
 #' @param min_vsize Minimum interval size (bp).
-#' @param use_cols Columns to use for interval detection.
+#' @param use_col Columns to use for interval detection.
 #' @param do_plot Logical; generate plots.
 #' @param plots_dir Directory for plot outputs.
 #' @param device Plot device (e.g., "png", "pdf").
@@ -33,81 +27,86 @@
 #' @param hwidth,hheight Dimensions for wrapped plots.
 #' @param width,height Dimensions for grid plots.
 #' @param bwidth Histogram bin width (bp).
-#' @param plot_mutant Logical; plot mutant only or both.
 #' @param facet_column Number of columns for faceting.
 #' @param line_size Line size for plots.
-#' @param plot_metrics Which metrics to plot ("hist","homo","median","locfit","all").
+#' @param plot_mode Which plot types ("hist","line","all").
 #' @param plot_style Faceting style ("wrap" or "grid").
 #' @param color_panel Vector of colors for chromosomes.
-#'
 #' @return A list with imported data, analysis results, and homozygosity outputs.
 #' @export
-
-window_homozygosity_pipeline <- function(vcf_dir, prefix, pattern, Genotypes = list(wt = "wildtype", mt = "mutant"),
-                                        output_dir = "post_analysis", min_DP = 5, min_QUAL = 5, only_mutant = FALSE, interval_mutant = FALSE,
-                                        is_ems = TRUE, save_results = FALSE, save_interval = TRUE, rollmedian = 501L, af_col = NULL, bsa_metrics=NULL,
-                                        window_size = 5e5, step_size = 1e5, nn_prop = 0.1, af_min = 0.99,
-                                        find_intervals = TRUE, offhold = 0.80, min_vsize = 0L, 
-                                        use_cols= c("Homozygosity_lft","Homozygosity_ma","Homozygosity"),
-                                        do_plot = TRUE, plots_dir = file.path(output_dir, "window_hom_plots"), device = "png", dpi = 300, 
-                                        hwidth = 30, hheight = 18, width = 45, height =15,
-                                        bwidth = 1000000, plot_mutant = TRUE, facet_column = 5, line_size = 5,
-                                        plot_metrics = c("hist","homo","median","locfit","all"), 
-                                        plot_style = c("wrap","grid"), color_panel = c("blue","red")){
-                                        
- 
+window_homozygosity_pipeline <- function(
+    vcf_dir, prefix, pattern, Genotypes = list(wt = "wildtype", mt = "mutant"),
+    output_dir = "post_analysis", min_DP = 5, min_QUAL = 5, only_mutant = FALSE, 
+    use_ems = TRUE, save_results = FALSE, save_interval = TRUE, find_intervals = TRUE,
+    rollmedian = 501L, af_col = NULL, window_size = 5e5, step_size = 1e5, nn_prop = 0.1, 
+    af_min = 0.99, offhold = 0.80, min_vsize = 0L,
+    bsa_metrics = c("waf","maf","homozygosity", "all"), plot_mode = c("hist","line","all"), 
+    use_col = c("wmd","lft","rmd","all"), do_plot = TRUE, plots_dir = "plots_dir",
+    device = "png", dpi = 300, hwidth = 30, hheight = 18, width = 45, height = 15,
+    bwidth = 1000000, facet_column = 5, line_size = 5,
+    plot_style = c("wrap","grid"), color_panel = c("blue","red")
+){
+  
+  plots_dir <- file.path(plots_dir, "window_hom_plots")
+  dir.create(plots_dir, showWarnings = FALSE, recursive = TRUE)
+  
   message("=== Step 1: Importing VCF Data ===")
-  geno_data <- import_vcfdata(vcf_dir = vcf_dir, prefix = prefix, pattern = pattern,
-                              Genotypes = Genotypes, min_DP = min_DP, min_QUAL = min_QUAL, only_mutant = only_mutant)
+  geno_data <- import_vcfdata(
+    vcf_dir = vcf_dir, prefix = prefix, pattern = pattern,
+    Genotypes = Genotypes, min_DP = min_DP, min_QUAL = min_QUAL,
+    only_mutant = only_mutant
+  )
   
   message("=== Step 2: Analyzing VCF Data ===")
-  result <- analyze_vcfdata(geno_data = geno_data, prefix = prefix,bsa_metrics=bsa_metrics,
-                            save_results = save_results, output_dir = output_dir, only_mutant = only_mutant)
+  result <- analyze_vcfdata(
+    geno_data = geno_data, prefix = prefix,save_results = save_results, 
+    output_dir = output_dir, only_mutant = only_mutant
+  )
+  
   # Extract SNP datasets from results
-  wt_mt <- result$wt_mt
-  ant_wt <- result$ant_wt
-  ant_mt <- result$ant_mt
+  ant_wt    <- result$ant_wt
+  ant_mt    <- result$ant_mt
   ant_wt_ems <- result$ant_wt_ems
   ant_mt_ems <- result$ant_mt_ems
   
   homo_run <- function(dt, afcol) {
     if (is.null(dt) || !nrow(dt)) return(NULL)
-    window_homozygosity_compute(data=as.data.table(dt), af_col=afcol, window_size=window_size, 
-                        step_size=step_size, rollmedian=rollmedian, nn_prop=nn_prop,af_min=af_min,
-                        find_intervals = find_intervals, offhold = offhold, min_vsize = min_vsize, use_cols= use_cols
+    if (is.null(afcol)) stop("homo_run: 'afcol' must be 'wt_AF' or 'mt_AF'.")
+    window_homozygosity_compute(
+      data = as.data.table(dt), af_col = afcol,
+      window_size = window_size, step_size = step_size,
+      rollmedian = rollmedian, nn_prop = nn_prop, af_min = af_min,
+      find_intervals = find_intervals, offhold = offhold, min_vsize = min_vsize,
+      use_col = use_col
     )
   }
   
-  message("=== Step 3: Sliding-window homozygosity ====")
+  message("=== Step 3: Sliding-window homozygosity ===")
   out <- list()
   
-  if (interval_mutant) {
+  if (only_mutant) {
     # mutant-only; default AF column if not supplied
     if (is.null(af_col)) af_col <- "mt_AF"
-    
-    if (isTRUE(is_ems)){
-      out$homoz_mt <- homo_run(ant_mt, af_col)
-      out$homoz_mt_ems <- homo_run(ant_mt_ems, af_col)
+    if (isTRUE(use_ems)) {
+      out$homoz_mt_ems <- if (!is.null(ant_mt_ems)) homo_run(ant_mt_ems, af_col) else NULL
     } else {
-      out$homoz_mt <- homo_run(ant_mt, af_col)
+      out$homoz_mt <- if (!is.null(ant_mt)) homo_run(ant_mt, af_col) else NULL
       out$homoz_mt_ems <- NULL
     }
   } else {
     # WT + MT mode
-    if (isTRUE(is_ems)) {
-      out$homoz_wt_ems <- homo_run(ant_wt_ems, "wt_AF")
-      out$homoz_mt_ems <- homo_run(ant_mt_ems, "mt_AF")
-      out$homoz_wt <- homo_run(ant_wt, "wt_AF")
-      out$homoz_mt <- homo_run(ant_mt, "mt_AF")
+    if (isTRUE(use_ems)) {
+      out$homoz_wt_ems <- if (!is.null(ant_wt_ems)) homo_run(ant_wt_ems, "wt_AF") else NULL
+      out$homoz_mt_ems <- if (!is.null(ant_mt_ems)) homo_run(ant_mt_ems, "mt_AF") else NULL
     } else {
-      out$homoz_wt <- homo_run(ant_wt, "wt_AF")
-      out$homoz_mt <- homo_run(ant_mt, "mt_AF")
+      out$homoz_wt <- if (!is.null(ant_wt)) homo_run(ant_wt, "wt_AF") else NULL
+      out$homoz_mt <- if (!is.null(ant_mt)) homo_run(ant_mt, "mt_AF") else NULL
     }
   }
   
   # ---- Simple save: one Excel with interval sheets ----
   if (isTRUE(save_interval) && isTRUE(find_intervals)) {
-    message("=== Step 4: Saving interval excel ====")
+    message("=== Step 4: Saving interval excel ===")
     if (!requireNamespace("openxlsx", quietly = TRUE)) {
       warning("save_interval=TRUE but package 'openxlsx' is not installed. Skipping Excel write.")
     } else {
@@ -115,7 +114,7 @@ window_homozygosity_pipeline <- function(vcf_dir, prefix, pattern, Genotypes = l
       wt_name <- if (!is.null(Genotypes$wt)) Genotypes$wt else "wt"
       mt_name <- if (!is.null(Genotypes$mt)) Genotypes$mt else "mt"
       
-      file_name <- if (isTRUE(interval_mutant)) {
+      file_name <- if (isTRUE(only_mutant)) {
         sprintf("%s_%s_homozygosity_intervals.xlsx", prefix, mt_name)
       } else {
         sprintf("%s_%s_vs_%s_homozygosity_intervals.xlsx", prefix, wt_name, mt_name)
@@ -143,72 +142,28 @@ window_homozygosity_pipeline <- function(vcf_dir, prefix, pattern, Genotypes = l
     }
   }
   
-  # ---- Step 5: Plotting (NEW) ----
+  # ---- Step 5: Plotting ----
   if (isTRUE(do_plot)) {
     message("=== Step 5: Plotting ===")
     if (!dir.exists(plots_dir)) dir.create(plots_dir, recursive = TRUE)
     # Labels for plot titles
     mt_label <- if (!is.null(Genotypes$mt)) Genotypes$mt else "mutant"
     wt_label <- if (!is.null(Genotypes$wt)) Genotypes$wt else "wildtype"
+    if (isTRUE(only_mutant)) wt_label <- NULL  # drop WT label if only_mutant
     
     # The plotting function expects a list with $results and $out
     plot_data <- list(results = result, out = out)
-  
+    
     window_homozygosity_plot(
-    data = plot_data,
-    prefix = prefix,
-    mt = mt_label,
-    wt = wt_label,
-    plots_dir = plots_dir,
-    device = device,
-    dpi = dpi,
-    plot_metrics = plot_metrics,
-    plot_style = plot_style,
-    facet_column = facet_column,
-    width = width, height = height,
-    hwidth = hwidth, hheight = hheight,
-    line_size = line_size,
-    color_panel = color_panel,
-    bwidth = bwidth,
-    plot_mutant = plot_mutant,
-    af_min = af_min
-  )
+      data = plot_data, prefix = prefix, mt = mt_label, wt = wt_label,
+      plots_dir = plots_dir, device = device, dpi = dpi,
+      use_col = use_col, bsa_metrics = bsa_metrics,
+      plot_mode = plot_mode, plot_style = plot_style, facet_column = facet_column,
+      width = width, height = height, hwidth = hwidth, hheight = hheight,
+      line_size = line_size, color_panel = color_panel, bwidth = bwidth,
+      only_mutant = only_mutant, af_min = af_min
+    )
   }
   
   return(list(geno_data = geno_data, results = result, out = out))
 }
-
-
-#' vcf_dir = "/Users/zebosi/Documents/osu_postdoc/BSA/S7_6508K/data/snps"
-#' output_dir = "/Users/zebosi/Documents/osu_postdoc/BSA/S7_6508K/interval_analysis"
-#' output_dir = "/Users/zebosi/Documents/osu_postdoc/BSA/S7_6508K/plotshjh"
-#' wt <- c("S7A6508K")
-#' mt <- c("S7B6508K")
-#' pattern = "snps\\.tsv$"
-#' threshold = -log10(0.05) * 10
-#' roll_off = 401L
-#' min_DP=10
-#' min_QUAL=10
-#' prefix = c("b73")
-#' test_out <- window_homozygosity_pipeline(
-#' vcf_dir, prefix, pattern, Genotypes = list(wt = wt, mt = mt),
-#' output_dir, plots_dir, rollmedian = 101L, af_col = NULL, 
-#' window_size  = 2e6, step_size = 1e5, nn_prop = 0.1, af_min = 0.99,
-#' find_intervals = TRUE, offhold = 0.80, min_vsize = 1e6, only_mutant = FALSE,
-#' is_ems = TRUE, do_plot  = TRUE, plot_metrics = "all", plot_style = "grid",
-#' device = "png", dpi = 150, bwidth = 1e6, line_size = 5)
-#' 
-
-
-
-
-
-
-
-
-
-
-
-
-
-

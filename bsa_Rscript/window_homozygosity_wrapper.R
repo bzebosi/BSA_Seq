@@ -7,13 +7,14 @@
 # source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/window_homozygosity_compute.R")
 # source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/window_homozygosity_plot.R")
 # source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/window_homozygosity_pipeline.R")
+# source("https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/window_homozygosity_auto.R")
 
 src_base <- "https://raw.githubusercontent.com/bzebosi/BSA_Seq/main/bsa_Rscript/"
 for (f in c(
   "multi_package_installer.R","bsa_theme.R","import_vcfdata.R","analyze_vcfdata.R",
-  "window_peak_interval.R", "window_homozygosity_plot.R","window_homozygosity_compute.R",
-  "window_homozygosity_plot.R", "window_homozygosity_pipeline.R"
-)) source(file.path(src_base, f), local = TRUE)
+  "window_peak_interval.R","window_homozygosity_compute.R", "window_homozygosity_plot.R", 
+  "window_homozygosity_pipeline.R", "window_homozygosity_auto.R"
+  )) source(file.path(src_base, f), local = TRUE)
 
 message("BSA-Seq environment ready. Call window_homozygosity_pipeline() when you’re set.")
 
