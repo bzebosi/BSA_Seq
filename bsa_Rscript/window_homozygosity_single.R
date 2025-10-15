@@ -37,7 +37,7 @@
 window_homozygosity_single <- function(
     vcf_dir, prefix, pattern, Genotypes = list(wt = "wildtype", mt = "mutant"),
     output_dir = "post_analysis", min_DP = 5, min_QUAL = 5, only_mutant = FALSE, 
-    use_ems = TRUE, save_results = FALSE, save_interval = TRUE, find_intervals = TRUE,
+    use_ems = FALSE, save_results = FALSE, save_interval = TRUE, find_intervals = TRUE,
     rollmedian = 501L, af_col = NULL, window_size = 5e5, step_size = 1e5, nn_prop = 0.1, 
     af_min = 0.99, offhold = 0.80, min_vsize = 0L,
     bsa_metrics = c("waf","maf","homozygosity", "all"), plot_mode = c("hist","line","all"), 
@@ -86,7 +86,7 @@ window_homozygosity_single <- function(
   if (only_mutant) {
     # mutant-only; default AF column if not supplied
     if (is.null(af_col)) af_col <- "mt_AF"
-    if (isTRUE(use_ems)) {
+    if (use_ems) {
       out$homoz_mt_ems <- if (!is.null(ant_mt_ems)) homo_run(ant_mt_ems, af_col) else NULL
     } else {
       out$homoz_mt <- if (!is.null(ant_mt)) homo_run(ant_mt, af_col) else NULL
@@ -94,7 +94,7 @@ window_homozygosity_single <- function(
     }
   } else {
     # WT + MT mode
-    if (isTRUE(use_ems)) {
+    if (use_ems) {
       out$homoz_wt_ems <- if (!is.null(ant_wt_ems)) homo_run(ant_wt_ems, "wt_AF") else NULL
       out$homoz_mt_ems <- if (!is.null(ant_mt_ems)) homo_run(ant_mt_ems, "mt_AF") else NULL
     } else {
@@ -115,10 +115,10 @@ window_homozygosity_single <- function(
       mt_name <- if (!is.null(Genotypes$mt)) Genotypes$mt else "mt"
       
       # <<< NEW: choose suffix based on use_ems >>>
-      ems_suffix <- if (isTRUE(use_ems)) "ems" else "all"
+      ems_suffix <- if (use_ems) "ems" else "all"
       
       # <<< NEW: add suffix to filename >>>
-      file_name <- if (isTRUE(only_mutant)) {
+      file_name <- if (only_mutant) {
         sprintf("%s_%s_homozygosity_intervals_%s.xlsx", prefix, mt_name, ems_suffix)
       } else {
         sprintf("%s_%s_vs_%s_homozygosity_intervals_%s.xlsx", prefix, wt_name, mt_name, ems_suffix)
