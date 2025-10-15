@@ -66,7 +66,9 @@ window_homozygosity_multi <- function(
       seen <- c(seen, key)
       
       sub_plots  <- file.path(plots_dir,  key)
+      sub_plots <- file.path(sub_plots, "window_homo_plots")
       sub_output <- file.path(output_dir, key)
+      sub_output <- file.path(sub_output, "window_homo_analysis")
       dir.create(sub_plots,  showWarnings = FALSE, recursive = TRUE)
       dir.create(sub_output, showWarnings = FALSE, recursive = TRUE)
       
