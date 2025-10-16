@@ -48,7 +48,7 @@ window_mapping_compute_auto <- function(data, bsa_metrics = c("waf","maf","ed","
       # ---- NEW: rename key depending on EMS flag ----
       fq_out <- if (use_ems) paste0(fq, "_ems") else fq
       
-      res <- window_mapping_compute_one(data = dt, metric_col = fq, window_size = window_size, 
+      res <- window_mapping_compute(data = dt, metric_col = fq, window_size = window_size, 
                                 step_size = step_size, rollmedian = rollmedian, 
                                 nn_prop = nn_prop, find_intervals = find_intervals, 
                                 offhold = offhold, min_vsize = min_vsize, use_col = c()
