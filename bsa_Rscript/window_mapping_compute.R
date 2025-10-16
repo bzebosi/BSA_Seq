@@ -12,7 +12,7 @@
 #' @param find_intervals Logical, run `window_peak_interval()` (default TRUE).
 #' @param offhold Peak cutoff fraction (default 0.8).
 #' @param min_vsize Minimum bp size for intervals (default 1e6).
-#' @param use_cols Columns to use for interval calling. Defaults to
+#' @param use_col Columns to use for interval calling. Defaults to
 #'   `c(metric_wmd, metric_rmd, metric_lft)`.
 #' @return A list with:
 #' \itemize{
@@ -110,8 +110,8 @@ window_mapping_compute <- function(data, metric_col = NULL, window_size = 2e6, s
   
   # === optional: compute genomic peak intervals from the window table ===
   if (find_intervals) {
-    if (!exists("window_peak_interval", mode = "function")) {
-      stop("window_peak_interval=TRUE but window_peak_interval() is not available in the environment.")
+    if (!exists("peak_interval", mode = "function")) {
+      stop("peak_interval=TRUE but window_peak_interval() is not available in the environment.")
     }
     
     use_col_final <- if (length(use_col)) use_col else c(stat_col, ma_col, smooth_col)
