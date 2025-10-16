@@ -1,0 +1,87 @@
+#' Window-based BSA analysis for multiple metrics
+#'
+#' @description
+#' Wrapper around window_bsa_compute() to run sliding-window summaries for:
+#' - AF (allele frequency) from mutant (mt_AF), wildtype (wt_AF), or both (via ant_*  and ant_*_ems)
+#' - Joint metrics ED, ED4, AFD, G from wt_mt.
+#' Respects use_ems (use EMS tables) and only_mutant (skip WT + joint metrics).
+#' @param data List with tables: ant_mt, ant_wt, optional ant_mt_ems, ant_wt_ems, and wt_mt for joint metrics.
+#' @param metrics Character vector: one or more of "af","ed","ed4","afd","g","all".
+#' @param af_col Which AF to use: "mt_AF","wt_AF","both". Default "mt_AF".
+#' @param use_ems Logical; if TRUE, use *_ems tables for AF. Default FALSE.
+#' @param only_mutant Logical; if TRUE, skip WT AF and joint metrics. Default FALSE.
+#' @param window_size,step_size,rollmedian,nn_prop,find_intervals,offhold,min_vsize
+#' @inheritParams window_bsa_compute_one
+#'   Passed through to window_bsa_compute().
+#' @return A list with:
+
+window_mapping_compute_auto <- function(data, bsa_metrics = c("waf","maf","ed","ed4","afd","g","all"),
+                                   use_ems = FALSE, only_mutant = FALSE, window_size = 2e6, step_size = 1e5,
+                                   rollmedian = 100L, nn_prop = 0.1, find_intervals = TRUE, offhold = 0.80, min_vsize = 1e6){
+  
+  bsa_metrics <- tolower(bsa_metrics)
+  if ("all" %in% bsa_metrics) bsa_metrics <- c("waf","maf","ed","ed4","afd","g")
+  
+  out <- list(windows = list(), intervals = list())
+  
+  if (any(c("maf","waf") %in% bsa_metrics)) {
+    af_flags <- intersect(c("maf","waf"), bsa_metrics)
+    
+    for (flag in af_flags) {
+      fq  <- if (flag == "maf") "mt_AF" else "wt_AF"
+      if (only_mutant && flag == "waf") { 
+        message("only_mutant=TRUE: skipping wt_AF.")
+        next 
+      }
+      
+      # choose table name based on AF side + EMS flag
+      doi <- if (flag == "maf") {
+        paste0("ant_mt", if (use_ems) "_ems")
+      } else {
+        paste0("ant_wt", if (use_ems) "_ems")
+      }
+      
+      dt <- data[[doi]]
+      if (is.null(dt)) stop("Missing table: ", doi)
+      if (!fq %in% names(dt)) stop("Column ", fq, " not found in ", doi)
+      
+      # ---- NEW: rename key depending on EMS flag ----
+      fq_out <- if (use_ems) paste0(fq, "_ems") else fq
+      
+      res <- window_mapping_compute_one(data = dt, metric_col = fq, window_size = window_size, 
+                                step_size = step_size, rollmedian = rollmedian, 
+                                nn_prop = nn_prop, find_intervals = find_intervals, 
+                                offhold = offhold, min_vsize = min_vsize, use_col = c()
+      )
+      
+      out$windows[[fq_out]]   <- res$windows
+      out$intervals[[fq_out]] <- if ("intervals" %in% names(res)) res$intervals else NULL
+    }
+  }
+  
+  # ---- Joint metrics (from wt_mt) ----
+  joint <- unique(bsa_metrics[bsa_metrics %in% c("ed","ed4","afd","g")])
+  if (!only_mutant && length(joint)) {
+    wt_mt <- data$wt_mt
+    if (is.null(wt_mt)) stop("Missing table: wt_mt")
+    
+    col_map <- c(ed = "ED", ed4 = "ED4", afd = "AFD", g = "G")
+    for (m in joint) {
+      metric_col <- unname(col_map[[m]])
+      if (!metric_col %in% names(wt_mt)) 
+        stop("Column ", metric_col, " not found in wt_mt")
+      
+      res <- window_mapping_compute(
+        data = wt_mt, metric_col = metric_col, window_size = window_size, step_size = step_size,
+        rollmedian = rollmedian, nn_prop = nn_prop, find_intervals = find_intervals, offhold = offhold, 
+        min_vsize = min_vsize, use_col = c()
+      )
+      out$windows[[m]]   <- res$windows
+      out$intervals[[m]] <- if ("intervals" %in% names(res)) res$intervals else NULL
+    } 
+    
+  } else if (only_mutant && length(joint)) {
+    message("only_mutant=TRUE: skipping joint metrics (", paste(joint, collapse = ", "), ").")
+  }
+  return(out)
+}
